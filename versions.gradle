@@ -24,6 +24,7 @@ versions.butterknife = "10.1.0"
 versions.constraint_layout = "2.0.0-alpha2"
 versions.core_ktx = "1.0.2"
 versions.dagger = "2.16"
+versions.room = "2.1.0"
 versions.fragment = "1.1.0-alpha09"
 versions.junit = "4.12"
 versions.lifecycle = "2.0.0"
@@ -69,6 +70,17 @@ dagger.compiler = "com.google.dagger:dagger-compiler:$versions.dagger"
 dagger.andorid_processor = "com.google.dagger:dagger-android-processor:$versions.dagger"
 dagger.android_support_compiler = "com.google.dagger:dagger-android-processor:$versions.dagger"
 deps.dagger = dagger
+
+
+def room = [:]
+room.runtime = "androidx.room:room-runtime:$versions.room"
+room.compiler = "androidx.room:room-compiler:$versions.room" // For Kotlin use kapt instead of annotationProcessor
+// optional - Kotlin Extensions and Coroutines support for Room
+room.kotlin = "androidx.room:room-ktx:$versions.room"
+// optional - RxJava support for Room
+room.rxjava2 = "androidx.room:room-rxjava2:$versions.room"
+deps.room = room
+
 
 def kotlin = [:]
 kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"

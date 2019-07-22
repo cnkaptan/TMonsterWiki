@@ -75,4 +75,15 @@ dependencies {
     /* Butterknife */
     implementation deps.butterknife.runtime
     kapt deps.butterknife.compiler
+
+    /* Room */
+    implementation deps.room.runtime
+    implementation deps.room.kotlin
+    implementation deps.room.rxjava2
+    kapt deps.room.compiler
+
+    /* Lifecycle Components */
+    implementation deps.lifecycle.extensions
+    kapt deps.lifecycle.compiler
+    implementation deps.lifecycle.viewmodel_ktx
 }
