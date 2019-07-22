@@ -3,8 +3,11 @@ package com.cnkaptan.tmonsterswiki.data.local.entity
 import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.cnkaptan.tmonsterswiki.data.local.db.IdTypeConverter
 
-@Entity(tableName = "monsters_table")
+@Entity(tableName = BaseEntity.MONSTERS_TABLE)
+@TypeConverters(IdTypeConverter::class)
 data class MonsterEntity(
     @PrimaryKey
     @NonNull

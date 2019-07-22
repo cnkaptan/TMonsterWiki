@@ -3,8 +3,11 @@ package com.cnkaptan.tmonsterswiki.data.local.entity
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.cnkaptan.tmonsterswiki.data.local.db.IdTypeConverter
 
-@Entity(tableName = "levels_table", primaryKeys = ["monsterId", "level"])
+@Entity(tableName = BaseEntity.MONSTER_LEVELS_TABLE, primaryKeys = ["monsterId", "level"])
+@TypeConverters(IdTypeConverter::class)
 data class MonsterLevelEntity(
     val monsterId: Int,
     val level: Int,
@@ -20,4 +23,4 @@ data class MonsterLevelEntity(
     val dodge: Int,
     val hit: Int,
     val specialUpgrade: String
-)
+):BaseEntity()

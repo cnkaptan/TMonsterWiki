@@ -4,7 +4,7 @@ import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "tags_table")
+@Entity(tableName = BaseEntity.TAGS_TABLE)
 data class TagEntity(
     @PrimaryKey
     @NonNull

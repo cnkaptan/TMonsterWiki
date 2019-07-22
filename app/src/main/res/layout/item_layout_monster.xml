@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:padding="4dp"
+                android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivMonster"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/wukong"
+            android:layout_centerInParent="true"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvMonsterName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cihan Kaptan"
+            android:layout_below="@id/ivMonster"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+    />
+
+</RelativeLayout>
