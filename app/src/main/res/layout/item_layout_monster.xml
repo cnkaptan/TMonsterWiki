@@ -10,15 +10,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/wukong"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true"
+            android:background="@drawable/legendary_frame"
+            android:padding="4dp"/>
 
     <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvMonsterName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cihan Kaptan"
+            android:gravity="center_horizontal"
             android:layout_below="@id/ivMonster"
-            android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true"
     />
 
