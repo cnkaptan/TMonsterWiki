@@ -1,6 +1,8 @@
 package com.cnkaptan.tmonsterswiki.ui.adapter
 
+import android.content.Context
 import android.content.res.ColorStateList
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +11,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cnkaptan.tmonsterswiki.R
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
+import com.squareup.picasso.Picasso
 
-class ChildMonsterAdapter(private val rarity: Int,
+class ChildMonsterAdapter(private val context: Context,
+                          private val rarity: Int,
                           private val childMonsters: List<MonsterEntity>)
     : RecyclerView.Adapter<ChildMonsterAdapter.MonsterViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MonsterViewHolder {
@@ -29,7 +33,22 @@ class ChildMonsterAdapter(private val rarity: Int,
             else-> R.drawable.legendary_frame
         }
 
+
+
         holder.ivMonster.setBackgroundResource(frameColor)
+
+        val resourceName = childMonsters[position].resourceCode.toLowerCase()
+        val drawableId = context.resources.getIdentifier(resourceName,"drawable",context.packageName)
+        if (drawableId > 0){
+            Picasso.get()
+                .load(drawableId)
+                .placeholder(R.drawable.tm_splash_image)
+                .into(holder.ivMonster)
+        }else{
+            holder.ivMonster.setImageResource(R.drawable.tm_splash_image)
+        }
+
+
     }
 
     class MonsterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

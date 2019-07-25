@@ -1,6 +1,5 @@
 package com.cnkaptan.tmonsterswiki.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,7 +26,7 @@ class MainActivity : BaseActivity() {
     @Inject
     lateinit var monsterRepository: MonsterRepository
 
-    lateinit var rvMonsterList: RecyclerView
+    private lateinit var rvMonsterList: RecyclerView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,8 +48,9 @@ class MainActivity : BaseActivity() {
         rvMonsterList.adapter = monsterAdapter
         disposibleContainer.add(
             monsterRepository.getAllMonsters()
+                .map { monstersList -> monstersList.sortedBy { it.name } }
                 .flatMapPublisher { Flowable.fromIterable(it) }
-                .doOnNext { Log.e(TAG, it.toString()) }
+                .doOnNext { Log.e(TAG, "${it.name} --> ${it.id} --> ${it.resourceCode}") }
                 .toList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

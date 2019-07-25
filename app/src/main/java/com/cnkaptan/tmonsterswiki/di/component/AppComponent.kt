@@ -4,6 +4,7 @@ import android.app.Application
 import com.cnkaptan.tmonsterswiki.ui.MainActivity
 import com.cnkaptan.tmonsterswiki.di.module.ApiModule
 import com.cnkaptan.tmonsterswiki.di.module.DbModule
+import com.cnkaptan.tmonsterswiki.ui.MonsterDetailActivity
 import com.cnkaptan.tmonsterswiki.ui.SplashActivity
 import dagger.BindsInstance
 import dagger.Component
@@ -30,5 +31,6 @@ interface AppComponent {
 
     fun inject(mainActivity: MainActivity)
     fun inject(splashActivity: SplashActivity)
+    fun inject(monsterDetailActivity: MonsterDetailActivity)
 
 }
