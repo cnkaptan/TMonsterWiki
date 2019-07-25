@@ -13,11 +13,13 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class MonsterRepository @Inject constructor(private val monstersApi: MonstersApi,
-                                            private val monsterDao: MonsterDao,
-                                            private val levelsDao: LevelsDao,
-                                            private val tagsDao: TagsDao,
-                                            private val skillsDao: SkillsDao) {
+class MonsterRepository @Inject constructor(
+    private val monstersApi: MonstersApi,
+    private val monsterDao: MonsterDao,
+    private val levelsDao: LevelsDao,
+    private val tagsDao: TagsDao,
+    private val skillsDao: SkillsDao
+) {
 
     fun insertMonster(monsterList: List<MonsterEntity>): Single<List<MonsterEntity>> {
         return monsterDao.insertList(monsterList)
@@ -31,15 +33,16 @@ class MonsterRepository @Inject constructor(private val monstersApi: MonstersApi
             .andThen(levelsDao.getLevels())
     }
 
-    fun getMonsterLevel(id: Int):Single<List<MonsterLevelEntity>>{
-        return  monstersApi.fetchMonsterLevelsById(id)
-                .flatMap { levelsDao.insertList(it)
+    fun getMonsterLevel(id: Int): Single<List<MonsterLevelEntity>> {
+        return monstersApi.fetchMonsterLevelsById(id)
+            .flatMap {
+                levelsDao.insertList(it)
                     .andThen(levelsDao.getMonsterLevels(id))
-                }
-                .subscribeOn(Schedulers.io())
+            }
+            .subscribeOn(Schedulers.io())
     }
 
-    fun downloadInitialInfos(): Completable{
+    fun downloadInitialInfos(): Completable {
         return monstersApi.fetchFetchMainInfos()
             .flatMapCompletable {
                 monsterDao.insertList(it.monsters)
@@ -53,7 +56,7 @@ class MonsterRepository @Inject constructor(private val monstersApi: MonstersApi
         return monsterDao.getAllMonsters()
     }
 
-    fun getMonster(id:Int):Single<MonsterEntity>{
+    fun getMonster(id: Int): Single<MonsterEntity> {
         return monsterDao.findMonster(id)
     }
 }

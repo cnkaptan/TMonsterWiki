@@ -23,7 +23,7 @@ class MonsterAdapter(private val context: Context) : RecyclerView.Adapter<Monste
     override fun onBindViewHolder(holder: MonsterViewHolder, position: Int) {
 
         val entry = monstersGroups[position]
-        val childMonsterAdapter = ChildMonsterAdapter(context,entry.key, entry.value)
+        val childMonsterAdapter = ChildMonsterAdapter(context, entry.key, entry.value)
         holder.tvTitle.text = "Rarity ${entry.key}"
         holder.rvChild.adapter = childMonsterAdapter
         holder.rvChild.apply {

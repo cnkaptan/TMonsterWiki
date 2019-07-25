@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cnkaptan.tmonsterswiki.R
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterLevelEntity
 
-class MonsterLevelAdapter(private val context: Context) : RecyclerView.Adapter<MonsterLevelAdapter.MonsterLevelViewHolder>() {
+class MonsterLevelAdapter(private val context: Context) :
+    RecyclerView.Adapter<MonsterLevelAdapter.MonsterLevelViewHolder>() {
 
     private var monsterLevels: List<MonsterLevelEntity> = mutableListOf()
 
@@ -22,8 +23,8 @@ class MonsterLevelAdapter(private val context: Context) : RecyclerView.Adapter<M
 
     override fun onBindViewHolder(holder: MonsterLevelViewHolder, position: Int) {
         val monsterLevels = monsterLevels[position]
-        holder.tvLevel.text=monsterLevels.level.toString()
-        holder.tvHp.text=monsterLevels.hp.toString()
+        holder.tvLevel.text = monsterLevels.level.toString()
+        holder.tvHp.text = monsterLevels.hp.toString()
     }
 
     fun updateLevels(newList: List<MonsterLevelEntity>) {

@@ -7,7 +7,7 @@ import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterLevelEntity
 import io.reactivex.Single
 
 @Dao
-interface LevelsDao : BaseDao<MonsterLevelEntity>{
+interface LevelsDao : BaseDao<MonsterLevelEntity> {
     @Query("SELECT * from ${BaseEntity.MONSTER_LEVELS_TABLE} ORDER BY level ASC")
     fun getLevels(): Single<List<MonsterLevelEntity>>
 
@@ -15,5 +15,5 @@ interface LevelsDao : BaseDao<MonsterLevelEntity>{
     fun nukeBomb()
 
     @Query("SELECT * from ${BaseEntity.MONSTER_LEVELS_TABLE} WHERE monsterId=:id")
-    fun getMonsterLevels(id:Int):Single<List<MonsterLevelEntity>>
+    fun getMonsterLevels(id: Int): Single<List<MonsterLevelEntity>>
 }

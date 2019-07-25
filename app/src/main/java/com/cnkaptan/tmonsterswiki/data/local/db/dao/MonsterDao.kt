@@ -7,7 +7,7 @@ import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
 import io.reactivex.Single
 
 @Dao
-interface MonsterDao: BaseDao<MonsterEntity>{
+interface MonsterDao : BaseDao<MonsterEntity> {
     @Query("SELECT * from ${BaseEntity.MONSTERS_TABLE} ORDER BY id ASC")
     fun getAllMonsters(): Single<List<MonsterEntity>>
 
@@ -15,5 +15,5 @@ interface MonsterDao: BaseDao<MonsterEntity>{
     fun nukeBomb()
 
     @Query("SELECT * FROM  ${BaseEntity.MONSTERS_TABLE} WHERE id=:mId")
-    fun findMonster(mId:Int):Single<MonsterEntity>
+    fun findMonster(mId: Int): Single<MonsterEntity>
 }
