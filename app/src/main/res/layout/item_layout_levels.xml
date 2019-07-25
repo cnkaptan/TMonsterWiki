@@ -1,20 +1,69 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="horizontal"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
-
-    <TextView
-            android:id="@+id/tvLevel"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+    <GridLayout
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1"
-            />
+            android:rowCount="6"
+            android:orientation="horizontal">
 
-    <TextView
-            android:id="@+id/tvHp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="121"
-            android:layout_marginLeft="20dp"/>
-</LinearLayout>
+        <TextView
+                android:id="@+id/tvHealth"
+                android:layout_width="56dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="top"
+                android:background="@drawable/level_content_cell"
+                android:text="Health"
+                android:textSize="18sp" />
+
+        <TextView
+                android:id="@+id/tvDamage"
+                android:layout_width="56dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:background="@drawable/level_content_cell"
+                android:text="Damage"
+                android:textSize="18sp" />
+
+        <TextView
+                android:id="@+id/tvPhyDefence"
+                android:layout_width="56dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="top"
+                android:background="@drawable/level_content_cell"
+                android:text="PhyDef"
+                android:textSize="18sp" />
+
+        <TextView
+                android:id="@+id/tvMagDefence"
+                android:layout_width="56dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="top"
+                android:background="@drawable/level_content_cell"
+                android:text="MagDef"
+                android:textSize="18sp" />
+
+        <TextView
+                android:id="@+id/tvSpeed"
+                android:layout_width="56dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="top"
+                android:background="@drawable/level_content_cell"
+                android:text="Speed"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+        <TextView
+                android:id="@+id/tvMove"
+                android:layout_width="56dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="top"
+                android:background="@drawable/level_content_cell"
+                android:text="Move"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+    </GridLayout>
+
+</RelativeLayout>
