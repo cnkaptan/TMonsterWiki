@@ -1,6 +1,5 @@
 package com.cnkaptan.tmonsterswiki.data.repository
 
-import androidx.room.Dao
 import com.cnkaptan.tmonsterswiki.data.local.db.dao.LevelsDao
 import com.cnkaptan.tmonsterswiki.data.local.db.dao.MonsterDao
 import com.cnkaptan.tmonsterswiki.data.local.db.dao.SkillsDao
@@ -26,10 +25,18 @@ class MonsterRepository @Inject constructor(private val monstersApi: MonstersApi
             .andThen(monsterDao.getAllMonsters())
     }
 
-    fun instertMonsterLevels(levels: List<MonsterLevelEntity>): Single<List<MonsterLevelEntity>> {
+    fun insertMonsterLevels(levels: List<MonsterLevelEntity>): Single<List<MonsterLevelEntity>> {
         return levelsDao.insertList(levels)
             .subscribeOn(Schedulers.io())
             .andThen(levelsDao.getLevels())
+    }
+
+    fun getMonsterLevels(id: Int):Single<List<MonsterLevelEntity>>{
+        return  monstersApi.fetchMonsterLevelsById(id)
+                .flatMap { levelsDao.insertList(it)
+                    .andThen(levelsDao.getMonsterLevels(id))
+                }
+                .subscribeOn(Schedulers.io())
     }
 
     fun downloadInitialInfos(): Completable{
@@ -44,5 +51,9 @@ class MonsterRepository @Inject constructor(private val monstersApi: MonstersApi
 
     fun getAllMonsters(): Single<List<MonsterEntity>> {
         return monsterDao.getAllMonsters()
+    }
+
+    fun getMonster(id:Int):Single<MonsterEntity>{
+        return monsterDao.findMonster(id)
     }
 }

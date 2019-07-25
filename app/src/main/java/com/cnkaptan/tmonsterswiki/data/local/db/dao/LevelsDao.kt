@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Query
 import com.cnkaptan.tmonsterswiki.data.local.entity.BaseEntity
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterLevelEntity
-import com.cnkaptan.tmonsterswiki.data.local.entity.SkillEntity
 import io.reactivex.Single
 
 @Dao
@@ -14,4 +13,7 @@ interface LevelsDao : BaseDao<MonsterLevelEntity>{
 
     @Query("DELETE FROM ${BaseEntity.MONSTER_LEVELS_TABLE}")
     fun nukeBomb()
+
+    @Query("SELECT * from ${BaseEntity.MONSTER_LEVELS_TABLE} WHERE monsterId=:id")
+    fun getMonsterLevels(id:Int):Single<List<MonsterLevelEntity>>
 }

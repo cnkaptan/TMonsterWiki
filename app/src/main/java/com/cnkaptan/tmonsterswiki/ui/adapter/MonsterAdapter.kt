@@ -1,13 +1,11 @@
 package com.cnkaptan.tmonsterswiki.ui.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cnkaptan.tmonsterswiki.R
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
@@ -32,6 +30,7 @@ class MonsterAdapter(private val context: Context) : RecyclerView.Adapter<Monste
             layoutManager = GridLayoutManager(context, 4)
             setHasFixedSize(true)
         }
+
         childMonsterAdapter.notifyDataSetChanged()
 
     }
