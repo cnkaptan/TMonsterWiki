@@ -16,6 +16,7 @@
                 android:layout_gravity="top"
                 android:background="@drawable/level_content_cell"
                 android:text="Health"
+                android:textAlignment="center"
                 android:textSize="18sp" />
 
         <TextView
@@ -25,6 +26,7 @@
                 android:layout_gravity="top"
                 android:background="@drawable/level_content_cell"
                 android:text="Damage"
+                android:textAlignment="center"
                 android:textSize="18sp" />
 
         <TextView
@@ -34,6 +36,7 @@
                 android:layout_gravity="top"
                 android:background="@drawable/level_content_cell"
                 android:text="PhyDef"
+                android:textAlignment="center"
                 android:textSize="18sp" />
 
         <TextView
@@ -43,6 +46,7 @@
                 android:layout_gravity="top"
                 android:background="@drawable/level_content_cell"
                 android:text="MagDef"
+                android:textAlignment="center"
                 android:textSize="18sp" />
 
         <TextView

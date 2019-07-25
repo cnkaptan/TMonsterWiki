@@ -5,45 +5,45 @@
                 android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="56dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:layout_marginRight="0dp"
+                android:background="@drawable/level_content_cell"
                 android:src="@drawable/icon_attr_hp"/>
 
         <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="30dp"
-                android:layout_height="20dp"
+                android:layout_width="56dp"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_marginLeft="20dp"
+                android:background="@drawable/level_content_cell"
                 android:src="@drawable/icon_attr_dmg"/>
 
         <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="56dp"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_marginLeft="30dp"
+                android:background="@drawable/level_content_cell"
                 android:src="@drawable/icon_attr_def_phy"/>
 
         <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="56dp"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_marginLeft="30dp"
+                android:background="@drawable/level_content_cell"
                 android:src="@drawable/icon_attr_def_mag"/>
 
         <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="56dp"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_marginLeft="20dp"
+                android:background="@drawable/level_content_cell"
                 android:src="@drawable/icon_attr_speed"/>
 
-    <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="30dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/icon_attr_move"/>
+        <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="56dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@drawable/level_content_cell"
+                android:src="@drawable/icon_attr_move"/>
 
 </LinearLayout>
