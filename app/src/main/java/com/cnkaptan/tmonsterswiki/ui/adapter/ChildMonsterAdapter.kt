@@ -1,8 +1,7 @@
 package com.cnkaptan.tmonsterswiki.ui.adapter
 
 import android.content.Context
-import android.content.res.ColorStateList
-import android.content.res.Resources
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cnkaptan.tmonsterswiki.R
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
+import com.cnkaptan.tmonsterswiki.ui.MonsterDetailActivity
 import com.squareup.picasso.Picasso
 
 class ChildMonsterAdapter(private val context: Context,
@@ -25,6 +25,7 @@ class ChildMonsterAdapter(private val context: Context,
     override fun getItemCount() = childMonsters.size
 
     override fun onBindViewHolder(holder: MonsterViewHolder, position: Int) {
+        val childMonster=childMonsters[position]
         holder.tvMonsterName.text = childMonsters[position].name
         val frameColor = when(rarity){
             1-> R.drawable.common_frame
@@ -32,8 +33,6 @@ class ChildMonsterAdapter(private val context: Context,
             3-> R.drawable.monstrous_frame
             else-> R.drawable.legendary_frame
         }
-
-
 
         holder.ivMonster.setBackgroundResource(frameColor)
 
@@ -48,6 +47,11 @@ class ChildMonsterAdapter(private val context: Context,
             holder.ivMonster.setImageResource(R.drawable.tm_splash_image)
         }
 
+        holder.itemView.setOnClickListener {
+            val detailIntent=MonsterDetailActivity.newIntent(context,childMonster.id)
+            detailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context.startActivity(detailIntent)
+        }
 
     }
 
