@@ -23,6 +23,7 @@ class MonsterLevelAdapter(private val context: Context) :
 
     override fun onBindViewHolder(holder: MonsterLevelViewHolder, position: Int) {
         val monsterLevel = monsterLevels[position]
+        holder.tvLevel.text=monsterLevel.level.toString()
         holder.tvHealth.text = monsterLevel.hp.toString()
         holder.tvDamage.text = monsterLevel.dmg.toString()
         holder.tvPhyDefence.text = monsterLevel.phyDef.toString()
@@ -37,6 +38,7 @@ class MonsterLevelAdapter(private val context: Context) :
     }
 
     class MonsterLevelViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val tvLevel: TextView = itemView.findViewById(R.id.tvLevel)
         val tvHealth: TextView = itemView.findViewById(R.id.tvHealth)
         val tvDamage: TextView = itemView.findViewById(R.id.tvDamage)
         val tvMagDefence: TextView = itemView.findViewById(R.id.tvMagDefence)
