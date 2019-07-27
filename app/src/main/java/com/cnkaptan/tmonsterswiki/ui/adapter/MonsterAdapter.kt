@@ -24,7 +24,12 @@ class MonsterAdapter(private val context: Context) : RecyclerView.Adapter<Monste
 
         val entry = monstersGroups[position]
         val childMonsterAdapter = ChildMonsterAdapter(context, entry.key, entry.value)
-        holder.tvTitle.text = "Rarity ${entry.key}"
+        holder.tvTitle.text = when (entry.key) {
+            1 -> context.resources.getString(R.string.monsters_common)
+            2 -> context.resources.getString(R.string.monsters_epic)
+            3 -> context.resources.getString(R.string.monsters_monstrous)
+            else -> context.resources.getString(R.string.monsters_legendary)
+        }
         holder.rvChild.adapter = childMonsterAdapter
         holder.rvChild.apply {
             layoutManager = GridLayoutManager(context, 4)

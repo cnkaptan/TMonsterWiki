@@ -1,7 +1,7 @@
 package com.cnkaptan.tmonsterswiki.di.component
 
 import android.app.Application
-import com.cnkaptan.tmonsterswiki.ui.MainActivity
+import com.cnkaptan.tmonsterswiki.ui.MonsterListActivity
 import com.cnkaptan.tmonsterswiki.di.module.ApiModule
 import com.cnkaptan.tmonsterswiki.di.module.DbModule
 import com.cnkaptan.tmonsterswiki.ui.MonsterDetailActivity
@@ -29,7 +29,7 @@ interface AppComponent {
         fun build(): AppComponent
     }
 
-    fun inject(mainActivity: MainActivity)
+    fun inject(monsterListActivity: MonsterListActivity)
     fun inject(splashActivity: SplashActivity)
     fun inject(monsterDetailActivity: MonsterDetailActivity)
 

@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".ui.MainActivity"
+                android:name=".ui.MonsterListActivity"
                 android:screenOrientation="portrait"/>
     </application>
 

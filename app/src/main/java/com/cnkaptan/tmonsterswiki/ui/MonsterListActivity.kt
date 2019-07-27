@@ -16,9 +16,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class MainActivity : BaseActivity() {
+class MonsterListActivity : BaseActivity() {
     override val TAG: String
-        get() = MainActivity::class.java.simpleName
+        get() = MonsterListActivity::class.java.simpleName
 
     @Inject
     lateinit var monstersApi: MonstersApi
@@ -31,7 +31,7 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_monster_list)
         (application as AppController).appComponent.inject(this)
 
         rvMonsterList = findViewById(R.id.rvMonsterList)
@@ -48,14 +48,14 @@ class MainActivity : BaseActivity() {
         rvMonsterList.adapter = monsterAdapter
         disposibleContainer.add(
             monsterRepository.getAllMonsters()
-                .map { monstersList -> monstersList.sortedBy { it.name } }
                 .flatMapPublisher { Flowable.fromIterable(it) }
-                .doOnNext { Log.e(TAG, "${it.name} --> ${it.id} --> ${it.resourceCode}") }
                 .toList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    monsterAdapter.updateList(it.groupBy(MonsterEntity::rarity).entries.toList())
+                    val sortedBy = it.groupBy(MonsterEntity::rarity).entries.toList()
+                        .sortedBy { rarirtyList -> -rarirtyList.key }
+                    monsterAdapter.updateList(sortedBy)
                 }, { error -> Log.e(TAG, error.message, error) })
         )
     }
