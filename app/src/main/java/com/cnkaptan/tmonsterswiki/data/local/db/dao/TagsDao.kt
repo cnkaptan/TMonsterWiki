@@ -13,7 +13,7 @@ interface TagsDao: BaseDao<TagEntity>{
     fun getAllTags(): Single<List<TagEntity>>
 
     @Query("SELECT * from ${BaseEntity.TAGS_TABLE} where id = :tagId")
-    fun getAllTags(tagId: Int): Single<List<TagEntity>>
+    fun getTagById(tagId: Int): Single<TagEntity>
 
     @Query("DELETE FROM ${BaseEntity.TAGS_TABLE}")
     fun nukeBomb()

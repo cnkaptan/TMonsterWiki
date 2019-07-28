@@ -38,14 +38,50 @@
                 android:elevation="20dp"
                 app:layout_constraintLeft_toLeftOf="parent"/>
 
+        <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_8"
+                android:layout_marginRight="@dimen/margin_8"
+                app:layout_constraintTop_toTopOf="@id/view_tags_shadow"
+                app:layout_constraintTop_toBottomOf="@id/view_tags_shadow"
+                app:layout_constraintLeft_toRightOf="@id/ivMonster"
+                app:layout_constraintRight_toRightOf="parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvTags"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
+        </FrameLayout>
+
+        <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_container_skills"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/ivMonster"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_margin="@dimen/margin_8">
+
+            <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvSkills"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"/>
+
+            </FrameLayout>
+        </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cv_container_levels"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/ivMonster"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp">
+                app:layout_constraintTop_toBottomOf="@id/cv_container_skills"
+                android:layout_margin="@dimen/margin_8">
 
             <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvLevels"

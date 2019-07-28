@@ -88,4 +88,6 @@ dependencies {
     implementation deps.lifecycle.extensions
     kapt deps.lifecycle.compiler
     implementation deps.lifecycle.viewmodel_ktx
+
+    implementation 'com.github.siyamed:android-shape-imageview:0.9.3@aar'
 }

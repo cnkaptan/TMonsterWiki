@@ -6,6 +6,8 @@ import com.cnkaptan.tmonsterswiki.data.local.db.dao.SkillsDao
 import com.cnkaptan.tmonsterswiki.data.local.db.dao.TagsDao
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterLevelEntity
+import com.cnkaptan.tmonsterswiki.data.local.entity.SkillEntity
+import com.cnkaptan.tmonsterswiki.data.local.entity.TagEntity
 import com.cnkaptan.tmonsterswiki.remote.api.MonstersApi
 import io.reactivex.*
 import io.reactivex.schedulers.Schedulers
@@ -33,7 +35,7 @@ class MonsterRepository @Inject constructor(
             .andThen(levelsDao.getLevels())
     }
 
-    fun getMonsterLevel(id: Int): Single<List<MonsterLevelEntity>> {
+    fun getMonsterLevels(id: Int): Single<List<MonsterLevelEntity>> {
         return monstersApi.fetchMonsterLevelsById(id)
             .flatMap {
                 levelsDao.insertList(it)
@@ -58,5 +60,21 @@ class MonsterRepository @Inject constructor(
 
     fun getMonster(id: Int): Single<MonsterEntity> {
         return monsterDao.findMonster(id)
+    }
+
+    fun getTagById(id: Int): Single<TagEntity> {
+        return tagsDao.getTagById(id)
+    }
+
+    fun getAllTags(): Single<List<TagEntity>> {
+        return tagsDao.getAllTags()
+    }
+
+    fun getAllSkills(): Single<List<SkillEntity>> {
+        return skillsDao.getAllSkills()
+    }
+
+    fun getSkillById(skillId: Int): Single<SkillEntity> {
+        return skillsDao.getSkillById(skillId)
     }
 }

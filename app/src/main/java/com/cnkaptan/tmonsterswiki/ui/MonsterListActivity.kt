@@ -12,6 +12,7 @@ import com.cnkaptan.tmonsterswiki.remote.api.MonstersApi
 import com.cnkaptan.tmonsterswiki.ui.adapter.MonsterAdapter
 import com.cnkaptan.tmonsterswiki.ui.base.BaseActivity
 import io.reactivex.Flowable
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -35,17 +36,13 @@ class MonsterListActivity : BaseActivity() {
         (application as AppController).appComponent.inject(this)
 
         rvMonsterList = findViewById(R.id.rvMonsterList)
-        val lm = LinearLayoutManager(applicationContext)
-
         val monsterAdapter = MonsterAdapter(applicationContext)
         rvMonsterList.apply {
             setHasFixedSize(true)
-            layoutManager = lm
+            layoutManager = LinearLayoutManager(applicationContext)
             adapter = monsterAdapter
         }
-        rvMonsterList.setHasFixedSize(true)
-        rvMonsterList.layoutManager = lm
-        rvMonsterList.adapter = monsterAdapter
+
         disposibleContainer.add(
             monsterRepository.getAllMonsters()
                 .flatMapPublisher { Flowable.fromIterable(it) }

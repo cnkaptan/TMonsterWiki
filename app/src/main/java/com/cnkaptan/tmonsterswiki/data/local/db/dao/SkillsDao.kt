@@ -14,4 +14,7 @@ interface SkillsDao: BaseDao<SkillEntity>{
 
     @Query("DELETE FROM ${BaseEntity.SKILLS_TABLE}")
     fun nukeBomb()
+
+    @Query("SELECT * from ${BaseEntity.SKILLS_TABLE} WHERE id = :skillId")
+    fun getSkillById(skillId: Int): Single<SkillEntity>
 }
