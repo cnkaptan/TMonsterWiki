@@ -6,9 +6,14 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.GridView
 import android.widget.ImageView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import butterknife.BindView
+import butterknife.ButterKnife
 import com.cnkaptan.tmonsterswiki.AppController
 import com.cnkaptan.tmonsterswiki.R
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
@@ -20,21 +25,24 @@ import com.cnkaptan.tmonsterswiki.ui.adapter.MonsterLevelAdapter
 import com.cnkaptan.tmonsterswiki.ui.adapter.SkillsAdapter
 import com.cnkaptan.tmonsterswiki.ui.adapter.TagsAdapter
 import com.cnkaptan.tmonsterswiki.ui.base.BaseActivity
+import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterDetailViewModel
 import com.squareup.picasso.Picasso
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class MonsterDetailActivity : BaseActivity() {
     override val TAG: String
         get() = MonsterDetailActivity::class.java.simpleName
 
-    @Inject
-    lateinit var monstersApi: MonstersApi
+    @BindView(R.id.rvLevels)
+    lateinit var rvMonsterLevel: RecyclerView
+    @BindView(R.id.ivMonster)
+    lateinit var ivMonster: ImageView
 
     @Inject
-    lateinit var monsterRepository: MonsterRepository
+    internal lateinit var viewModelFactory: ViewModelProvider.Factory
 
+    private lateinit var monsterDetailViewModel: MonsterDetailViewModel
+    private lateinit var monsterLevelAdapter: MonsterLevelAdapter
     private lateinit var rvMonsterLevel: RecyclerView
     private lateinit var rvTags: RecyclerView
     private lateinit var rvSkills: RecyclerView
@@ -49,22 +57,16 @@ class MonsterDetailActivity : BaseActivity() {
         setContentView(R.layout.activity_monster_detail)
         (applicationContext as AppController).appComponent.inject(this)
 
-        monsterID = intent.getIntExtra(ARG_MONSTER_ID, 0)
-
         rvMonsterLevel = findViewById(R.id.rvLevels)
         rvTags = findViewById(R.id.rvTags)
         ivMonster = findViewById(R.id.ivMonster)
         rvSkills = findViewById(R.id.rvSkills)
 
+        monsterID = intent.getIntExtra(ARG_MONSTER_ID, 0)
+        ButterKnife.bind(this)
 
-        val lm = LinearLayoutManager(applicationContext)
-
-        val monsterLevelAdapter = MonsterLevelAdapter(applicationContext)
-        rvMonsterLevel.apply {
-            setHasFixedSize(true)
-            layoutManager = lm
-            adapter = monsterLevelAdapter
-        }
+        initView()
+        initViewModel(monsterID)
 
         disposibleContainer.add(
             monsterRepository.getMonsterLevels(monsterID)
@@ -109,6 +111,17 @@ class MonsterDetailActivity : BaseActivity() {
         )
     }
 
+    private fun initView() {
+        val lm = LinearLayoutManager(applicationContext)
+
+        monsterLevelAdapter = MonsterLevelAdapter(applicationContext)
+        rvMonsterLevel.apply {
+            setHasFixedSize(true)
+            layoutManager = lm
+            adapter = monsterLevelAdapter
+        }
+    }
+
     private fun initSkillList(skillList: List<SkillEntity>) {
         rvSkills.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
@@ -130,18 +143,18 @@ class MonsterDetailActivity : BaseActivity() {
 
     }
 
-
-    companion object {
-        const val ARG_MONSTER_ID = "ARG_MONSTER_ID"
-
-        fun newIntent(context: Context, id: Int): Intent {
-            return Intent(context, MonsterDetailActivity::class.java).apply {
-                putExtra(ARG_MONSTER_ID, id)
-            }
-        }
+    private fun initViewModel(monsterID: Int) {
+        monsterDetailViewModel = ViewModelProviders.of(this, viewModelFactory).get(MonsterDetailViewModel::class.java)
+        monsterDetailViewModel.loadMonsterLevel(monsterID)
+        monsterDetailViewModel.getMonsterLevelList().observe(this, Observer {
+            monsterLevelAdapter.updateLevels(it)
+        })
+        monsterDetailViewModel.getMonster().observe(this, Observer {
+            initImage(it)
+        })
     }
 
-    fun initImage(monsterEntity: MonsterEntity) {
+    private fun initImage(monsterEntity: MonsterEntity) {
         val drawableId =
             applicationContext.resources.getIdentifier(
                 monsterEntity.resourceCode.toLowerCase(),
@@ -159,5 +172,15 @@ class MonsterDetailActivity : BaseActivity() {
             else -> R.drawable.legendary_frame
         }
         ivMonster.setBackgroundResource(frameColor)
+    }
+
+    companion object {
+        const val ARG_MONSTER_ID = "ARG_MONSTER_ID"
+
+        fun newIntent(context: Context, id: Int): Intent {
+            return Intent(context, MonsterDetailActivity::class.java).apply {
+                putExtra(ARG_MONSTER_ID, id)
+            }
+        }
     }
 }

@@ -8,6 +8,8 @@ import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterLevelEntity
 import com.cnkaptan.tmonsterswiki.data.local.entity.SkillEntity
 import com.cnkaptan.tmonsterswiki.data.local.entity.TagEntity
+import com.cnkaptan.tmonsterswiki.data.local.entity.SkillEntity
+import com.cnkaptan.tmonsterswiki.data.local.entity.TagEntity
 import com.cnkaptan.tmonsterswiki.remote.api.MonstersApi
 import io.reactivex.*
 import io.reactivex.schedulers.Schedulers
