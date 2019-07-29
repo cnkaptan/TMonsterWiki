@@ -6,21 +6,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
 import com.cnkaptan.tmonsterswiki.data.repository.MonsterRepository
+import com.cnkaptan.tmonsterswiki.ui.base.BaseViewModel
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class MonsterListViewModel @Inject constructor(monsterRepository: MonsterRepository) : ViewModel() {
+class MonsterListViewModel @Inject constructor(private val monsterRepository: MonsterRepository) : BaseViewModel() {
 
     private var monstersGroups: MutableLiveData<List<Map.Entry<Int, List<MonsterEntity>>>> = MutableLiveData()
 
-    private val subscriptions = CompositeDisposable()
-    private val monsterRepository: MonsterRepository = monsterRepository
-
     fun loadMonsters() {
-        subscriptions.add(
+        disposibleContainer.add(
             monsterRepository.getAllMonsters()
                 .flatMapPublisher { Flowable.fromIterable(it) }
                 .toList()

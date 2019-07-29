@@ -27,6 +27,7 @@ class SplashActivity : BaseActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     startActivity(Intent(this, MonsterListActivity::class.java))
+                    finish()
                 }, { error ->
                     Log.e(TAG, error.message, error)
                 })

@@ -33,12 +33,6 @@ class MonsterListActivity : BaseActivity() {
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    @Inject
-    lateinit var monstersApi: MonstersApi
-
-    @Inject
-    lateinit var monsterRepository: MonsterRepository
-
     private lateinit var monsterListViewModel: MonsterListViewModel
     private lateinit var monsterAdapter: MonsterAdapter
 
@@ -47,26 +41,12 @@ class MonsterListActivity : BaseActivity() {
         setContentView(R.layout.activity_monster_list)
         (application as AppController).appComponent.inject(this)
         ButterKnife.bind(this)
+
         initView()
         initViewModel()
-
-
-        disposibleContainer.add(
-            monsterRepository.getAllMonsters()
-                .flatMapPublisher { Flowable.fromIterable(it) }
-                .toList()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    val sortedBy = it.groupBy(MonsterEntity::rarity).entries.toList()
-                        .sortedBy { rarirtyList -> -rarirtyList.key }
-                    monsterAdapter.updateList(sortedBy)
-                }, { error -> Log.e(TAG, error.message, error) })
-        )
     }
 
     private fun initView() {
-        val lm = LinearLayoutManager(applicationContext)
         monsterAdapter = MonsterAdapter(applicationContext)
         rvMonsterList = findViewById(R.id.rvMonsterList)
         rvMonsterList.apply {

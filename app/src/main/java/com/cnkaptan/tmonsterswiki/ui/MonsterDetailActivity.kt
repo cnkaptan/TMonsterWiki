@@ -3,8 +3,6 @@ package com.cnkaptan.tmonsterswiki.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.GridView
 import android.widget.ImageView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -20,7 +18,6 @@ import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
 import com.cnkaptan.tmonsterswiki.data.local.entity.SkillEntity
 import com.cnkaptan.tmonsterswiki.data.local.entity.TagEntity
 import com.cnkaptan.tmonsterswiki.data.repository.MonsterRepository
-import com.cnkaptan.tmonsterswiki.remote.api.MonstersApi
 import com.cnkaptan.tmonsterswiki.ui.adapter.MonsterLevelAdapter
 import com.cnkaptan.tmonsterswiki.ui.adapter.SkillsAdapter
 import com.cnkaptan.tmonsterswiki.ui.adapter.TagsAdapter
@@ -35,19 +32,25 @@ class MonsterDetailActivity : BaseActivity() {
 
     @BindView(R.id.rvLevels)
     lateinit var rvMonsterLevel: RecyclerView
+
+    @BindView(R.id.rvTags)
+    lateinit var rvTags: RecyclerView
+
+    @BindView(R.id.rvSkills)
+    lateinit var rvSkills: RecyclerView
+
+
     @BindView(R.id.ivMonster)
     lateinit var ivMonster: ImageView
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
 
+    @Inject
+    internal lateinit var monsterRepository: MonsterRepository
+
     private lateinit var monsterDetailViewModel: MonsterDetailViewModel
     private lateinit var monsterLevelAdapter: MonsterLevelAdapter
-    private lateinit var rvMonsterLevel: RecyclerView
-    private lateinit var rvTags: RecyclerView
-    private lateinit var rvSkills: RecyclerView
-    private lateinit var ivMonster: ImageView
-    private lateinit var gvSkills: GridView
 
 
     var monsterID: Int = 0
@@ -57,58 +60,11 @@ class MonsterDetailActivity : BaseActivity() {
         setContentView(R.layout.activity_monster_detail)
         (applicationContext as AppController).appComponent.inject(this)
 
-        rvMonsterLevel = findViewById(R.id.rvLevels)
-        rvTags = findViewById(R.id.rvTags)
-        ivMonster = findViewById(R.id.ivMonster)
-        rvSkills = findViewById(R.id.rvSkills)
-
         monsterID = intent.getIntExtra(ARG_MONSTER_ID, 0)
         ButterKnife.bind(this)
 
         initView()
         initViewModel(monsterID)
-
-        disposibleContainer.add(
-            monsterRepository.getMonsterLevels(monsterID)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    { monsterLevelAdapter.updateLevels(it) },
-                    { error -> Log.e(TAG, error.message, error) })
-        )
-
-        disposibleContainer.add(
-            monsterRepository.getMonster(monsterID)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    { initImage(it) },
-                    { error -> Log.e(TAG, error.message, error) })
-        )
-
-        disposibleContainer.add(
-            monsterRepository.getMonster(monsterID)
-                .subscribeOn(Schedulers.io())
-                .flattenAsFlowable { it.tags }
-                .flatMapSingle { monsterRepository.getTagById(it) }
-                .toList()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    { initTagsList(it) },
-                    { error -> Log.e(TAG, error.message, error) })
-        )
-
-        disposibleContainer.add(
-            monsterRepository.getMonsterLevels(monsterID)
-                .subscribeOn(Schedulers.io())
-                .flattenAsFlowable { it.last().skillIds }
-                .flatMapSingle { monsterRepository.getSkillById(it) }
-                .toList()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    { initSkillList(it) },
-                    { error -> Log.e(TAG, error.message, error) })
-        )
     }
 
     private fun initView() {
@@ -146,11 +102,20 @@ class MonsterDetailActivity : BaseActivity() {
     private fun initViewModel(monsterID: Int) {
         monsterDetailViewModel = ViewModelProviders.of(this, viewModelFactory).get(MonsterDetailViewModel::class.java)
         monsterDetailViewModel.loadMonsterLevel(monsterID)
-        monsterDetailViewModel.getMonsterLevelList().observe(this, Observer {
+        monsterDetailViewModel.getMonsterLevelListLD().observe(this, Observer {
             monsterLevelAdapter.updateLevels(it)
         })
-        monsterDetailViewModel.getMonster().observe(this, Observer {
+
+        monsterDetailViewModel.getMonsterLD().observe(this, Observer {
             initImage(it)
+        })
+
+        monsterDetailViewModel.getSkillListLD().observe(this, Observer {
+            initSkillList(it)
+        })
+
+        monsterDetailViewModel.getTagListLD().observe(this, Observer {
+            initTagsList(it)
         })
     }
 
