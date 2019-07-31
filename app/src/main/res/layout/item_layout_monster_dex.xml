@@ -62,20 +62,20 @@
                     android:layout_toRightOf="@+id/ivMonsterDamage"
                     android:textColor="@color/colorPrimaryDark"/>
             <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ivMonsterMove"
+                    android:id="@+id/ivMonsterSpeed"
                     android:layout_width="25dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/icon_attr_move"
+                    android:src="@drawable/icon_attr_speed"
                     android:layout_below="@+id/tvMonsterName"
                     android:layout_toRightOf="@+id/tvMonsterDamage"
                     android:textColor="@color/colorPrimaryDark"/>
             <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvMonsterMove"
+                    android:id="@+id/tvMonsterSpeed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mobility"
+                    android:text="Speed"
                     android:layout_below="@+id/tvMonsterName"
-                    android:layout_toRightOf="@+id/ivMonsterMove"
+                    android:layout_toRightOf="@+id/ivMonsterSpeed"
                     android:textColor="@color/colorPrimaryDark"/>
 
         </RelativeLayout>

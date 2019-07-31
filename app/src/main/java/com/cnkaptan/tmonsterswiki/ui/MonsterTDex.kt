@@ -96,7 +96,7 @@ class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener, RadioGro
                 monsterTDexAdapter.updateMonster(sortedListDmg)
             }
             else -> {
-                val sortedListMove = sortListByAsc.sortedWith(compareBy { it.levels.get(selectedLevel).move })
+                val sortedListMove = sortListByAsc.sortedWith(compareBy { it.levels.get(selectedLevel).speed })
                 monsterTDexAdapter.updateMonster(sortedListMove)
             }
         }

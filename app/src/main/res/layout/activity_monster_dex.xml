@@ -29,8 +29,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             <androidx.appcompat.widget.AppCompatRadioButton
-                    android:id="@+id/rbMobility"
-                    android:text="Mobility"
+                    android:id="@+id/rbSpeed"
+                    android:text="Speed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 

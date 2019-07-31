@@ -32,7 +32,7 @@ class MonsterTDexAdapter(
         holder.tvMonsterName.text = monsterEntity.name
         holder.tvMonsterHealth.text = monsterEntity.levels.get(level!!).hp.toString()
         holder.tvMonsterDamage.text = monsterEntity.levels.get(level!!).dmg.toString()
-        holder.tvMonsterMove.text = monsterEntity.levels.get(level!!).move.toString()
+        holder.tvMonsterMove.text = monsterEntity.levels.get(level!!).speed.toString()
 
         val frameColor = when (monsterEntity.rarity) {
             1 -> R.drawable.common_frame
@@ -71,7 +71,7 @@ class MonsterTDexAdapter(
         val tvMonsterName: TextView = itemView.findViewById(R.id.tvMonsterName)
         val tvMonsterHealth: TextView = itemView.findViewById(R.id.tvMonsterHealth)
         val tvMonsterDamage: TextView = itemView.findViewById(R.id.tvMonsterDamage)
-        val tvMonsterMove: TextView = itemView.findViewById(R.id.tvMonsterMove)
+        val tvMonsterMove: TextView = itemView.findViewById(R.id.tvMonsterSpeed)
         val ivMonster: ImageView = itemView.findViewById(R.id.ivMonsterDex)
     }
 }
