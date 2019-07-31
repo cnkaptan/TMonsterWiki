@@ -5,9 +5,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.cnkaptan.tmonsterswiki.data.local.db.IdTypeConverter
+import com.cnkaptan.tmonsterswiki.data.local.db.LevelTypeConverter
 
 @Entity(tableName = BaseEntity.MONSTERS_TABLE)
-@TypeConverters(IdTypeConverter::class)
+@TypeConverters(IdTypeConverter::class,LevelTypeConverter::class)
 data class MonsterEntity(
     @PrimaryKey
     @NonNull
@@ -25,5 +26,7 @@ data class MonsterEntity(
     @NonNull
     var resourceCode: String = "",
     @NonNull
-    var tags: List<Int> = mutableListOf()
+    var tags: List<Int> = mutableListOf(),
+    @NonNull
+    var levels: List<MonsterLevelEntity> = mutableListOf()
 ) : BaseEntity()

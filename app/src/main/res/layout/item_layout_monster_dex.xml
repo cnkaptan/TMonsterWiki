@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
@@ -34,7 +34,6 @@
                     android:layout_width="25dp"
                     android:layout_height="24dp"
                     android:src="@drawable/icon_attr_hp"
-                    android:text="Damage"
                     android:layout_below="@+id/tvMonsterName"
                     android:layout_toRightOf="@+id/ivMonsterDex"
                     android:textColor="@color/colorPrimaryDark"/>
@@ -51,7 +50,6 @@
                     android:layout_width="25dp"
                     android:layout_height="24dp"
                     android:src="@drawable/icon_attr_dmg"
-                    android:text="Damage"
                     android:layout_below="@+id/tvMonsterName"
                     android:layout_toRightOf="@+id/tvMonsterHealth"
                     android:textColor="@color/colorPrimaryDark"/>
@@ -62,6 +60,22 @@
                     android:text="Damage"
                     android:layout_below="@+id/tvMonsterName"
                     android:layout_toRightOf="@+id/ivMonsterDamage"
+                    android:textColor="@color/colorPrimaryDark"/>
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivMonsterMove"
+                    android:layout_width="25dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/icon_attr_move"
+                    android:layout_below="@+id/tvMonsterName"
+                    android:layout_toRightOf="@+id/tvMonsterDamage"
+                    android:textColor="@color/colorPrimaryDark"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvMonsterMove"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mobility"
+                    android:layout_below="@+id/tvMonsterName"
+                    android:layout_toRightOf="@+id/ivMonsterMove"
                     android:textColor="@color/colorPrimaryDark"/>
 
         </RelativeLayout>

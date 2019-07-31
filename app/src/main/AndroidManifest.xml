@@ -30,6 +30,9 @@
         <activity
                 android:name=".ui.MonsterListActivity"
                 android:screenOrientation="portrait"/>
+        <activity
+                android:name=".ui.MonsterTDex"
+                android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -1,7 +1,6 @@
 package com.cnkaptan.tmonsterswiki.data.local.db
 
 import android.content.Context
-import android.nfc.Tag
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -13,14 +12,13 @@ import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterLevelEntity
 import com.cnkaptan.tmonsterswiki.data.local.entity.SkillEntity
 import com.cnkaptan.tmonsterswiki.data.local.entity.TagEntity
-import java.util.logging.Level
 
 @Database(
     entities = [MonsterEntity::class,
         SkillEntity::class,
         TagEntity::class,
         MonsterLevelEntity::class],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 abstract class MonsterRoomDb : RoomDatabase() {

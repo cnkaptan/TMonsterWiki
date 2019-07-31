@@ -1,14 +1,13 @@
 package com.cnkaptan.tmonsterswiki.data.repository
 
+import android.util.Log
 import com.cnkaptan.tmonsterswiki.data.local.db.dao.LevelsDao
 import com.cnkaptan.tmonsterswiki.data.local.db.dao.MonsterDao
 import com.cnkaptan.tmonsterswiki.data.local.db.dao.SkillsDao
 import com.cnkaptan.tmonsterswiki.data.local.db.dao.TagsDao
-import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
-import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterLevelEntity
-import com.cnkaptan.tmonsterswiki.data.local.entity.SkillEntity
-import com.cnkaptan.tmonsterswiki.data.local.entity.TagEntity
+import com.cnkaptan.tmonsterswiki.data.local.entity.*
 import com.cnkaptan.tmonsterswiki.remote.api.MonstersApi
+import com.cnkaptan.tmonsterswiki.remote.model.MonsterMainResponse
 import io.reactivex.*
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -54,8 +53,17 @@ class MonsterRepository @Inject constructor(
             .subscribeOn(Schedulers.io())
     }
 
+    fun downloadMonsterLevels(): Completable {
+        return monstersApi.fetchFetchMainInfos()
+            .toObservable()
+            .flatMapIterable { t: MonsterMainResponse -> t.monsters }
+            .doOnNext { Log.e("RepoSaveCheck", it.levels.toString()) }
+            .flatMapCompletable { levelsDao.insertList(it.levels) }
+            .subscribeOn(Schedulers.io())
+    }
+
     fun getAllMonsters(): Single<List<MonsterEntity>> {
-        return monsterDao.getAllMonsters()
+        return monsterDao.getAllMonsters().map { it.reversed() }
     }
 
     fun getMonster(id: Int): Single<MonsterEntity> {
