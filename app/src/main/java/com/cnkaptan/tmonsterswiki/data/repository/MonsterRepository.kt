@@ -57,7 +57,6 @@ class MonsterRepository @Inject constructor(
         return monstersApi.fetchFetchMainInfos()
             .toObservable()
             .flatMapIterable { t: MonsterMainResponse -> t.monsters }
-            .doOnNext { Log.e("RepoSaveCheck", it.levels.toString()) }
             .flatMapCompletable { levelsDao.insertList(it.levels) }
             .subscribeOn(Schedulers.io())
     }

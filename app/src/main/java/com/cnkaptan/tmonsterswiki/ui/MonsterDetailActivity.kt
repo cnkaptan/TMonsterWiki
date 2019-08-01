@@ -168,11 +168,11 @@ class MonsterDetailActivity : BaseActivity() {
 
     private fun initImage(monsterEntity: MonsterEntity) {
         tvMonsterName.text = monsterEntity.name
+        val monsterDrawRes = monsterEntity.getMonsterDrawCode()
+        Log.e(TAG, monsterDrawRes)
         val drawableId =
-            applicationContext.resources.getIdentifier(
-                monsterEntity.resourceCode.toLowerCase(),
-                "drawable", applicationContext.packageName
-            )
+            applicationContext.resources.getIdentifier(monsterDrawRes, "drawable", applicationContext.packageName)
+
         if (drawableId > 0) {
             Picasso.get().load(drawableId).into(ivMonster)
         } else {

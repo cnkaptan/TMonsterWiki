@@ -19,4 +19,8 @@ data class SkillEntity(
     var params: String = "",
     @NonNull
     var resourceCode: String = ""
-) : BaseEntity()
+) : BaseEntity(){
+    fun getDrawResName(): String {
+        return resourceCode.toLowerCase().replace('ı','i')
+    }
+}

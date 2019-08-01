@@ -18,13 +18,14 @@ class MonsterListViewModel @Inject constructor(private val monsterRepository: Mo
     fun loadMonsters() {
         disposibleContainer.add(
             monsterRepository.getAllMonsters()
-                .flatMapPublisher { Flowable.fromIterable(it) }
-                .toList()
+//                .flatMapPublisher { Flowable.fromIterable(it) }
+//                .doOnNext { Log.e("MonsterListViewModel","${it.name} --> ${it.resourceCode}") }
+//                .toList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     val sortedBy = it.groupBy(MonsterEntity::rarity).entries.toList()
-                        .sortedBy { rarirtyList -> -rarirtyList.key }
+                        .sortedBy { rarityList -> -rarityList.key }
                     monstersGroups.postValue(sortedBy)
                 }, { error -> Log.e(TAG, error.message, error) })
         )

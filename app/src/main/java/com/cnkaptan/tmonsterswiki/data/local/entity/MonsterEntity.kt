@@ -2,6 +2,7 @@ package com.cnkaptan.tmonsterswiki.data.local.entity
 
 import androidx.annotation.NonNull
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.cnkaptan.tmonsterswiki.data.local.db.IdTypeConverter
@@ -29,4 +30,9 @@ data class MonsterEntity(
     var tags: List<Int> = mutableListOf(),
     @NonNull
     var levels: List<MonsterLevelEntity> = mutableListOf()
-) : BaseEntity()
+) : BaseEntity() {
+    @Ignore
+    fun getMonsterDrawCode(): String {
+        return resourceCode.toLowerCase().replace('ı','i')
+    }
+}

@@ -37,7 +37,7 @@ class ChildMonsterAdapter(
 
         holder.ivMonster.setBackgroundResource(frameColor)
 
-        val resourceName = childMonsters[position].resourceCode.toLowerCase()
+        val resourceName = childMonsters[position].getMonsterDrawCode()
         val drawableId = context.resources.getIdentifier(resourceName, "drawable", context.packageName)
         if (drawableId > 0) {
             Picasso.get()

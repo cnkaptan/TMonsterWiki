@@ -1,6 +1,7 @@
 package com.cnkaptan.tmonsterswiki.ui.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,10 +26,10 @@ class SkillsAdapter(
 
     override fun onBindViewHolder(holder: SkillViewHolder, position: Int) {
         val skillEntity = skillList[holder.adapterPosition]
-
+//        Log.e("SkillsAdapter", skillEntity.getDrawResName())
         val drawableId =
             context.resources.getIdentifier(
-                skillEntity.resourceCode.toLowerCase(),
+                skillEntity.getDrawResName(),
                 "drawable", context.packageName
             )
         if (drawableId > 0) {
@@ -42,7 +43,7 @@ class SkillsAdapter(
         }
     }
 
-    class SkillViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    class SkillViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivSkill = itemView.findViewById(R.id.ivSkill) as ImageView
     }
 }
