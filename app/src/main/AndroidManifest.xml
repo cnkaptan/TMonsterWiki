@@ -16,8 +16,9 @@
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.MonsterDetailActivity">
-        </activity>
+        <activity android:name=".ui.MonsterDetailActivity"
+                  android:screenOrientation="portrait"/>
+
         <activity
                 android:name=".ui.SplashActivity"
                 android:screenOrientation="portrait">

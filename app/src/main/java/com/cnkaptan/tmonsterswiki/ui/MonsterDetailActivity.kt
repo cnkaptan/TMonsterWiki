@@ -1,13 +1,16 @@
 package com.cnkaptan.tmonsterswiki.ui
 
+import android.animation.Animator
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageView
+import android.util.Log
+import android.view.View
+import android.widget.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
@@ -23,7 +26,13 @@ import com.cnkaptan.tmonsterswiki.ui.adapter.SkillsAdapter
 import com.cnkaptan.tmonsterswiki.ui.adapter.TagsAdapter
 import com.cnkaptan.tmonsterswiki.ui.base.BaseActivity
 import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterDetailViewModel
+import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
+import io.reactivex.Flowable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import org.json.JSONObject
+import java.lang.Exception
 import javax.inject.Inject
 
 class MonsterDetailActivity : BaseActivity() {
@@ -39,9 +48,20 @@ class MonsterDetailActivity : BaseActivity() {
     @BindView(R.id.rvSkills)
     lateinit var rvSkills: RecyclerView
 
-
     @BindView(R.id.ivMonster)
     lateinit var ivMonster: ImageView
+
+    @BindView(R.id.ll_container_info)
+    lateinit var llContainerInfo: LinearLayout
+
+    @BindView(R.id.tvSkill)
+    lateinit var tvSkill: TextView
+
+    @BindView(R.id.tvMonsterName)
+    lateinit var tvMonsterName: TextView
+
+    @BindView(R.id.btnClose)
+    lateinit var btnClose: Button
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -65,6 +85,14 @@ class MonsterDetailActivity : BaseActivity() {
 
         initView()
         initViewModel(monsterID)
+
+        btnClose.setOnClickListener {
+            closeInfoView()
+        }
+    }
+
+    private fun closeInfoView() {
+        llContainerInfo.visibility = View.GONE
     }
 
     private fun initView() {
@@ -82,10 +110,29 @@ class MonsterDetailActivity : BaseActivity() {
         rvSkills.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             setHasFixedSize(true)
-            adapter = SkillsAdapter(context,skillList) {
-                Toast.makeText(context, it.description, Toast.LENGTH_SHORT).show()
+            adapter = SkillsAdapter(context, skillList) {
+                var descripton = getFormattedDescription(it)
+                openInfoView(descripton)
             }
         }
+    }
+
+    private fun openInfoView(description: String) {
+        tvSkill.text = description
+        llContainerInfo.visibility = View.VISIBLE
+    }
+
+    private fun getFormattedDescription(it: SkillEntity): String {
+        var descripton = it.description
+
+        if (it.params.isNotEmpty()) {
+            val paramJson = JSONObject(it.params)
+            paramJson.keys()
+                .forEach { key ->
+                    descripton = descripton.replace("$<$key>", paramJson[key].toString(), true)
+                }
+        }
+        return descripton
     }
 
     private fun initTagsList(tags: List<TagEntity>) {
@@ -93,7 +140,7 @@ class MonsterDetailActivity : BaseActivity() {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             setHasFixedSize(true)
             adapter = TagsAdapter(context, tags) {
-                Toast.makeText(context, it.description, Toast.LENGTH_SHORT).show()
+                openInfoView(it.description)
             }
         }
 
@@ -120,6 +167,7 @@ class MonsterDetailActivity : BaseActivity() {
     }
 
     private fun initImage(monsterEntity: MonsterEntity) {
+        tvMonsterName.text = monsterEntity.name
         val drawableId =
             applicationContext.resources.getIdentifier(
                 monsterEntity.resourceCode.toLowerCase(),

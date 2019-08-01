@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.AppCompatImageView
+
+<androidx.cardview.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/ivSkill"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="80dp" android:layout_height="80dp"
         android:src="@drawable/wukong"
-        android:padding="@dimen/margin_8"/>
+        app:cardCornerRadius="8dp"
+        android:layout_centerHorizontal="true"
+        android:innerRadius="0dp"
+        android:shape="ring"
+        android:thicknessRatio="1.9"
+        app:cardElevation="4dp"
+        android:layout_margin="@dimen/margin_8"
+        >
+    <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivSkill"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/wukong"
+            android:layout_gravity="center"/>
+</androidx.cardview.widget.CardView>

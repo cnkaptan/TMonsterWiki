@@ -28,7 +28,7 @@ class SplashActivity : BaseActivity() {
             monsterRepository.downloadInitialInfos()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    startActivity(Intent(this, MonsterTDex::class.java))
+                    startActivity(Intent(this, MonsterListActivity::class.java))
                     finish()
                 }, { error ->
                     Log.e(TAG, error.message, error)

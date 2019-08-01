@@ -29,7 +29,7 @@ class MonsterDetailViewModel @Inject constructor(private val monsterRepository: 
             monsterRepository.getMonsterLevels(monsterID)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ monsterLevelList.postValue(it) }
+                .subscribe({ monsterLevelList.postValue(it.sortedByDescending { it.level }) }
                     , { error -> Log.e("MonsterDetailViewModel", error.message, error) })
         )
 
@@ -62,7 +62,9 @@ class MonsterDetailViewModel @Inject constructor(private val monsterRepository: 
                 .toList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                    { skillList.postValue(it) },
+                    {
+                        skillList.postValue(it)
+                    },
                     { error -> Log.e(TAG, error.message, error) })
         )
 

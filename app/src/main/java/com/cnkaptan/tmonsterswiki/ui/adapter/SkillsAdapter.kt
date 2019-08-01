@@ -43,6 +43,6 @@ class SkillsAdapter(
     }
 
     class SkillViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val ivSkill = itemView as ImageView
+        val ivSkill = itemView.findViewById(R.id.ivSkill) as ImageView
     }
 }

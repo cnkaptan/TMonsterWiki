@@ -30,7 +30,7 @@
 
         <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:padding="@dimen/margin_4"
                 android:src="@drawable/icon_attr_hp"
@@ -38,7 +38,7 @@
 
         <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:padding="@dimen/margin_4"
                 android:src="@drawable/icon_attr_dmg"
@@ -46,7 +46,7 @@
 
         <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:padding="@dimen/margin_4"
                 android:src="@drawable/icon_attr_def_phy"
@@ -54,7 +54,7 @@
 
         <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:padding="@dimen/margin_4"
                 android:src="@drawable/icon_attr_def_mag"
@@ -62,7 +62,7 @@
 
         <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:padding="@dimen/margin_4"
                 android:src="@drawable/icon_attr_speed"
@@ -70,7 +70,7 @@
 
         <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:padding="@dimen/margin_4"
                 android:src="@drawable/icon_attr_move"
