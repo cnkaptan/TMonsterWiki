@@ -1,9 +1,8 @@
 package com.cnkaptan.tmonsterswiki.ui
 
-import android.animation.Animator
-import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -26,13 +25,9 @@ import com.cnkaptan.tmonsterswiki.ui.adapter.SkillsAdapter
 import com.cnkaptan.tmonsterswiki.ui.adapter.TagsAdapter
 import com.cnkaptan.tmonsterswiki.ui.base.BaseActivity
 import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterDetailViewModel
-import com.google.gson.JsonObject
+import com.cnkaptan.tmonsterswiki.utils.Constants
 import com.squareup.picasso.Picasso
-import io.reactivex.Flowable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import org.json.JSONObject
-import java.lang.Exception
 import javax.inject.Inject
 
 class MonsterDetailActivity : BaseActivity() {
@@ -104,6 +99,8 @@ class MonsterDetailActivity : BaseActivity() {
             layoutManager = lm
             adapter = monsterLevelAdapter
         }
+        val typeFace = Typeface.createFromAsset(applicationContext.assets, Constants.MONSTERNAMEFONT)
+        tvMonsterName.typeface = typeFace
     }
 
     private fun initSkillList(skillList: List<SkillEntity>) {
