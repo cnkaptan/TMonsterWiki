@@ -46,6 +46,9 @@ class MonsterDetailActivity : BaseActivity() {
     @BindView(R.id.ivMonster)
     lateinit var ivMonster: ImageView
 
+    @BindView(R.id.ivMonsterArtwork)
+    lateinit var ivMonsterArtwork: ImageView
+
     @BindView(R.id.ll_container_info)
     lateinit var llContainerInfo: LinearLayout
 
@@ -166,9 +169,7 @@ class MonsterDetailActivity : BaseActivity() {
     private fun initImage(monsterEntity: MonsterEntity) {
         tvMonsterName.text = monsterEntity.name
         val monsterDrawRes = monsterEntity.getMonsterDrawCode()
-        Log.e(TAG, monsterDrawRes)
-        val drawableId =
-            applicationContext.resources.getIdentifier(monsterDrawRes, "drawable", applicationContext.packageName)
+        val drawableId = applicationContext.resources.getIdentifier(monsterDrawRes, "drawable", applicationContext.packageName)
 
         if (drawableId > 0) {
             Picasso.get().load(drawableId).into(ivMonster)
@@ -182,6 +183,16 @@ class MonsterDetailActivity : BaseActivity() {
             else -> R.drawable.legendary_frame
         }
         ivMonster.setBackgroundResource(frameColor)
+
+        val monsterArtworkDrawres = "artwork_$monsterDrawRes"
+
+        val monsterArtworkDrawId = applicationContext.resources.getIdentifier(monsterArtworkDrawres, "drawable", applicationContext.packageName)
+
+        if (drawableId > 0) {
+            Picasso.get().load(monsterArtworkDrawId).into(ivMonsterArtwork)
+        } else {
+            ivMonster.setImageResource(R.drawable.artwork_default)
+        }
     }
 
     companion object {

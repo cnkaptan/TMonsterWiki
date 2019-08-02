@@ -63,6 +63,10 @@ class MonsterRepository @Inject constructor(
 
     fun getAllMonsters(): Single<List<MonsterEntity>> {
         return monsterDao.getAllMonsters().map { it.reversed() }
+            .flatMapPublisher { Flowable.fromIterable(it) }
+            .filter { it.id != 410 && it.id != 318 }
+            .doOnNext { Log.e("MonsterRepository",it.id.toString()) }
+            .toList()
     }
 
     fun getMonster(id: Int): Single<MonsterEntity> {

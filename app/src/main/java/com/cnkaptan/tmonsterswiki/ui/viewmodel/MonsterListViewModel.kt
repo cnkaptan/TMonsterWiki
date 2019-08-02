@@ -19,7 +19,7 @@ class MonsterListViewModel @Inject constructor(private val monsterRepository: Mo
         disposibleContainer.add(
             monsterRepository.getAllMonsters()
 //                .flatMapPublisher { Flowable.fromIterable(it) }
-//                .doOnNext { Log.e("MonsterListViewModel","${it.name} --> ${it.resourceCode}") }
+//                .doOnNext { Log.e("MonsterListViewModel","${it.name} --> ${it.getMonsterDrawCode()}") }
 //                .toList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
