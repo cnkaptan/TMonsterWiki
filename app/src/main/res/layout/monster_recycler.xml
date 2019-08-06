@@ -7,7 +7,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="2dp"
-        card_view:cardBackgroundColor="#fff"
+        card_view:cardBackgroundColor="#232b2b"
         card_view:cardCornerRadius="5dp"
         card_view:cardElevation="4dp"
         card_view:cardUseCompatPadding="true">
@@ -29,7 +29,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignStart="@+id/rvChild"
                 android:text="Monster Title Place"
-                android:textColor="@color/colorAccent"
+                android:textColor="@android:color/white"
                 android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView

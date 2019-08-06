@@ -3,7 +3,8 @@
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp">
+                android:layout_marginTop="4dp"
+                android:layout_gravity="center">
 
     <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivMonster"
@@ -19,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cihan Kaptan"
+            android:textStyle="bold"
             android:gravity="center"
             android:layout_centerVertical="true"
             android:layout_below="@id/ivMonster"

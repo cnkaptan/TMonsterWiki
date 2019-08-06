@@ -30,10 +30,22 @@ class ChildMonsterAdapter(
         val childMonster = childMonsters[position]
         holder.tvMonsterName.text = childMonsters[position].name
         val frameColor = when (rarity) {
-            1 -> R.drawable.common_frame
-            2 -> R.drawable.epic_frame
-            3 -> R.drawable.monstrous_frame
-            else -> R.drawable.legendary_frame
+            1 -> {
+                holder.tvMonsterName.setTextColor(context.resources.getColor(R.color.colorCommonFrame))
+                R.drawable.common_frame
+            }
+            2 ->{
+                holder.tvMonsterName.setTextColor(context.resources.getColor(R.color.colorEpicFrame))
+                R.drawable.epic_frame
+            }
+            3 ->{
+                holder.tvMonsterName.setTextColor(context.resources.getColor(R.color.colorMonstrousFrame))
+                R.drawable.monstrous_frame
+            }
+            else ->{
+                holder.tvMonsterName.setTextColor(context.resources.getColor(R.color.colorLegendaryFrame))
+                R.drawable.legendary_frame
+            }
         }
 
         holder.ivMonster.setBackgroundResource(frameColor)
