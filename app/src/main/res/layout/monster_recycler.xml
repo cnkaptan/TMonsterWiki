@@ -7,7 +7,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="2dp"
-        card_view:cardBackgroundColor="#fff"
+        card_view:cardBackgroundColor="#232b2b"
         card_view:cardCornerRadius="5dp"
         card_view:cardElevation="4dp"
         card_view:cardUseCompatPadding="true">
@@ -15,7 +15,11 @@
     <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="@dimen/margin_8"
+            android:paddingBottom="@dimen/margin_8"
+            android:paddingLeft="@dimen/margin_16"
+            android:paddingRight="@dimen/margin_16">
 
         <TextView
                 android:id="@+id/tvTitle"
@@ -24,19 +28,16 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignStart="@+id/rvChild"
-                android:padding="20dp"
                 android:text="Monster Title Place"
-                android:textColor="@color/colorAccent"
+                android:textColor="@android:color/white"
                 android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvChild"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:padding="20dp"
-                android:layout_marginTop="30dp"
+                android:layout_below="@id/tvTitle"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal"
                 tools:layout_editor_absoluteX="74dp" />
 

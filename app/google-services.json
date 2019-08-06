@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "565451657948",
+    "firebase_url": "https://tmonsterwiki.firebaseio.com",
+    "project_id": "tmonsterwiki",
+    "storage_bucket": "tmonsterwiki.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:565451657948:android:8660ba3becabc9a6",
+        "android_client_info": {
+          "package_name": "com.cnkaptan.tmonsterswiki"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "565451657948-8n0q3133ku70u2etasdaki71fbvsat9j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cnkaptan.tmonsterswiki",
+            "certificate_hash": "245374695f5d00c60855de72a91d44d05cb54c7e"
+          }
+        },
+        {
+          "client_id": "565451657948-jlqkou7k3qejij0tppgtfg3q89i5g0bl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWWV158hrO7D5R_4DCA4dWpZXZyVpAqMo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "565451657948-jlqkou7k3qejij0tppgtfg3q89i5g0bl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

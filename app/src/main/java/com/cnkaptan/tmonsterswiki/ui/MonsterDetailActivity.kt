@@ -26,6 +26,7 @@ import com.cnkaptan.tmonsterswiki.ui.adapter.TagsAdapter
 import com.cnkaptan.tmonsterswiki.ui.base.BaseActivity
 import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterDetailViewModel
 import com.cnkaptan.tmonsterswiki.utils.Constants
+import com.crashlytics.android.Crashlytics
 import com.squareup.picasso.Picasso
 import org.json.JSONObject
 import javax.inject.Inject
@@ -111,7 +112,7 @@ class MonsterDetailActivity : BaseActivity() {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             setHasFixedSize(true)
             adapter = SkillsAdapter(context, skillList) {
-                var descripton = getFormattedDescription(it)
+                val descripton = getFormattedDescription(it)
                 openInfoView(descripton)
             }
         }
@@ -169,13 +170,12 @@ class MonsterDetailActivity : BaseActivity() {
     private fun initImage(monsterEntity: MonsterEntity) {
         tvMonsterName.text = monsterEntity.name
         val monsterDrawRes = monsterEntity.getMonsterDrawCode()
-        val drawableId = applicationContext.resources.getIdentifier(monsterDrawRes, "drawable", applicationContext.packageName)
+        val monsterImageUrl = "http://78.24.221.246:81/build/images/$monsterDrawRes.png"
 
-        if (drawableId > 0) {
-            Picasso.get().load(drawableId).into(ivMonster)
-        } else {
-            ivMonster.setImageResource(R.drawable.tm_splash_image)
-        }
+        Picasso.get().load(monsterImageUrl)
+            .placeholder(R.drawable.tm_splash_image)
+            .into(ivMonster)
+
         val frameColor = when (monsterEntity.rarity) {
             1 -> R.drawable.common_frame
             2 -> R.drawable.epic_frame
@@ -184,15 +184,13 @@ class MonsterDetailActivity : BaseActivity() {
         }
         ivMonster.setBackgroundResource(frameColor)
 
-        val monsterArtworkDrawres = "artwork_$monsterDrawRes"
 
-        val monsterArtworkDrawId = applicationContext.resources.getIdentifier(monsterArtworkDrawres, "drawable", applicationContext.packageName)
+        val monsterArtworkDrawRes = "artwork_$monsterDrawRes"
+        val monsterArtImageURl = "http://78.24.221.246:81/build/images/$monsterArtworkDrawRes.png"
 
-        if (drawableId > 0) {
-            Picasso.get().load(monsterArtworkDrawId).into(ivMonsterArtwork)
-        } else {
-            ivMonster.setImageResource(R.drawable.artwork_default)
-        }
+        Picasso.get()
+            .load(monsterArtImageURl)
+            .into(ivMonsterArtwork)
     }
 
     companion object {

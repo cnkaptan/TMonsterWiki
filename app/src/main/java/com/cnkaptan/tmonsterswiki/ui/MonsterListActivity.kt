@@ -17,6 +17,7 @@ import com.cnkaptan.tmonsterswiki.remote.api.MonstersApi
 import com.cnkaptan.tmonsterswiki.ui.adapter.MonsterAdapter
 import com.cnkaptan.tmonsterswiki.ui.base.BaseActivity
 import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterListViewModel
+import com.google.firebase.analytics.FirebaseAnalytics
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -24,6 +25,8 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class MonsterListActivity : BaseActivity() {
+    private lateinit var mFirebaseAnalytics: FirebaseAnalytics
+
     override val TAG: String
         get() = MonsterListActivity::class.java.simpleName
 
@@ -44,6 +47,9 @@ class MonsterListActivity : BaseActivity() {
 
         initView()
         initViewModel()
+
+        // Obtain the FirebaseAnalytics instance.
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
     }
 
     private fun initView() {

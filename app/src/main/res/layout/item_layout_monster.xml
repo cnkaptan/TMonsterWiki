@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:orientation="vertical"
-                android:layout_width="70dp"
-                android:layout_height="110dp">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_gravity="center">
 
     <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivMonster"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:src="@drawable/wukong"
+            android:layout_centerHorizontal="true"
             android:background="@drawable/legendary_frame"
             android:padding="4dp"/>
 
@@ -17,7 +20,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cihan Kaptan"
-            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_centerVertical="true"
             android:layout_below="@id/ivMonster"
             android:layout_centerHorizontal="true"/>
 

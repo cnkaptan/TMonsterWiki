@@ -1,6 +1,7 @@
 package com.cnkaptan.tmonsterswiki.ui.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,8 +32,9 @@ class MonsterAdapter(private val context: Context) : RecyclerView.Adapter<Monste
             else -> context.resources.getString(R.string.monsters_legendary)
         }
         holder.rvChild.adapter = childMonsterAdapter
+        val columnNum = context.resources.getInteger(R.integer.column_num)
         holder.rvChild.apply {
-            layoutManager = GridLayoutManager(context, 4)
+            layoutManager = GridLayoutManager(context, columnNum)
             setHasFixedSize(true)
         }
 

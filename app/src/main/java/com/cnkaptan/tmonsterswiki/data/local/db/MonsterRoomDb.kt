@@ -18,7 +18,7 @@ import com.cnkaptan.tmonsterswiki.data.local.entity.TagEntity
         SkillEntity::class,
         TagEntity::class,
         MonsterLevelEntity::class],
-    version = 3,
+    version = 1,
     exportSchema = false
 )
 abstract class MonsterRoomDb : RoomDatabase() {

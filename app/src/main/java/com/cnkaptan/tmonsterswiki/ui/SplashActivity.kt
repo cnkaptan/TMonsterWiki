@@ -34,12 +34,5 @@ class SplashActivity : BaseActivity() {
                     Log.e(TAG, error.message, error)
                 })
         )
-
-        disposibleContainer.add(
-            monsterRepository.downloadMonsterLevels()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({}, { error -> Log.e(ContentValues.TAG, error.message, error) })
-        )
     }
 }
