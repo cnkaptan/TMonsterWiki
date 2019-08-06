@@ -26,6 +26,7 @@ import com.cnkaptan.tmonsterswiki.ui.adapter.TagsAdapter
 import com.cnkaptan.tmonsterswiki.ui.base.BaseActivity
 import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterDetailViewModel
 import com.cnkaptan.tmonsterswiki.utils.Constants
+import com.crashlytics.android.Crashlytics
 import com.squareup.picasso.Picasso
 import org.json.JSONObject
 import javax.inject.Inject
@@ -111,7 +112,7 @@ class MonsterDetailActivity : BaseActivity() {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             setHasFixedSize(true)
             adapter = SkillsAdapter(context, skillList) {
-                var descripton = getFormattedDescription(it)
+                val descripton = getFormattedDescription(it)
                 openInfoView(descripton)
             }
         }

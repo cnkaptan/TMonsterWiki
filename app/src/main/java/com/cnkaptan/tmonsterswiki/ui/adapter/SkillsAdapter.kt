@@ -27,16 +27,11 @@ class SkillsAdapter(
     override fun onBindViewHolder(holder: SkillViewHolder, position: Int) {
         val skillEntity = skillList[holder.adapterPosition]
 //        Log.e("SkillsAdapter", skillEntity.getDrawResName())
-        val drawableId =
-            context.resources.getIdentifier(
-                skillEntity.getDrawResName(),
-                "drawable", context.packageName
-            )
-        if (drawableId > 0) {
-            Picasso.get().load(drawableId).into(holder.ivSkill)
-        } else {
-            holder.ivSkill.setImageResource(R.drawable.tm_splash_image)
-        }
+        val monsterImageUrl = "http://78.24.221.246:81/build/images/${skillEntity.getDrawResName()}.png"
+            Picasso.get()
+                .load(monsterImageUrl)
+                .placeholder(R.drawable.tm_splash_image)
+                .into(holder.ivSkill)
 
         holder.itemView.setOnClickListener {
             clickListener(skillEntity)
