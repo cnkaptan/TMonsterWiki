@@ -2,6 +2,7 @@ package com.cnkaptan.tmonsterswiki.ui.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,15 +39,12 @@ class ChildMonsterAdapter(
         holder.ivMonster.setBackgroundResource(frameColor)
 
         val resourceName = childMonsters[position].getMonsterDrawCode()
-        val drawableId = context.resources.getIdentifier(resourceName, "drawable", context.packageName)
-        if (drawableId > 0) {
-            Picasso.get()
-                .load(drawableId)
-                .placeholder(R.drawable.tm_splash_image)
-                .into(holder.ivMonster)
-        } else {
-            holder.ivMonster.setImageResource(R.drawable.tm_splash_image)
-        }
+        val drawableId = "http://78.24.221.246:81/build/images/$resourceName.png"
+        Log.e("ChildMonster",drawableId)
+        Picasso.get()
+            .load(drawableId)
+            .placeholder(R.drawable.tm_splash_image)
+            .into(holder.ivMonster)
 
         holder.itemView.setOnClickListener {
             val detailIntent = MonsterDetailActivity.newIntent(context, childMonster.id)

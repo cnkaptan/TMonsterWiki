@@ -7,7 +7,6 @@ import com.cnkaptan.tmonsterswiki.data.local.db.dao.SkillsDao
 import com.cnkaptan.tmonsterswiki.data.local.db.dao.TagsDao
 import com.cnkaptan.tmonsterswiki.data.local.entity.*
 import com.cnkaptan.tmonsterswiki.remote.api.MonstersApi
-import com.cnkaptan.tmonsterswiki.remote.model.MonsterMainResponse
 import io.reactivex.*
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -44,20 +43,18 @@ class MonsterRepository @Inject constructor(
     }
 
     fun downloadInitialInfos(): Completable {
-        return monstersApi.fetchFetchMainInfos()
-            .flatMapCompletable {
+        val fetchDatasFromApi = monstersApi.fetchFetchMainInfos()
+            .doOnSuccess { Log.e("AppRepository",it.monsters.toString()) }
+            .flatMap {
                 monsterDao.insertList(it.monsters)
                     .andThen(tagsDao.insertList(it.tags))
                     .andThen(skillsDao.insertList(it.skills))
+                    .andThen(monsterDao.getAllMonsters())
             }
-            .subscribeOn(Schedulers.io())
-    }
-
-    fun downloadMonsterLevels(): Completable {
-        return monstersApi.fetchFetchMainInfos()
-            .toObservable()
-            .flatMapIterable { t: MonsterMainResponse -> t.monsters }
-            .flatMapCompletable { levelsDao.insertList(it.levels) }
+        return Single.concat<List<MonsterEntity>>(getAllMonsters(), fetchDatasFromApi)
+            .filter{ it.isNotEmpty() }
+            .firstOrError()
+            .toCompletable()
             .subscribeOn(Schedulers.io())
     }
 
@@ -65,7 +62,7 @@ class MonsterRepository @Inject constructor(
         return monsterDao.getAllMonsters().map { it.reversed() }
             .flatMapPublisher { Flowable.fromIterable(it) }
             .filter { it.id != 410 && it.id != 318 }
-            .doOnNext { Log.e("MonsterRepository",it.id.toString()) }
+//            .doOnNext { Log.e("MonsterRepository", it.id.toString()) }
             .toList()
     }
 
