@@ -4,6 +4,8 @@
     <dimen name="margin_32">32dp</dimen>
     <dimen name="text_size_24">24sp</dimen>
     <dimen name="margin_8">8dp</dimen>
+    <dimen name="width_80">85dp</dimen>
+    <dimen name="heigth_80">85dp</dimen>
     <dimen name="margin_4">4dp</dimen>
     <dimen name="textsize_12">12sp</dimen>
     <dimen name="text_size_18">18sp</dimen>
@@ -11,5 +13,4 @@
     <dimen name="textsize_10">10sp</dimen>
     <dimen name="text_size_10">10sp</dimen>
     <dimen name="text_size_12">12sp</dimen>
-    <dimen name="column_num">3</dimen>
 </resources>

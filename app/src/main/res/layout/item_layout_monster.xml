@@ -8,8 +8,8 @@
 
     <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivMonster"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
+            android:layout_width="@dimen/width_80"
+            android:layout_height="@dimen/heigth_80"
             android:src="@drawable/wukong"
             android:layout_centerHorizontal="true"
             android:background="@drawable/legendary_frame"
