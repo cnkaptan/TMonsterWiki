@@ -10,7 +10,7 @@
 
     <style name="TableTextViewStyle">
         <item name="android:padding">2dp</item>
-        <item name="android:textSize">@dimen/textsize_12</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
         <item name="android:textColor">@android:color/black</item>
         <item name="android:gravity">right</item>
         <item name="android:layout_gravity">center_vertical</item>

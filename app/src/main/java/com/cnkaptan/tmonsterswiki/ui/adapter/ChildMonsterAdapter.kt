@@ -55,7 +55,7 @@ class ChildMonsterAdapter(
         Log.e("ChildMonster",drawableId)
         Picasso.get()
             .load(drawableId)
-            .placeholder(R.drawable.tm_splash_image)
+            .placeholder(R.drawable.splash_logo)
             .into(holder.ivMonster)
 
         holder.itemView.setOnClickListener {

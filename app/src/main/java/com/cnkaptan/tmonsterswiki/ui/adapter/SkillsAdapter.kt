@@ -30,7 +30,7 @@ class SkillsAdapter(
         val monsterImageUrl = "http://78.24.221.246:81/build/images/${skillEntity.getDrawResName()}.png"
             Picasso.get()
                 .load(monsterImageUrl)
-                .placeholder(R.drawable.tm_splash_image)
+                .placeholder(R.drawable.splash_logo)
                 .into(holder.ivSkill)
 
         holder.itemView.setOnClickListener {

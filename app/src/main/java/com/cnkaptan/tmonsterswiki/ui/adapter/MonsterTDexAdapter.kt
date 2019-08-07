@@ -48,10 +48,10 @@ class MonsterTDexAdapter(
         if (drawableId > 0) {
             Picasso.get()
                 .load(drawableId)
-                .placeholder(R.drawable.tm_splash_image)
+                .placeholder(R.drawable.splash_logo)
                 .into(holder.ivMonster)
         } else {
-            holder.ivMonster.setImageResource(R.drawable.tm_splash_image)
+            holder.ivMonster.setImageResource(R.drawable.splash_logo)
         }
 
     }

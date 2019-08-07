@@ -29,7 +29,7 @@ class TagsAdapter(val context: Context, val tags: List<TagEntity>, val listener:
         if (drawableId > 0) {
             Picasso.get().load(drawableId).into(holder.ivTag)
         } else {
-            holder.ivTag.setImageResource(R.drawable.tm_splash_image)
+            holder.ivTag.setImageResource(R.drawable.splash_logo)
         }
 
         holder.itemView.setOnClickListener {

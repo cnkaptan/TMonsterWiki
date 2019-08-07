@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.*
@@ -27,8 +28,10 @@ import com.cnkaptan.tmonsterswiki.ui.base.BaseActivity
 import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterDetailViewModel
 import com.cnkaptan.tmonsterswiki.utils.Constants
 import com.crashlytics.android.Crashlytics
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import org.json.JSONObject
+import java.lang.Exception
 import javax.inject.Inject
 
 class MonsterDetailActivity : BaseActivity() {
@@ -173,7 +176,7 @@ class MonsterDetailActivity : BaseActivity() {
         val monsterImageUrl = "http://78.24.221.246:81/build/images/$monsterDrawRes.png"
 
         Picasso.get().load(monsterImageUrl)
-            .placeholder(R.drawable.tm_splash_image)
+            .placeholder(R.drawable.splash_logo)
             .into(ivMonster)
 
         val frameColor = when (monsterEntity.rarity) {
@@ -184,13 +187,23 @@ class MonsterDetailActivity : BaseActivity() {
         }
         ivMonster.setBackgroundResource(frameColor)
 
-
         val monsterArtworkDrawRes = "artwork_$monsterDrawRes"
         val monsterArtImageURl = "http://78.24.221.246:81/build/images/$monsterArtworkDrawRes.png"
 
         Picasso.get()
             .load(monsterArtImageURl)
-            .into(ivMonsterArtwork)
+            .into(ivMonsterArtwork, object : Callback {
+                override fun onSuccess() {
+
+                }
+
+                override fun onError(e: Exception?) {
+                    Picasso.get()
+                        .load(R.drawable.artwork_default)
+                        .into(ivMonsterArtwork)
+                }
+
+            })
     }
 
     companion object {
