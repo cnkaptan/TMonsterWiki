@@ -12,6 +12,7 @@
             android:layout_height="@dimen/monster_size"
             android:scaleType="centerCrop"
             android:src="@drawable/wukong"
+            android:transitionName="imageMain"
             android:layout_centerHorizontal="true"
             android:background="@drawable/legendary_frame"
             android:padding="4dp"/>

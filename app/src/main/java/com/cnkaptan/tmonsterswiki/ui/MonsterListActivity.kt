@@ -1,7 +1,9 @@
 package com.cnkaptan.tmonsterswiki.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -48,12 +50,19 @@ class MonsterListActivity : BaseActivity() {
         initView()
         initViewModel()
 
-        // Obtain the FirebaseAnalytics instance.
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
     }
 
     private fun initView() {
-        monsterAdapter = MonsterAdapter(applicationContext)
+        monsterAdapter = MonsterAdapter(applicationContext){ id, imageView->
+            val activityOptionsCompat = ActivityOptionsCompat
+                .makeSceneTransitionAnimation(this,imageView,"imageMain")
+
+            val detailIntent = MonsterDetailActivity.newIntent(this, id)
+            detailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(detailIntent,activityOptionsCompat.toBundle())
+        }
+
         rvMonsterList = findViewById(R.id.rvMonsterList)
         rvMonsterList.apply {
             setHasFixedSize(true)

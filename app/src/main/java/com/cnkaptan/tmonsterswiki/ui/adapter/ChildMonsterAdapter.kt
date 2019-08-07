@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.cnkaptan.tmonsterswiki.R
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
@@ -17,7 +18,8 @@ import com.squareup.picasso.Picasso
 class ChildMonsterAdapter(
     private val context: Context,
     private val rarity: Int,
-    private val childMonsters: List<MonsterEntity>
+    private val childMonsters: List<MonsterEntity>,
+    private val listener: (Int,View) -> Unit
 ) : RecyclerView.Adapter<ChildMonsterAdapter.MonsterViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MonsterViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_layout_monster, parent, false)
@@ -59,14 +61,12 @@ class ChildMonsterAdapter(
             .into(holder.ivMonster)
 
         holder.itemView.setOnClickListener {
-            val detailIntent = MonsterDetailActivity.newIntent(context, childMonster.id)
-            detailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            context.startActivity(detailIntent)
+            listener(childMonster.id,holder.itemView)
         }
 
     }
 
-    class MonsterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class MonsterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvMonsterName: TextView = itemView.findViewById(R.id.tvMonsterName)
         val ivMonster: ImageView = itemView.findViewById(R.id.ivMonster)
     }

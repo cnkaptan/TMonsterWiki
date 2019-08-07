@@ -49,6 +49,7 @@
                     android:layout_height="@dimen/monster_size_detail"
                     android:src="@drawable/wukong"
                     android:padding="4dp"
+                    android:transitionName="imageMain"
                     android:background="@drawable/legendary_frame"
                     app:layout_constraintTop_toTopOf="@id/view_tags_shadow"
                     android:layout_marginLeft="16dp"

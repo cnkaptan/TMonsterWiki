@@ -11,7 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cnkaptan.tmonsterswiki.R
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
 
-class MonsterAdapter(private val context: Context) : RecyclerView.Adapter<MonsterAdapter.MonsterViewHolder>() {
+class MonsterAdapter(
+    private val context: Context,
+    private val listener: (Int, View) -> Unit
+) : RecyclerView.Adapter<MonsterAdapter.MonsterViewHolder>() {
     private var monstersGroups: List<Map.Entry<Int, List<MonsterEntity>>> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MonsterViewHolder {
@@ -24,7 +27,7 @@ class MonsterAdapter(private val context: Context) : RecyclerView.Adapter<Monste
     override fun onBindViewHolder(holder: MonsterViewHolder, position: Int) {
 
         val entry = monstersGroups[position]
-        val childMonsterAdapter = ChildMonsterAdapter(context, entry.key, entry.value)
+        val childMonsterAdapter = ChildMonsterAdapter(context, entry.key, entry.value,listener)
         holder.tvTitle.text = when (entry.key) {
             1 -> context.resources.getString(R.string.monsters_common)
             2 -> context.resources.getString(R.string.monsters_epic)
