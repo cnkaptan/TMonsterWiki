@@ -7,9 +7,10 @@ import android.util.Log
 import com.cnkaptan.tmonsterswiki.di.component.AppComponent
 import com.cnkaptan.tmonsterswiki.di.component.DaggerAppComponent
 import com.squareup.picasso.LruCache
+import com.squareup.picasso.OkHttp3Downloader
 import com.squareup.picasso.Picasso
 
-class AppController: Application() {
+class AppController : Application() {
 
     lateinit var appComponent: AppComponent
 
@@ -26,6 +27,9 @@ class AppController: Application() {
         }
 
         val builder = Picasso.Builder(this)
+            .downloader(OkHttp3Downloader(this, Long.MAX_VALUE))
+            .indicatorsEnabled(true)
+            .loggingEnabled(true)
             .memoryCache(LruCache(getBytesForMemCache(12)))
             .requestTransformer(requestTransformer)
 
