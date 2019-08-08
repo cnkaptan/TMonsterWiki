@@ -6,7 +6,50 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="@color/colorBlack"
         tools:context=".ui.MonsterListActivity">
+
+    <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+            android:id="@+id/buttonGroup_starWars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="1dp"
+            android:elevation="1dp"
+            android:background="@color/colorBlack"
+            app:divider="@color/lightBlue"
+            app:dividerPadding="1dp"
+            app:dividerRadius="1dp"
+            app:dividerWidth="2dp"
+            app:position="1"
+            app:radius="2dp"
+            app:rippleColor="@color/lightRed"
+            app:selectedBackground="@color/normalButtonColor">
+
+        <com.addisonelliott.segmentedbutton.SegmentedButton
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_weight="3"
+                app:drawablePadding="2dp"
+                android:padding="@dimen/margin_4"
+                app:drawable="@drawable/icon_attr_hp"/>
+
+        <com.addisonelliott.segmentedbutton.SegmentedButton
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_weight="4"
+                android:padding="@dimen/margin_4"
+                app:drawable="@drawable/icon_attr_dmg"/>
+
+        <com.addisonelliott.segmentedbutton.SegmentedButton
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_weight="3"
+                android:padding="@dimen/margin_4"
+                app:drawable="@drawable/icon_attr_speed"/>
+
+    </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
+
 
     <LinearLayout
             android:layout_width="match_parent"

@@ -112,4 +112,5 @@ dependencies {
     implementation 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.2.0'
 
     implementation 'com.github.siyamed:android-shape-imageview:0.9.3@aar'
+    implementation 'com.github.addisonelliott:SegmentedButton:3.1.4'
 }

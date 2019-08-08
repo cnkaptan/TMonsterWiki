@@ -8,6 +8,7 @@
     <color name="colorEpicFrame">#00A1FF</color>
     <color name="colorMonstrousFrame">#C62BF7</color>
     <color name="colorLegendaryFrame">#EC9F34</color>
+    <color name="colorBlack">#121212</color>
 
     <color name="lightBlue">#2196F3</color>
     <color name="lightPink">#FF8A84</color>
