@@ -58,6 +58,7 @@ class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener, RadioGro
             setHasFixedSize(true)
             adapter = monsterTDexAdapter
             monsterTDexAdapter.updateMonster(monsterEntity)
+            //For commit
         }
     }
 
