@@ -17,14 +17,14 @@
             android:layout_margin="1dp"
             android:elevation="1dp"
             android:background="@color/colorBlack"
-            app:divider="@color/lightBlue"
+            app:divider="@color/colorBlack"
             app:dividerPadding="1dp"
             app:dividerRadius="1dp"
             app:dividerWidth="2dp"
             app:position="1"
             app:radius="2dp"
-            app:rippleColor="@color/lightRed"
-            app:selectedBackground="@color/normalButtonColor">
+            app:rippleColor="@color/colorGrey"
+            app:selectedBackground="@color/colorGrey">
 
         <com.addisonelliott.segmentedbutton.SegmentedButton
                 android:layout_width="0dp"
@@ -94,6 +94,7 @@
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvMonsterDexList"
             android:padding="10dp"
+            android:background="@color/colorBlack"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
