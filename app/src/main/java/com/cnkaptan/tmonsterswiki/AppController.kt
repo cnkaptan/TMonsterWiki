@@ -28,8 +28,8 @@ class AppController : Application() {
 
         val builder = Picasso.Builder(this)
             .downloader(OkHttp3Downloader(this, Long.MAX_VALUE))
-            .indicatorsEnabled(true)
-            .loggingEnabled(true)
+            .indicatorsEnabled(BuildConfig.DEBUG)
+            .loggingEnabled(BuildConfig.DEBUG)
             .memoryCache(LruCache(getBytesForMemCache(12)))
             .requestTransformer(requestTransformer)
 

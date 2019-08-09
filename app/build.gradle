@@ -13,7 +13,7 @@ android {
         applicationId "com.cnkaptan.tmonsterswiki"
         minSdkVersion build_versions.min_sdk
         targetSdkVersion build_versions.target_sdk
-        versionCode 3
+        versionCode 4
         versionName "0.0.4"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
