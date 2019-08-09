@@ -63,7 +63,7 @@ class ChildMonsterAdapter(
         holder.itemView.setOnClickListener {
             listener(childMonster.id,holder.itemView)
         }
-
+        //Dev Commit
     }
 
     inner class MonsterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
