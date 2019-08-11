@@ -12,14 +12,14 @@
     <style name="TableTextViewStyle">
         <item name="android:padding">2dp</item>
         <item name="android:textSize">@dimen/text_size_12</item>
-        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColor">?colorAccent</item>
         <item name="android:gravity">right</item>
         <item name="android:layout_gravity">center_vertical</item>
     </style>
 
     <style name="TableTextViewStyle.Bold">
         <item name="android:padding">2dp</item>
-        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColor">?colorAccent</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:textStyle">bold</item>

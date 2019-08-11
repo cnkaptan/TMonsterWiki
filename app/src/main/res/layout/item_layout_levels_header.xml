@@ -16,8 +16,7 @@
             android:orientation="horizontal"
             android:divider="@drawable/table_divider"
             android:showDividers="middle|beginning|end"
-            android:weightSum="7"
-            android:background="#CCCCCC">
+            android:weightSum="7">
 
 
         <androidx.appcompat.widget.AppCompatTextView

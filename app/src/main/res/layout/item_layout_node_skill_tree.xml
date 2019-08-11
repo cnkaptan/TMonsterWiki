@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="wrap_content" android:layout_height="wrap_content">
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
 
     <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivSeperator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintVertical_bias="0.4"
             android:src="@drawable/ic_arrow_forward_black_24dp"
-            android:layout_marginRight="54dp"
-            android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_centerVertical="true"
             android:textSize="@dimen/text_size_12"
 
@@ -21,15 +26,17 @@
             android:id="@+id/cv_container_skill_icon"
             android:layout_width="@dimen/skill_tree_icon_size"
             android:layout_height="@dimen/skill_tree_icon_size"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/tvSkillName"
+            app:layout_constraintLeft_toRightOf="@id/ivSeperator"
+            android:layout_margin="@dimen/margin_8"
             android:src="@drawable/wukong"
-            app:cardCornerRadius="8dp"
-            android:layout_centerHorizontal="true"
-            android:layout_toEndOf="@id/ivSeperator"
             android:innerRadius="0dp"
             android:shape="ring"
             android:thicknessRatio="1.9"
-            app:cardElevation="4dp"
-            android:layout_margin="@dimen/margin_8">
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
         <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivSkill"
                 android:layout_width="@dimen/skill_tree_icon_size"
@@ -38,16 +45,22 @@
                 android:layout_gravity="center"/>
     </androidx.cardview.widget.CardView>
 
+
     <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvSkillName"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Skill Name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/cv_container_skill_icon"
+            app:layout_constraintRight_toRightOf="@id/cv_container_skill_icon"
             android:textSize="@dimen/text_size_12"
+            android:gravity="center_horizontal"
+            android:ems="5"
             android:minLines="2"
-            android:textColor="@android:color/black"
+            android:textColor="@color/colorAccent"
             android:textStyle="bold"
-            android:layout_below="@id/cv_container_skill_icon"
-            android:layout_centerHorizontal="true"/>
-</RelativeLayout>
+            tools:text="Mammoth Shockwave  III"
+            style="@style/TextAppearance.AppCompat.Caption"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 

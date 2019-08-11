@@ -104,10 +104,6 @@ class MonsterDetailViewModel @Inject constructor(private val monsterRepository: 
             val skillsIDList: MutableList<Int> = mutableListOf()
             val skillChanges = mutableListOf<SkillChanges>()
             var inSkillId = skillId
-//            Log.e("skillChanges", inSkillId.toString())
-//            levelsList.forEach {
-//                Log.e("Levels", "$it")
-//            }
             for (i in 0 until levelsList.size) {
                 val levelEntity = levelsList[i]
                 Log.e(TAG, levelEntity.toString())
