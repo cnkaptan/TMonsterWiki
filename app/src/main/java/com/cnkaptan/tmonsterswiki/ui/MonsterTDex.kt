@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
+import com.addisonelliott.segmentedbutton.SegmentedButtonGroup
 import com.cnkaptan.tmonsterswiki.AppController
 import com.cnkaptan.tmonsterswiki.R
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
@@ -17,8 +18,11 @@ import com.cnkaptan.tmonsterswiki.ui.adapter.MonsterTDexAdapter
 import com.cnkaptan.tmonsterswiki.ui.base.BaseActivity
 import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterTDexViewModel
 import javax.inject.Inject
+import com.addisonelliott.segmentedbutton.SegmentedButtonGroup.OnPositionChangedListener
 
-class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener, RadioGroup.OnCheckedChangeListener {
+
+
+class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener,SegmentedButtonGroup.OnPositionChangedListener {
     override val TAG: String
         get() = MonsterTDex::class.java.simpleName
 
@@ -28,8 +32,12 @@ class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener, RadioGro
     @BindView(R.id.spn_monster_dex)
     lateinit var spnLevels: Spinner
 
-    @BindView(R.id.rgSkill)
-    lateinit var rgSkills: RadioGroup
+   // @BindView(R.id.rgSkill)
+   // lateinit var rgSkills: RadioGroup
+
+
+    @BindView(R.id.segmentedButtonGroup)
+    lateinit var sbGroup: SegmentedButtonGroup
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -46,7 +54,9 @@ class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener, RadioGro
         (application as AppController).appComponent.inject(this)
         ButterKnife.bind(this)
         initViewModel()
-        rgSkills.setOnCheckedChangeListener(this)
+      //  rgSkills.setOnCheckedChangeListener(this)
+        sbGroup.setOnPositionChangedListener(this)
+
         initSpinner()
     }
 
@@ -73,7 +83,7 @@ class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener, RadioGro
 
     private fun initSpinner() {
         val numbers = resources.getStringArray(R.array.level_numbers)
-        val aa = ArrayAdapter(this, android.R.layout.simple_spinner_item, numbers)
+        val aa = ArrayAdapter(this, R.layout.spinner_item, numbers)
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spnLevels.adapter = aa
     }
@@ -86,7 +96,25 @@ class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener, RadioGro
     override fun onNothingSelected(p0: AdapterView<*>?) {
     }
 
-    override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
+   /* override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
+        when (checkedId) {
+            R.id.rbHealth -> {
+                val sortedListHp = sortListByAsc.sortedWith(compareBy { it.levels.get(selectedLevel).hp })
+                monsterTDexAdapter.updateMonster(sortedListHp)
+            }
+            R.id.rbDamage -> {
+                val sortedListDmg = sortListByAsc.sortedWith(compareBy { it.levels.get(selectedLevel).dmg })
+                monsterTDexAdapter.updateMonster(sortedListDmg)
+            }
+            else -> {
+                val sortedListMove = sortListByAsc.sortedWith(compareBy { it.levels.get(selectedLevel).speed })
+                monsterTDexAdapter.updateMonster(sortedListMove)
+            }
+        }
+    }*/
+
+
+    override fun onPositionChanged(checkedId: Int) {
         when (checkedId) {
             R.id.rbHealth -> {
                 val sortedListHp = sortListByAsc.sortedWith(compareBy { it.levels.get(selectedLevel).hp })
@@ -102,4 +130,6 @@ class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener, RadioGro
             }
         }
     }
+
+
 }

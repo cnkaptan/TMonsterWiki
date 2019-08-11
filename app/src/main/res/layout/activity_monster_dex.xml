@@ -9,85 +9,74 @@
         android:background="@color/colorBlack"
         tools:context=".ui.MonsterListActivity">
 
-    <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
-            android:id="@+id/buttonGroup_starWars"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="1dp"
-            android:elevation="1dp"
-            android:background="@color/colorBlack"
-            app:divider="@color/colorBlack"
-            app:dividerPadding="1dp"
-            app:dividerRadius="1dp"
-            app:dividerWidth="2dp"
-            app:position="1"
-            app:radius="2dp"
-            app:rippleColor="@color/colorGrey"
-            app:selectedBackground="@color/colorGrey">
-
-        <com.addisonelliott.segmentedbutton.SegmentedButton
-                android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:layout_weight="3"
-                app:drawablePadding="2dp"
-                android:padding="@dimen/margin_4"
-                app:drawable="@drawable/icon_attr_hp"/>
-
-        <com.addisonelliott.segmentedbutton.SegmentedButton
-                android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:layout_weight="4"
-                android:padding="@dimen/margin_4"
-                app:drawable="@drawable/icon_attr_dmg"/>
-
-        <com.addisonelliott.segmentedbutton.SegmentedButton
-                android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:layout_weight="3"
-                android:padding="@dimen/margin_4"
-                app:drawable="@drawable/icon_attr_speed"/>
-
-    </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
-
-
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:paddingLeft="10dp"
             android:orientation="horizontal">
 
-        <RadioGroup
-                android:id="@+id/rgSkill"
+        <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+                android:id="@+id/segmentedButtonGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-            <androidx.appcompat.widget.AppCompatRadioButton
-                    android:id="@+id/rbHealth"
-                    android:text="Health"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            <androidx.appcompat.widget.AppCompatRadioButton
-                    android:id="@+id/rbDamage"
-                    android:text="Damage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            <androidx.appcompat.widget.AppCompatRadioButton
-                    android:id="@+id/rbSpeed"
-                    android:text="Speed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="1dp"
+                android:elevation="1dp"
+                app:borderColor="@color/colorLegendaryFrame"
+                app:borderWidth="1dp"
+                android:background="@color/colorBlack"
+                app:divider="@color/colorLegendaryFrame"
+                app:dividerPadding="1dp"
+                app:dividerRadius="1dp"
+                app:dividerWidth="2dp"
+                app:position="0"
+                app:radius="30dp"
+                app:rippleColor="@color/colorGrey"
+                app:selectedBackground="@color/colorGrey">
 
-        </RadioGroup>
+            <com.addisonelliott.segmentedbutton.SegmentedButton
+                    android:id="@+id/rbHealth"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    app:drawable="@drawable/icon_attr_hp"
+                    app:drawableGravity="top"/>
+
+            <com.addisonelliott.segmentedbutton.SegmentedButton
+                    android:id="@+id/rbDamage"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    app:drawable="@drawable/icon_attr_dmg"
+                    app:drawableGravity="top"/>
+
+            <com.addisonelliott.segmentedbutton.SegmentedButton
+                    android:id="@+id/rbSpeed"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    app:drawable="@drawable/icon_attr_speed"
+                    app:drawableGravity="top"/>
+        </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
+
 
         <Spinner
                 android:id="@+id/spn_monster_dex"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="100dp"
-                android:layout_marginTop="5dp"
+                android:background="@drawable/spinner_background"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="1dp"
                 android:gravity="right|center_vertical">
 
         </Spinner>
+
+
+
 
     </LinearLayout>
 
