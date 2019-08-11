@@ -6,7 +6,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        >
+>
 
     <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -91,11 +91,82 @@
 
             </FrameLayout>
 
+            <RelativeLayout
+                    android:id="@+id/cv_container_skill_tree"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/fl_container_skills"
+                    android:layout_margin="@dimen/margin_8"
+                    android:visibility="gone">
+
+
+                <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_8"
+                        >
+
+                    <RelativeLayout android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="@dimen/margin_8">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvSkillName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:text="Fire Blast"
+                                android:textAppearance="@android:style/TextAppearance.Material.Title"/>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvSkillDesc"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/tvSkillName"
+                                tools:text="Fire Blast"
+                                android:layout_marginTop="@dimen/margin_4"
+                                android:textAppearance="@android:style/TextAppearance.Material.Caption"/>
+
+
+                        <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rvSkillChanges"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/tvSkillDesc"
+                                android:layout_marginBottom="@dimen/margin_4"
+                                android:layout_marginTop="@dimen/margin_4"/>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvSubSkillDesc"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/rvSkillChanges"
+                                tools:text="Fire Blast"
+                                android:layout_marginTop="@dimen/margin_8"
+                                android:visibility="gone"
+                                android:textAppearance="@android:style/TextAppearance.Material.Caption"/>
+
+
+                        <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/btnSkillDetailClose"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/tvSubSkillDesc"
+                                android:text="CLOSE"
+                                android:layout_marginTop="@dimen/margin_8"
+                                android:layout_alignParentRight="true"
+                                />
+
+                    </RelativeLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+            </RelativeLayout>
+
+
             <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cv_container_levels"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/fl_container_skills"
+                    app:layout_constraintTop_toBottomOf="@id/cv_container_skill_tree"
                     android:layout_margin="@dimen/margin_8">
 
                 <androidx.recyclerview.widget.RecyclerView

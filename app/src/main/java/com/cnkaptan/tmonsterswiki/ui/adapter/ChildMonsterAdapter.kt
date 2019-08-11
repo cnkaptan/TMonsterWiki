@@ -54,7 +54,7 @@ class ChildMonsterAdapter(
 
         val resourceName = childMonsters[position].getMonsterDrawCode()
         val drawableId = "http://78.24.221.246:81/build/images/$resourceName.png"
-        Log.e("ChildMonster",drawableId)
+//        Log.e("ChildMonster",drawableId)
         Picasso.get()
             .load(drawableId)
             .placeholder(R.drawable.splash_logo)

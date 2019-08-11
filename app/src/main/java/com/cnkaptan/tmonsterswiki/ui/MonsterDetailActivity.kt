@@ -8,6 +8,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.cardview.widget.CardView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -18,10 +19,12 @@ import butterknife.ButterKnife
 import com.cnkaptan.tmonsterswiki.AppController
 import com.cnkaptan.tmonsterswiki.R
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
+import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterLevelEntity
 import com.cnkaptan.tmonsterswiki.data.local.entity.SkillEntity
 import com.cnkaptan.tmonsterswiki.data.local.entity.TagEntity
 import com.cnkaptan.tmonsterswiki.data.repository.MonsterRepository
 import com.cnkaptan.tmonsterswiki.ui.adapter.MonsterLevelAdapter
+import com.cnkaptan.tmonsterswiki.ui.adapter.SkillEvoulationAdapter
 import com.cnkaptan.tmonsterswiki.ui.adapter.SkillsAdapter
 import com.cnkaptan.tmonsterswiki.ui.adapter.TagsAdapter
 import com.cnkaptan.tmonsterswiki.ui.base.BaseActivity
@@ -30,9 +33,14 @@ import com.cnkaptan.tmonsterswiki.utils.Constants
 import com.crashlytics.android.Crashlytics
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import io.reactivex.Flowable
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
 import org.json.JSONObject
 import java.lang.Exception
+import java.lang.StringBuilder
 import javax.inject.Inject
+import kotlin.math.abs
 
 class MonsterDetailActivity : BaseActivity() {
     override val TAG: String
@@ -46,6 +54,12 @@ class MonsterDetailActivity : BaseActivity() {
 
     @BindView(R.id.rvSkills)
     lateinit var rvSkills: RecyclerView
+
+    @BindView(R.id.rvSkillChanges)
+    lateinit var rvSkillChanges: RecyclerView
+
+    @BindView(R.id.cv_container_skill_tree)
+    lateinit var cvSkillTree: RelativeLayout
 
     @BindView(R.id.ivMonster)
     lateinit var ivMonster: ImageView
@@ -64,6 +78,18 @@ class MonsterDetailActivity : BaseActivity() {
 
     @BindView(R.id.btnClose)
     lateinit var btnClose: Button
+
+    @BindView(R.id.tvSkillName)
+    lateinit var tvSkillName: TextView
+
+    @BindView(R.id.tvSkillDesc)
+    lateinit var tvSkillDesc: TextView
+
+    @BindView(R.id.tvSubSkillDesc)
+    lateinit var tvSubSkillDesc: TextView
+
+    @BindView(R.id.btnSkillDetailClose)
+    lateinit var btnSkillDetailClose: Button
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -108,6 +134,10 @@ class MonsterDetailActivity : BaseActivity() {
         }
         val typeFace = Typeface.createFromAsset(applicationContext.assets, Constants.MONSTERNAMEFONT)
         tvMonsterName.typeface = typeFace
+
+
+        rvSkillChanges.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        rvSkillChanges.hasFixedSize()
     }
 
     private fun initSkillList(skillList: List<SkillEntity>) {
@@ -116,7 +146,8 @@ class MonsterDetailActivity : BaseActivity() {
             setHasFixedSize(true)
             adapter = SkillsAdapter(context, skillList) {
                 val descripton = getFormattedDescription(it)
-                openInfoView(descripton)
+//                openInfoView(descripton)
+                printSkillTree(it)
             }
         }
     }
@@ -168,6 +199,7 @@ class MonsterDetailActivity : BaseActivity() {
         monsterDetailViewModel.getTagListLD().observe(this, Observer {
             initTagsList(it)
         })
+
     }
 
     private fun initImage(monsterEntity: MonsterEntity) {
@@ -206,6 +238,30 @@ class MonsterDetailActivity : BaseActivity() {
             })
     }
 
+
+    fun printSkillTree(skill: SkillEntity) {
+        tvSkillName.text = skill.name
+        tvSkillDesc.text = getFormattedDescription(skill)
+        btnSkillDetailClose.setOnClickListener {
+            cvSkillTree.visibility = View.GONE
+        }
+
+        disposibleContainer.add(
+            monsterDetailViewModel.getEvoluationSkillSet(skillId = skill.id)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ skillChangesList ->
+                    val adapter = SkillEvoulationAdapter(skillChangesList){
+                        tvSubSkillDesc.text = getFormattedDescription(it)
+                        tvSubSkillDesc.visibility = View.VISIBLE
+                    }
+                    rvSkillChanges.adapter = adapter
+                    cvSkillTree.visibility = View.VISIBLE
+                }, {
+                    Log.e(TAG, it.message, it)
+                })
+        )
+    }
+
     companion object {
         const val ARG_MONSTER_ID = "ARG_MONSTER_ID"
 
@@ -216,3 +272,17 @@ class MonsterDetailActivity : BaseActivity() {
         }
     }
 }
+
+sealed class Status
+
+object ADD : Status()
+object CHANGE : Status()
+object DONE : Status()
+
+data class SkillChanges(
+    val Status: Status,
+    val skillId: Int?,
+    val outSkillId: Int?,
+    val inSkillId: Int?,
+    val levelEntity: MonsterLevelEntity
+)

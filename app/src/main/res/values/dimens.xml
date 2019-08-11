@@ -9,6 +9,7 @@
     <dimen name="text_size_16">16sp</dimen>
     <dimen name="text_size_18">18sp</dimen>
     <dimen name="text_size_24">24sp</dimen>
+    <dimen name="skill_tree_icon_size">64dp</dimen>
     <dimen name="monster_size">80dp</dimen>
     <dimen name="monster_size_detail">120dp</dimen>
 </resources>

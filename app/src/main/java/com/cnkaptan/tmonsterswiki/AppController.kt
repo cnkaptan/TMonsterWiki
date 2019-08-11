@@ -6,6 +6,7 @@ import android.content.Context
 import android.util.Log
 import com.cnkaptan.tmonsterswiki.di.component.AppComponent
 import com.cnkaptan.tmonsterswiki.di.component.DaggerAppComponent
+import com.squareup.picasso.Cache
 import com.squareup.picasso.LruCache
 import com.squareup.picasso.OkHttp3Downloader
 import com.squareup.picasso.Picasso
@@ -30,7 +31,7 @@ class AppController : Application() {
             .downloader(OkHttp3Downloader(this, Long.MAX_VALUE))
             .indicatorsEnabled(BuildConfig.DEBUG)
             .loggingEnabled(BuildConfig.DEBUG)
-            .memoryCache(LruCache(getBytesForMemCache(12)))
+            .memoryCache(LruCache(getBytesForMemCache(12)) as Cache)
             .requestTransformer(requestTransformer)
 
         Picasso.setSingletonInstance(builder.build())

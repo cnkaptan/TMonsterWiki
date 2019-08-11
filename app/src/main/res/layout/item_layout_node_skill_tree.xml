@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="wrap_content" android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivSeperator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_forward_black_24dp"
+            android:layout_marginRight="54dp"
+            android:layout_marginLeft="8dp"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/text_size_12"
+
+    />
+
+    <androidx.cardview.widget.CardView
+            android:id="@+id/cv_container_skill_icon"
+            android:layout_width="@dimen/skill_tree_icon_size"
+            android:layout_height="@dimen/skill_tree_icon_size"
+            android:src="@drawable/wukong"
+            app:cardCornerRadius="8dp"
+            android:layout_centerHorizontal="true"
+            android:layout_toEndOf="@id/ivSeperator"
+            android:innerRadius="0dp"
+            android:shape="ring"
+            android:thicknessRatio="1.9"
+            app:cardElevation="4dp"
+            android:layout_margin="@dimen/margin_8">
+        <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivSkill"
+                android:layout_width="@dimen/skill_tree_icon_size"
+                android:layout_height="@dimen/skill_tree_icon_size"
+                android:src="@drawable/wukong"
+                android:layout_gravity="center"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvSkillName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Skill Name"
+            android:textSize="@dimen/text_size_12"
+            android:minLines="2"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:layout_below="@id/cv_container_skill_icon"
+            android:layout_centerHorizontal="true"/>
+</RelativeLayout>
+
