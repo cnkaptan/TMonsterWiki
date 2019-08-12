@@ -18,11 +18,10 @@ import com.cnkaptan.tmonsterswiki.ui.adapter.MonsterTDexAdapter
 import com.cnkaptan.tmonsterswiki.ui.base.BaseActivity
 import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterTDexViewModel
 import javax.inject.Inject
-import com.addisonelliott.segmentedbutton.SegmentedButtonGroup.OnPositionChangedListener
 
 
 
-class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener,SegmentedButtonGroup.OnPositionChangedListener {
+class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener {
     override val TAG: String
         get() = MonsterTDex::class.java.simpleName
 
@@ -31,10 +30,6 @@ class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener,Segmented
 
     @BindView(R.id.spn_monster_dex)
     lateinit var spnLevels: Spinner
-
-   // @BindView(R.id.rgSkill)
-   // lateinit var rgSkills: RadioGroup
-
 
     @BindView(R.id.segmentedButtonGroup)
     lateinit var sbGroup: SegmentedButtonGroup
@@ -54,8 +49,9 @@ class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener,Segmented
         (application as AppController).appComponent.inject(this)
         ButterKnife.bind(this)
         initViewModel()
-      //  rgSkills.setOnCheckedChangeListener(this)
-        sbGroup.setOnPositionChangedListener(this)
+
+      //  sbGroup.setOnPositionChangedListener(this)
+
 
         initSpinner()
     }
@@ -68,7 +64,6 @@ class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener,Segmented
             setHasFixedSize(true)
             adapter = monsterTDexAdapter
             monsterTDexAdapter.updateMonster(monsterEntity)
-            //For commit
         }
     }
 
@@ -89,8 +84,13 @@ class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener,Segmented
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-        monsterTDexAdapter.updateLevel(p2)
-        selectedLevel = p2
+        if(p1!!.equals("Select Level")){
+            monsterTDexAdapter.updateLevel(0)
+            selectedLevel=0
+        }else{
+            monsterTDexAdapter.updateLevel(p2)
+            selectedLevel = p2
+        }
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -114,7 +114,7 @@ class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener,Segmented
     }*/
 
 
-    override fun onPositionChanged(checkedId: Int) {
+  /*  override fun onPositionChanged(checkedId: Int) {
         when (checkedId) {
             R.id.rbHealth -> {
                 val sortedListHp = sortListByAsc.sortedWith(compareBy { it.levels.get(selectedLevel).hp })
@@ -129,7 +129,7 @@ class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener,Segmented
                 monsterTDexAdapter.updateMonster(sortedListMove)
             }
         }
-    }
+    }*/
 
 
 }
