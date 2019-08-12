@@ -1,37 +1,32 @@
 package com.cnkaptan.tmonsterswiki.ui.adapter
 
 import android.content.Context
-import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.cnkaptan.tmonsterswiki.R
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
-import com.cnkaptan.tmonsterswiki.ui.MonsterDetailActivity
 import com.squareup.picasso.Picasso
 
-class ChildMonsterAdapter(
+class SearchMonsterAdapter(
     private val context: Context,
-    private val rarity: Int,
-    private val childMonsters: List<MonsterEntity>,
-    private val listener: (Int,View) -> Unit
-) : RecyclerView.Adapter<ChildMonsterAdapter.MonsterViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MonsterViewHolder {
+    private val searchedMonsters: MutableList<MonsterEntity> = mutableListOf(),
+    private val listener: (Int, View) -> Unit
+) : RecyclerView.Adapter<SearchMonsterAdapter.SearchMonsterViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchMonsterViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_layout_monster, parent, false)
-        return MonsterViewHolder(itemView)
+        return SearchMonsterViewHolder(itemView)
     }
 
-    override fun getItemCount() = childMonsters.size
+    override fun getItemCount() = searchedMonsters.size
 
-    override fun onBindViewHolder(holder: MonsterViewHolder, position: Int) {
-        val childMonster = childMonsters[position]
-        holder.tvMonsterName.text = childMonsters[position].name
-        val frameColor = when (rarity) {
+    override fun onBindViewHolder(holder: SearchMonsterViewHolder, position: Int) {
+        val childMonster = searchedMonsters[position]
+        holder.tvMonsterName.text = childMonster.name
+        val frameColor = when (childMonster.rarity) {
             1 -> {
                 holder.tvMonsterName.setTextColor(context.resources.getColor(R.color.colorCommonFrame))
                 R.drawable.common_frame
@@ -52,9 +47,8 @@ class ChildMonsterAdapter(
 
         holder.ivMonster.setBackgroundResource(frameColor)
 
-        val resourceName = childMonsters[position].getMonsterDrawCode()
+        val resourceName = searchedMonsters[position].getMonsterDrawCode()
         val drawableId = "http://78.24.221.246:81/build/images/$resourceName.png"
-//        Log.e("ChildMonster",drawableId)
         Picasso.get()
             .load(drawableId)
             .placeholder(R.drawable.splash_logo)
@@ -63,10 +57,16 @@ class ChildMonsterAdapter(
         holder.itemView.setOnClickListener {
             listener(childMonster.id,holder.itemView)
         }
-        //Dev Commit
+
     }
 
-    class MonsterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    fun updateList(newFilteredList: List<MonsterEntity>){
+        searchedMonsters.clear()
+        searchedMonsters.addAll(newFilteredList)
+        notifyDataSetChanged()
+    }
+
+    class SearchMonsterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvMonsterName: TextView = itemView.findViewById(R.id.tvMonsterName)
         val ivMonster: ImageView = itemView.findViewById(R.id.ivMonster)
     }

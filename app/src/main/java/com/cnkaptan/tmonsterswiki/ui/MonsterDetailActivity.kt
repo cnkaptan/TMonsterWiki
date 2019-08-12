@@ -251,8 +251,14 @@ class MonsterDetailActivity : BaseActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ skillChangesList ->
                     val adapter = SkillEvoulationAdapter(skillChangesList){
-                        tvSubSkillDesc.text = getFormattedDescription(it)
-                        tvSubSkillDesc.visibility = View.VISIBLE
+                        if (it.id == skill.id){
+                            tvSubSkillDesc.text = ""
+                            tvSubSkillDesc.visibility = View.GONE
+                        }else{
+                            tvSubSkillDesc.text = getFormattedDescription(it)
+                            tvSubSkillDesc.visibility = View.VISIBLE
+                        }
+
                     }
                     rvSkillChanges.adapter = adapter
                     cvSkillTree.visibility = View.VISIBLE

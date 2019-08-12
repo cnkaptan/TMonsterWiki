@@ -36,7 +36,6 @@ class SkillEvoulationAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == ROOT) {
-            Log.e("position", "$position ROOT")
             val rootHolder = holder as RootViewHolder
             val skillEntity = skillsList[position]
             val monsterImageUrl = "http://78.24.221.246:81/build/images/${skillEntity.getDrawResName()}.png"
@@ -47,7 +46,6 @@ class SkillEvoulationAdapter(
 
             rootHolder.tvSkillName.text = skillEntity.name
         } else {
-            Log.e("position", "$position NODE")
             val nodeHolder = holder as NodeViewHolder
             val skillEntity = skillsList[position]
             val monsterImageUrl = "http://78.24.221.246:81/build/images/${skillEntity.getDrawResName()}.png"

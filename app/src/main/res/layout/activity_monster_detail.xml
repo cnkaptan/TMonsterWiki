@@ -21,7 +21,8 @@
             <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivMonsterArtwork"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="220dp"
+                    android:scaleType="centerCrop"
                     app:layout_constraintTop_toTopOf="parent"
                     android:adjustViewBounds="true"
                     android:src="@drawable/detail_main_image"/>
@@ -37,7 +38,7 @@
                     android:id="@+id/tvMonsterName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
+                    android:textColor="?colorAccent"
                     android:layout_marginLeft="@dimen/margin_16"
                     style="@style/TextAppearance.AppCompat.Headline"
                     app:layout_constraintTop_toBottomOf="@id/view_tags_shadow"
@@ -137,8 +138,9 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/rvSkillChanges"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
                                 android:layout_below="@id/tvSkillDesc"
                                 android:layout_marginBottom="@dimen/margin_4"
                                 android:layout_marginTop="@dimen/margin_4"/>
@@ -185,6 +187,7 @@
                         android:id="@+id/rvLevels"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
                         android:background="@drawable/table_background"
                         />
 

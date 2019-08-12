@@ -11,6 +11,7 @@
         release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
         like Aldus PageMaker including versions of Lorem Ipsum.
     </string>
+    <string name="hint_monster_name">Monster Name</string>
     <string-array name="level_numbers">
         <item>1</item>
         <item>2</item>
