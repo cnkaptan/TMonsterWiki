@@ -1,14 +1,17 @@
 package com.cnkaptan.tmonsterswiki.ui.adapter
 
 import android.content.Context
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cnkaptan.tmonsterswiki.R
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
+import com.cnkaptan.tmonsterswiki.utils.Constants
 import com.squareup.picasso.Picasso
 
 class MonsterTDexAdapter(
@@ -32,7 +35,13 @@ class MonsterTDexAdapter(
         holder.tvMonsterName.text = monsterEntity.name
         holder.tvMonsterHealth.text = monsterEntity.levels.get(level!!).hp.toString()
         holder.tvMonsterDamage.text = monsterEntity.levels.get(level!!).dmg.toString()
-        holder.tvMonsterMove.text = monsterEntity.levels.get(level!!).speed.toString()
+        holder.tvMonsterSpeed.text = monsterEntity.levels.get(level!!).speed.toString()
+        holder.tvMonsterMove.text = monsterEntity.levels.get(level!!).move.toString()
+        holder.tvMonsterHit.text = monsterEntity.levels.get(level!!).hit.toString()
+        holder.tvMonsterCrit.text = monsterEntity.levels.get(level!!).critical.toString()
+        holder.tvMonsterPhyDef.text = monsterEntity.levels.get(level!!).phyDef.toString()
+        holder.tvMonsterMagDef.text = monsterEntity.levels.get(level!!).magDef.toString()
+
 
         val frameColor = when (monsterEntity.rarity) {
             1 -> R.drawable.common_frame
@@ -48,12 +57,22 @@ class MonsterTDexAdapter(
         if (drawableId > 0) {
             Picasso.get()
                 .load(drawableId)
-                .placeholder(R.drawable.splash_logo)
+                .placeholder(R.drawable.tm_splash_image)
                 .into(holder.ivMonster)
         } else {
-            holder.ivMonster.setImageResource(R.drawable.splash_logo)
+            holder.ivMonster.setImageResource(R.drawable.tm_splash_image)
         }
 
+        val typeFace = Typeface.createFromAsset(context.assets, Constants.MONSTERDEXNAMEFONT)
+        holder.tvMonsterName.typeface = typeFace
+        holder.tvMonsterMove.typeface = typeFace
+        holder.tvMonsterSpeed.typeface = typeFace
+        holder.tvMonsterHit.typeface = typeFace
+        holder.tvMonsterCrit.typeface = typeFace
+        holder.tvMonsterPhyDef.typeface = typeFace
+        holder.tvMonsterMagDef.typeface = typeFace
+        holder.tvMonsterHealth.typeface = typeFace
+        holder.tvMonsterDamage.typeface = typeFace
     }
 
     fun updateLevel(getLevel: Int) {
@@ -71,7 +90,14 @@ class MonsterTDexAdapter(
         val tvMonsterName: TextView = itemView.findViewById(R.id.tvMonsterName)
         val tvMonsterHealth: TextView = itemView.findViewById(R.id.tvMonsterHealth)
         val tvMonsterDamage: TextView = itemView.findViewById(R.id.tvMonsterDamage)
-        val tvMonsterMove: TextView = itemView.findViewById(R.id.tvMonsterSpeed)
+        val tvMonsterSpeed: TextView = itemView.findViewById(R.id.tvMonsterSpeed)
+        val tvMonsterPhyDef: TextView = itemView.findViewById(R.id.tvMonsterPhyDef)
+        val tvMonsterMagDef: TextView = itemView.findViewById(R.id.tvMonsterMagDef)
+        val tvMonsterMove: TextView = itemView.findViewById(R.id.tvMonsterMove)
+        val tvMonsterHit: TextView = itemView.findViewById(R.id.tvMonsterHit)
+        val tvMonsterCrit: TextView = itemView.findViewById(R.id.tvMonsterCrit)
         val ivMonster: ImageView = itemView.findViewById(R.id.ivMonsterDex)
+
+
     }
 }

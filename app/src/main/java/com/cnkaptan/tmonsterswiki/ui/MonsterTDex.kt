@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
+import com.addisonelliott.segmentedbutton.SegmentedButtonGroup
 import com.cnkaptan.tmonsterswiki.AppController
 import com.cnkaptan.tmonsterswiki.R
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
@@ -18,7 +19,8 @@ import com.cnkaptan.tmonsterswiki.ui.base.BaseActivity
 import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterTDexViewModel
 import javax.inject.Inject
 
-class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener, RadioGroup.OnCheckedChangeListener {
+
+class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener, SegmentedButtonGroup.OnPositionChangedListener {
     override val TAG: String
         get() = MonsterTDex::class.java.simpleName
 
@@ -28,8 +30,8 @@ class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener, RadioGro
     @BindView(R.id.spn_monster_dex)
     lateinit var spnLevels: Spinner
 
-    @BindView(R.id.rgSkill)
-    lateinit var rgSkills: RadioGroup
+    @BindView(R.id.segmentedButtonGroup)
+    lateinit var sbGroup: SegmentedButtonGroup
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -38,6 +40,7 @@ class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener, RadioGro
     private lateinit var monsterTDexAdapter: MonsterTDexAdapter
 
     private var selectedLevel: Int = 0
+    private var selectedSegment: Int = 0
     private var sortListByAsc: List<MonsterEntity> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,13 +49,16 @@ class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener, RadioGro
         (application as AppController).appComponent.inject(this)
         ButterKnife.bind(this)
         initViewModel()
-        rgSkills.setOnCheckedChangeListener(this)
+
+        sbGroup.setOnPositionChangedListener(this)
+
         initSpinner()
     }
 
     private fun initView(monsterEntity: List<MonsterEntity>) {
         spnLevels.setOnItemSelectedListener(this)
         monsterTDexAdapter = MonsterTDexAdapter(applicationContext)
+        sbGroup.setPosition(0, true)
         rvMonsterDexList.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
@@ -72,33 +78,68 @@ class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener, RadioGro
 
     private fun initSpinner() {
         val numbers = resources.getStringArray(R.array.level_numbers)
-        val aa = ArrayAdapter(this, android.R.layout.simple_spinner_item, numbers)
+        val aa = ArrayAdapter(this, R.layout.item_spinner, numbers)
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spnLevels.adapter = aa
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-        monsterTDexAdapter.updateLevel(p2)
-        selectedLevel = p2
+        if (p1!!.equals("Select Level")) {
+            monsterTDexAdapter.updateLevel(0)
+            selectedLevel = 0
+        } else {
+            monsterTDexAdapter.updateLevel(p2)
+
+            when (selectedSegment) {
+                0 -> {
+                    sortHealthList(p2)
+                }
+                1 -> {
+                    sortDamageList(p2)
+                }
+                2 -> {
+                    sortSpeedList(p2)
+                }
+            }
+            selectedLevel = p2
+        }
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
     }
 
-    override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
+    override fun onPositionChanged(checkedId: Int) {
         when (checkedId) {
-            R.id.rbHealth -> {
-                val sortedListHp = sortListByAsc.sortedWith(compareBy { it.levels.get(selectedLevel).hp })
-                monsterTDexAdapter.updateMonster(sortedListHp)
+            0 -> {
+                selectedSegment = 0
+                sortHealthList(selectedLevel)
             }
-            R.id.rbDamage -> {
-                val sortedListDmg = sortListByAsc.sortedWith(compareBy { it.levels.get(selectedLevel).dmg })
-                monsterTDexAdapter.updateMonster(sortedListDmg)
+            1 -> {
+                selectedSegment = 1
+                sortDamageList(selectedLevel)
             }
             else -> {
-                val sortedListMove = sortListByAsc.sortedWith(compareBy { it.levels.get(selectedLevel).speed })
-                monsterTDexAdapter.updateMonster(sortedListMove)
+                selectedSegment = 2
+                sortSpeedList(selectedLevel)
             }
         }
+    }
+
+    private fun sortHealthList(level: Int) {
+        val sortedListHp = sortListByAsc.sortedWith(compareBy { it.levels.get(level).hp })
+            .reversed()
+        monsterTDexAdapter.updateMonster(sortedListHp)
+    }
+
+    private fun sortDamageList(level: Int) {
+        val sortedListDmg = sortListByAsc.sortedWith(compareBy { it.levels.get(level).dmg })
+            .reversed()
+        monsterTDexAdapter.updateMonster(sortedListDmg)
+    }
+
+    private fun sortSpeedList(level: Int) {
+        val sortedListSpeed = sortListByAsc.sortedWith(compareBy { it.levels.get(level).speed })
+            .reversed()
+        monsterTDexAdapter.updateMonster(sortedListSpeed)
     }
 }
