@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
 import com.cnkaptan.tmonsterswiki.data.repository.MonsterRepository
 import com.cnkaptan.tmonsterswiki.ui.base.BaseViewModel
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -19,7 +18,7 @@ class MonsterListViewModel @Inject constructor(private val monsterRepository: Mo
 
     fun loadMonsters() {
         disposibleContainer.add(
-            monsterRepository.getAllMonsters()
+            monsterRepository.getAllMonstersForVisiualize()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSuccess { monsterList.postValue(it) }

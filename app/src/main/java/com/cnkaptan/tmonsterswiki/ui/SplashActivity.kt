@@ -1,6 +1,5 @@
 package com.cnkaptan.tmonsterswiki.ui
 
-import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,7 +8,6 @@ import com.cnkaptan.tmonsterswiki.R
 import com.cnkaptan.tmonsterswiki.data.repository.MonsterRepository
 import com.cnkaptan.tmonsterswiki.ui.base.BaseActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class SplashActivity : BaseActivity() {
@@ -25,7 +23,7 @@ class SplashActivity : BaseActivity() {
         (application as AppController).appComponent.inject(this)
 
         disposibleContainer.add(
-            monsterRepository.downloadInitialInfos()
+            monsterRepository.getInitialAppData()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     startActivity(Intent(this, MonsterListActivity::class.java))

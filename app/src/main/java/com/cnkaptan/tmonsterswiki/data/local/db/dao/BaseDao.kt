@@ -11,7 +11,7 @@ import io.reactivex.Single
 interface BaseDao<T> {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertOrUpdate(monster: T)
+    fun insertOrUpdate(monster: T): Completable
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertList(monsters: List<T>): Completable

@@ -16,7 +16,7 @@ class MonsterTDexViewModel @Inject constructor(private val monsterRepository: Mo
 
     fun loadMonstersWithLevels() {
         disposibleContainer.add(
-            monsterRepository.getAllMonsters()
+            monsterRepository.getAllMonstersForVisiualize()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({

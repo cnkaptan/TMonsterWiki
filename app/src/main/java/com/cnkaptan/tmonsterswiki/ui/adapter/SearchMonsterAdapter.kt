@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cnkaptan.tmonsterswiki.R
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
+import com.cnkaptan.tmonsterswiki.di.module.ApiModule
 import com.squareup.picasso.Picasso
 
 class SearchMonsterAdapter(
@@ -48,7 +49,7 @@ class SearchMonsterAdapter(
         holder.ivMonster.setBackgroundResource(frameColor)
 
         val resourceName = searchedMonsters[position].getMonsterDrawCode()
-        val drawableId = "http://78.24.221.246:81/build/images/$resourceName.png"
+        val drawableId = "${ApiModule.BASE_IMAGE_URL}/$resourceName.png"
         Picasso.get()
             .load(drawableId)
             .placeholder(R.drawable.splash_logo)

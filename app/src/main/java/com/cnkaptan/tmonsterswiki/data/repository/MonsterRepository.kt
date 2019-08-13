@@ -22,10 +22,15 @@ class MonsterRepository @Inject constructor(
     private val skillsDao: SkillsDao
 ) {
 
-    fun insertMonster(monsterList: List<MonsterEntity>): Single<List<MonsterEntity>> {
+    fun insertMonsters(monsterList: List<MonsterEntity>): Single<List<MonsterEntity>> {
         return monsterDao.insertList(monsterList)
             .subscribeOn(Schedulers.io())
             .andThen(monsterDao.getAllMonsters())
+    }
+
+    fun insertSingleMonster(monster: MonsterEntity): Completable{
+        return monsterDao.insertOrUpdate(monster)
+            .subscribeOn(Schedulers.io())
     }
 
     fun insertMonsterLevels(levels: List<MonsterLevelEntity>): Single<List<MonsterLevelEntity>> {
@@ -34,45 +39,39 @@ class MonsterRepository @Inject constructor(
             .andThen(levelsDao.getLevels())
     }
 
-    fun getMonsterLevels(id: Int): Single<List<MonsterLevelEntity>> {
-        return monstersApi.fetchMonsterLevelsById(id)
-            .flatMap {
-                levelsDao.insertList(it)
-                    .andThen(levelsDao.getMonsterLevels(id))
-            }
-            .subscribeOn(Schedulers.io())
-    }
 
-    fun downloadInitialInfos(): Completable {
+    fun getInitialAppData(): Completable {
         return getLocalMonsters()
             .filter { t: List<MonsterEntity> -> t.isEmpty() }
             .flatMapCompletable {
+                Log.e("MonsterRepository", it.toString())
                 (monstersApi.fetchFetchMainInfos()
                     .doOnSuccess { (Log.e("Monster Repository", "Check")) }
-                    .flatMapCompletable {
-                        monsterDao.insertList(it.monsters)
-                            .andThen(tagsDao.insertList(it.tags))
-                            .andThen(skillsDao.insertList(it.skills))
+                    .flatMapCompletable {response->
+                        insertMonstersFromResponse(response)
+                            .andThen(tagsDao.insertList(response.tags))
+                            .andThen(skillsDao.insertList(response.skills))
                     })
             }.subscribeOn(Schedulers.io())
     }
 
-    fun downloadMonsterLevels(): Completable {
-        return getLocalLevels()
-            .filter { t: List<MonsterLevelEntity> -> t.isEmpty() }
-            .flatMapCompletable {
-                monstersApi.fetchFetchMainInfos()
-                    .toObservable()
-                    .flatMapIterable { t: MonsterMainResponse -> t.monsters }
-                    .flatMapCompletable { levelsDao.insertList(it.levels) }
-            }.subscribeOn(Schedulers.io())
+    private fun insertMonstersFromResponse(response: MonsterMainResponse): Completable {
+        return Flowable.fromIterable(response.monsters)
+            .flatMap {
+                insertSingleMonster(it)
+                    .andThen(Flowable.just(it))
+            }
+            .flatMap {
+                insertMonsterLevels(it.levels).toCompletable().andThen(Flowable.just(it))
+            }.toList()
+            .toCompletable()
     }
 
-    fun getAllMonsters(): Single<List<MonsterEntity>> {
-        return monsterDao.getAllMonsters().map { it.reversed() }
+    fun getAllMonstersForVisiualize(): Single<List<MonsterEntity>> {
+        return monsterDao.getAllMonsters()
+            .map { it.reversed() }
             .flatMapPublisher { Flowable.fromIterable(it) }
-            .filter { it.id != 410 && it.id != 318 }
-//            .doOnNext { Log.e("MonsterRepository", it.id.toString()) }
+            .filter { it.id != 318 }
             .toList()
     }
 
@@ -84,13 +83,6 @@ class MonsterRepository @Inject constructor(
         return tagsDao.getTagById(id)
     }
 
-    fun getAllTags(): Single<List<TagEntity>> {
-        return tagsDao.getAllTags()
-    }
-
-    fun getAllSkills(): Single<List<SkillEntity>> {
-        return skillsDao.getAllSkills()
-    }
 
     fun getSkillById(skillId: Int): Single<SkillEntity> {
         return skillsDao.getSkillById(skillId)
@@ -102,5 +94,10 @@ class MonsterRepository @Inject constructor(
 
     fun getLocalLevels(): Single<List<MonsterLevelEntity>> {
         return levelsDao.getLevels()
+    }
+
+    fun getMonsterLevelsByMonsterIdId(monsterId: Int): Single<List<MonsterLevelEntity>> {
+        return levelsDao.getMonsterLevels(monsterId)
+            .subscribeOn(Schedulers.io())
     }
 }

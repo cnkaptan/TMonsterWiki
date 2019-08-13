@@ -10,6 +10,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.cnkaptan.tmonsterswiki.R
 import com.cnkaptan.tmonsterswiki.data.local.entity.SkillEntity
+import com.cnkaptan.tmonsterswiki.di.module.ApiModule
 import com.squareup.picasso.Picasso
 
 class SkillsAdapter(
@@ -26,8 +27,7 @@ class SkillsAdapter(
 
     override fun onBindViewHolder(holder: SkillViewHolder, position: Int) {
         val skillEntity = skillList[holder.adapterPosition]
-//        Log.e("SkillsAdapter", skillEntity.getDrawResName())
-        val monsterImageUrl = "http://78.24.221.246:81/build/images/${skillEntity.getDrawResName()}.png"
+        val monsterImageUrl = "${ApiModule.BASE_IMAGE_URL}/${skillEntity.getDrawResName()}.png"
             Picasso.get()
                 .load(monsterImageUrl)
                 .placeholder(R.drawable.splash_logo)

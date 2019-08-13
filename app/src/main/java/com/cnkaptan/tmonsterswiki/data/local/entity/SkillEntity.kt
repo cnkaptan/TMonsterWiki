@@ -1,6 +1,7 @@
 package com.cnkaptan.tmonsterswiki.data.local.entity
 
 import androidx.annotation.NonNull
+import androidx.annotation.Nullable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -9,15 +10,13 @@ data class SkillEntity(
     @PrimaryKey
     @NonNull
     var id: Int = 0,
-    @NonNull
-    var name: String = "",
-    @NonNull
-    var useCost: String = "",
-    @NonNull
-    var description: String = "",
-    @NonNull
-    var params: String = "",
-    @NonNull
+    @Nullable
+    var name: String? = "",
+    @Nullable
+    var description: String? = "",
+    @Nullable
+    var params: String? = "",
+    @Nullable
     var resourceCode: String = ""
 ) : BaseEntity(){
     fun getDrawResName(): String {

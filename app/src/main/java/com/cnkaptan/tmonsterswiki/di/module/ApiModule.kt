@@ -1,6 +1,7 @@
 package com.cnkaptan.tmonsterswiki.di.module
 
 import android.app.Application
+import com.cnkaptan.tmonsterswiki.BuildConfig
 import com.cnkaptan.tmonsterswiki.remote.api.MonstersApi
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -18,6 +19,11 @@ import javax.inject.Singleton
 
 @Module
 class ApiModule {
+
+    companion object{
+        const val BASE_URL = BuildConfig.BASE_URL
+        const val BASE_IMAGE_URL = BuildConfig.BASE_IMAGE_URL
+    }
 
     @Provides
     @Singleton
@@ -56,7 +62,7 @@ class ApiModule {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .baseUrl("http://167.71.1.7:8080/")
+            .baseUrl(BASE_URL)
             .client(okHttpClient)
             .build()
     }

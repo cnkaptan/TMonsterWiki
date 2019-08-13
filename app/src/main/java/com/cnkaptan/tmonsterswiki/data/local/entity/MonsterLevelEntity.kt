@@ -1,14 +1,13 @@
 package com.cnkaptan.tmonsterswiki.data.local.entity
 
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
+import androidx.room.*
 import com.cnkaptan.tmonsterswiki.data.local.db.IdTypeConverter
+import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = BaseEntity.MONSTER_LEVELS_TABLE, primaryKeys = ["monsterId", "level"])
 @TypeConverters(IdTypeConverter::class)
 data class MonsterLevelEntity(
+    @SerializedName("monster_id")
     val monsterId: Int,
     val level: Int,
     val skillIds: List<Int>,

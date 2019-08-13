@@ -12,6 +12,7 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.cnkaptan.tmonsterswiki.R
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
+import com.cnkaptan.tmonsterswiki.di.module.ApiModule
 import com.cnkaptan.tmonsterswiki.ui.MonsterDetailActivity
 import com.squareup.picasso.Picasso
 
@@ -53,7 +54,7 @@ class ChildMonsterAdapter(
         holder.ivMonster.setBackgroundResource(frameColor)
 
         val resourceName = childMonsters[position].getMonsterDrawCode()
-        val drawableId = "http://78.24.221.246:81/build/images/$resourceName.png"
+        val drawableId = "${ApiModule.BASE_IMAGE_URL}/$resourceName.png"
 //        Log.e("ChildMonster",drawableId)
         Picasso.get()
             .load(drawableId)

@@ -7,10 +7,6 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface MonstersApi {
-
-    @GET("main_info")
+    @GET("main_data")
     fun fetchFetchMainInfos(): Single<MonsterMainResponse>
-
-    @GET("levels/{monsterId}")
-    fun fetchMonsterLevelsById(@Path("monsterId") id: Int): Single<List<MonsterLevelEntity>>
 }

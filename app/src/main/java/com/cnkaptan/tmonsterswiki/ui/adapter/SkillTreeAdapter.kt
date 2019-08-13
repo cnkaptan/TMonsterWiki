@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cnkaptan.tmonsterswiki.R
 import com.cnkaptan.tmonsterswiki.data.local.entity.SkillEntity
+import com.cnkaptan.tmonsterswiki.di.module.ApiModule
 import com.cnkaptan.tmonsterswiki.ui.ADD
 import com.cnkaptan.tmonsterswiki.ui.DONE
 import com.cnkaptan.tmonsterswiki.ui.SkillChanges
@@ -38,7 +39,7 @@ class SkillEvoulationAdapter(
         if (getItemViewType(position) == ROOT) {
             val rootHolder = holder as RootViewHolder
             val skillEntity = skillsList[position]
-            val monsterImageUrl = "http://78.24.221.246:81/build/images/${skillEntity.getDrawResName()}.png"
+            val monsterImageUrl = "${ApiModule.BASE_IMAGE_URL}/${skillEntity.getDrawResName()}.png"
             Picasso.get()
                 .load(monsterImageUrl)
                 .placeholder(R.drawable.splash_logo)
@@ -48,7 +49,7 @@ class SkillEvoulationAdapter(
         } else {
             val nodeHolder = holder as NodeViewHolder
             val skillEntity = skillsList[position]
-            val monsterImageUrl = "http://78.24.221.246:81/build/images/${skillEntity.getDrawResName()}.png"
+            val monsterImageUrl = "${ApiModule.BASE_IMAGE_URL}/${skillEntity.getDrawResName()}.png"
             Picasso.get()
                 .load(monsterImageUrl)
                 .placeholder(R.drawable.splash_logo)

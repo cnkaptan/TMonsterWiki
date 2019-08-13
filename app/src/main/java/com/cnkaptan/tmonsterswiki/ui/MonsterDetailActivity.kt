@@ -23,6 +23,7 @@ import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterLevelEntity
 import com.cnkaptan.tmonsterswiki.data.local.entity.SkillEntity
 import com.cnkaptan.tmonsterswiki.data.local.entity.TagEntity
 import com.cnkaptan.tmonsterswiki.data.repository.MonsterRepository
+import com.cnkaptan.tmonsterswiki.di.module.ApiModule
 import com.cnkaptan.tmonsterswiki.ui.adapter.MonsterLevelAdapter
 import com.cnkaptan.tmonsterswiki.ui.adapter.SkillEvoulationAdapter
 import com.cnkaptan.tmonsterswiki.ui.adapter.SkillsAdapter
@@ -145,8 +146,6 @@ class MonsterDetailActivity : BaseActivity() {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             setHasFixedSize(true)
             adapter = SkillsAdapter(context, skillList) {
-                val descripton = getFormattedDescription(it)
-//                openInfoView(descripton)
                 printSkillTree(it)
             }
         }
@@ -160,14 +159,14 @@ class MonsterDetailActivity : BaseActivity() {
     private fun getFormattedDescription(it: SkillEntity): String {
         var descripton = it.description
 
-        if (it.params.isNotEmpty()) {
+        if (!it.params.isNullOrEmpty()) {
             val paramJson = JSONObject(it.params)
             paramJson.keys()
                 .forEach { key ->
-                    descripton = descripton.replace("$<$key>", paramJson[key].toString(), true)
+                    descripton = descripton!!.replace("$<$key>", paramJson[key].toString(), true)
                 }
         }
-        return descripton
+        return descripton!!
     }
 
     private fun initTagsList(tags: List<TagEntity>) {
@@ -205,7 +204,7 @@ class MonsterDetailActivity : BaseActivity() {
     private fun initImage(monsterEntity: MonsterEntity) {
         tvMonsterName.text = monsterEntity.name
         val monsterDrawRes = monsterEntity.getMonsterDrawCode()
-        val monsterImageUrl = "http://78.24.221.246:81/build/images/$monsterDrawRes.png"
+        val monsterImageUrl = "${ApiModule.BASE_IMAGE_URL}/$monsterDrawRes.png"
 
         Picasso.get().load(monsterImageUrl)
             .placeholder(R.drawable.splash_logo)
@@ -220,7 +219,7 @@ class MonsterDetailActivity : BaseActivity() {
         ivMonster.setBackgroundResource(frameColor)
 
         val monsterArtworkDrawRes = "artwork_$monsterDrawRes"
-        val monsterArtImageURl = "http://78.24.221.246:81/build/images/$monsterArtworkDrawRes.png"
+        val monsterArtImageURl = "${ApiModule.BASE_IMAGE_URL}/$monsterArtworkDrawRes.png"
 
         Picasso.get()
             .load(monsterArtImageURl)

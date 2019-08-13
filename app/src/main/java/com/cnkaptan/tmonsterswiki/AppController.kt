@@ -10,6 +10,11 @@ import com.squareup.picasso.Cache
 import com.squareup.picasso.LruCache
 import com.squareup.picasso.OkHttp3Downloader
 import com.squareup.picasso.Picasso
+import com.crashlytics.android.Crashlytics
+import io.fabric.sdk.android.Fabric
+import com.crashlytics.android.core.CrashlyticsCore
+
+
 
 class AppController : Application() {
 
@@ -17,6 +22,9 @@ class AppController : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        configureCrashReporting()
+
+
         appComponent = DaggerAppComponent.builder()
             .application(this)
             .build()
@@ -44,6 +52,13 @@ class AppController : Application() {
         activityManager.getMemoryInfo(mi)
         val availableMemory = mi.availMem.toDouble()
         return (percent * availableMemory / 100).toInt()
+    }
+
+    private fun configureCrashReporting() {
+        val crashlyticsCore = CrashlyticsCore.Builder()
+            .disabled(BuildConfig.DEBUG)
+            .build()
+        Fabric.with(this, Crashlytics.Builder().core(crashlyticsCore).build())
     }
 
 }

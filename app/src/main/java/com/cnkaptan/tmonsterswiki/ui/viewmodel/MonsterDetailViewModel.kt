@@ -35,7 +35,7 @@ class MonsterDetailViewModel @Inject constructor(private val monsterRepository: 
     fun loadMonsterLevel(monsterID: Int) {
 
         disposibleContainer.add(
-            monsterRepository.getMonsterLevels(monsterID)
+            monsterRepository.getMonsterLevelsByMonsterIdId(monsterID)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ monsterLevelList.postValue(it.sortedByDescending { it.level }) }
@@ -64,7 +64,7 @@ class MonsterDetailViewModel @Inject constructor(private val monsterRepository: 
         )
 
         disposibleContainer.add(
-            monsterRepository.getMonsterLevels(monsterID)
+            monsterRepository.getMonsterLevelsByMonsterIdId(monsterID)
                 .subscribeOn(Schedulers.io())
                 .flattenAsFlowable { it.last().skillIds }
                 .flatMapSingle { monsterRepository.getSkillById(it) }
@@ -106,7 +106,7 @@ class MonsterDetailViewModel @Inject constructor(private val monsterRepository: 
             var inSkillId = skillId
             for (i in 0 until levelsList.size) {
                 val levelEntity = levelsList[i]
-                Log.e(TAG, levelEntity.toString())
+//                Log.e(TAG, levelEntity.toString())
                 if (levelEntity.level == 23) {
                     val skillIdsInLevel = levelEntity.skillIds
                     skillsIDList.addAll(skillIdsInLevel)
@@ -120,12 +120,12 @@ class MonsterDetailViewModel @Inject constructor(private val monsterRepository: 
                                 skillId = inSkillId, inSkillId = null, outSkillId = null, Status = ADD
                             )
                         )
-                        Log.e(TAG, " $skillChanges")
+//                        Log.e(TAG, " $skillChanges")
                     }
                 } else if ((levelEntity.level > 1) and (levelEntity.level < 23)) {
                     val skillIdsInLevel = levelEntity.skillIds
                     if (skillIdsInLevel.find { it == inSkillId } == null) {
-                        Log.e(TAG, "inSkillId = $inSkillId, ${levelsList[i]}")
+//                        Log.e(TAG, "inSkillId = $inSkillId, ${levelsList[i]}")
                         val preLevelEntity = skillChanges.find { it.skillId == inSkillId }!!.levelEntity
                         val subList = skillIdsInLevel - preLevelEntity.skillIds
                         if (subList.isNotEmpty()) {
@@ -180,7 +180,7 @@ class MonsterDetailViewModel @Inject constructor(private val monsterRepository: 
                 }
             }
             skillChanges.forEach {
-                Log.e("skillChanges", it.toString())
+//                Log.e("skillChanges", it.toString())
             }
             return skillChanges
         }
