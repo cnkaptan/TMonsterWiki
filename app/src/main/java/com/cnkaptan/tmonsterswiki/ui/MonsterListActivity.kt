@@ -107,7 +107,7 @@ class MonsterListActivity : BaseActivity() {
             adapter = searchMonsterAdapter
         }
 
-        disposibleContainer.add(
+        disposableContainer.add(
             RxTextView.textChanges(etSearchMonsters)
                 .debounce(300, TimeUnit.MILLISECONDS)
                 .map { it.toString() }

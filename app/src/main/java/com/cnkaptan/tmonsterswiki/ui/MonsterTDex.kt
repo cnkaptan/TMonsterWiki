@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 
 
-class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener {
+class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener,SegmentedButtonGroup.OnPositionChangedListener {
     override val TAG: String
         get() = MonsterTDex::class.java.simpleName
 
@@ -50,8 +50,7 @@ class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener {
         ButterKnife.bind(this)
         initViewModel()
 
-      //  sbGroup.setOnPositionChangedListener(this)
-
+        sbGroup.setOnPositionChangedListener(this)
 
         initSpinner()
     }
@@ -78,7 +77,7 @@ class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener {
 
     private fun initSpinner() {
         val numbers = resources.getStringArray(R.array.level_numbers)
-        val aa = ArrayAdapter(this, R.layout.spinner_item, numbers)
+        val aa = ArrayAdapter(this, R.layout.item_spinner, numbers)
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spnLevels.adapter = aa
     }
@@ -96,13 +95,13 @@ class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener {
     override fun onNothingSelected(p0: AdapterView<*>?) {
     }
 
-   /* override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
+    override fun onPositionChanged(checkedId: Int) {
         when (checkedId) {
-            R.id.rbHealth -> {
+            0 -> {
                 val sortedListHp = sortListByAsc.sortedWith(compareBy { it.levels.get(selectedLevel).hp })
                 monsterTDexAdapter.updateMonster(sortedListHp)
             }
-            R.id.rbDamage -> {
+            1 -> {
                 val sortedListDmg = sortListByAsc.sortedWith(compareBy { it.levels.get(selectedLevel).dmg })
                 monsterTDexAdapter.updateMonster(sortedListDmg)
             }
@@ -111,25 +110,6 @@ class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener {
                 monsterTDexAdapter.updateMonster(sortedListMove)
             }
         }
-    }*/
-
-
-  /*  override fun onPositionChanged(checkedId: Int) {
-        when (checkedId) {
-            R.id.rbHealth -> {
-                val sortedListHp = sortListByAsc.sortedWith(compareBy { it.levels.get(selectedLevel).hp })
-                monsterTDexAdapter.updateMonster(sortedListHp)
-            }
-            R.id.rbDamage -> {
-                val sortedListDmg = sortListByAsc.sortedWith(compareBy { it.levels.get(selectedLevel).dmg })
-                monsterTDexAdapter.updateMonster(sortedListDmg)
-            }
-            else -> {
-                val sortedListMove = sortListByAsc.sortedWith(compareBy { it.levels.get(selectedLevel).speed })
-                monsterTDexAdapter.updateMonster(sortedListMove)
-            }
-        }
-    }*/
-
+    }
 
 }

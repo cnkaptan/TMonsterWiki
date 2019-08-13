@@ -22,7 +22,7 @@ class SplashActivity : BaseActivity() {
         setContentView(R.layout.activity_splash)
         (application as AppController).appComponent.inject(this)
 
-        disposibleContainer.add(
+        disposableContainer.add(
             monsterRepository.getInitialAppData()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({

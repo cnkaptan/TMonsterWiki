@@ -73,6 +73,7 @@ class MonsterRepository @Inject constructor(
             .map { it.reversed() }
             .flatMapPublisher { Flowable.fromIterable(it) }
             .toList()
+            .map { it.sortedWith(compareBy { it.levels.get(1).hp }) }
     }
 
     fun getMonster(id: Int): Single<MonsterEntity> {

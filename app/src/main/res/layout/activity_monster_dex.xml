@@ -23,10 +23,10 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="1dp"
                 android:elevation="1dp"
-                app:borderColor="@color/colorLegendaryFrame"
+                app:borderColor="@color/lightGrayTableItemBg"
                 app:borderWidth="1dp"
                 android:background="@color/colorBlack"
-                app:divider="@color/colorLegendaryFrame"
+                app:divider="@color/lightGrayTableItemBg"
                 app:dividerPadding="1dp"
                 app:dividerRadius="1dp"
                 app:dividerWidth="2dp"
@@ -74,21 +74,14 @@
                     android:id="@+id/spn_monster_dex"
                     android:layout_width="100dp"
                     android:layout_height="40dp"
-                    android:backgroundTint="@color/colorLegendaryFrame"
+                    android:backgroundTint="@color/lightGrayTableItemBg"
                     android:layout_marginLeft="10dp"
                     android:gravity="right|center_vertical">
 
             </Spinner>
 
 
-
         </FrameLayout>
-
-
-
-
-
-
 
     </LinearLayout>
 

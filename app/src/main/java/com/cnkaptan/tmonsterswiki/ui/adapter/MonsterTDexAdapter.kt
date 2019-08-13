@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cnkaptan.tmonsterswiki.R
@@ -73,5 +74,7 @@ class MonsterTDexAdapter(
         val tvMonsterDamage: TextView = itemView.findViewById(R.id.tvMonsterDamage)
         val tvMonsterMove: TextView = itemView.findViewById(R.id.tvMonsterSpeed)
         val ivMonster: ImageView = itemView.findViewById(R.id.ivMonsterDex)
+        val bigFrame: RelativeLayout = itemView.findViewById(R.id.rvBigFrame)
+        val smallFrame: RelativeLayout = itemView.findViewById(R.id.rvSmallFrame)
     }
 }

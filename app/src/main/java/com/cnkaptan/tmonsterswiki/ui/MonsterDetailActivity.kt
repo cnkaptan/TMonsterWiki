@@ -248,7 +248,7 @@ class MonsterDetailActivity : BaseActivity() {
             cvSkillTree.visibility = View.GONE
         }
 
-        disposibleContainer.add(
+        disposableContainer.add(
             monsterDetailViewModel.getEvoluationSkillSet(skillId = skill.id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ skillChangesList ->
