@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cnkaptan.tmonsterswiki.R
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
+import com.cnkaptan.tmonsterswiki.di.module.ApiModule
 import com.cnkaptan.tmonsterswiki.utils.Constants
 import com.squareup.picasso.Picasso
 
@@ -53,15 +54,12 @@ class MonsterTDexAdapter(
         holder.ivMonster.setBackgroundResource(frameColor)
 
         val resourceName = monsterEntity.resourceCode.toLowerCase()
-        val drawableId = context.resources.getIdentifier(resourceName, "drawable", context.packageName)
-        if (drawableId > 0) {
-            Picasso.get()
-                .load(drawableId)
-                .placeholder(R.drawable.tm_splash_image)
-                .into(holder.ivMonster)
-        } else {
-            holder.ivMonster.setImageResource(R.drawable.tm_splash_image)
-        }
+        val drawableId = "${ApiModule.BASE_IMAGE_URL}/$resourceName.png"
+
+        Picasso.get()
+            .load(drawableId)
+            .placeholder(R.drawable.tm_splash_image)
+            .into(holder.ivMonster)
 
         val typeFace = Typeface.createFromAsset(context.assets, Constants.MONSTERDEXNAMEFONT)
         holder.tvMonsterName.typeface = typeFace
