@@ -1,6 +1,7 @@
 package com.cnkaptan.tmonsterswiki.ui.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,6 +50,7 @@ class SearchMonsterAdapter(
         holder.ivMonster.setBackgroundResource(frameColor)
 
         val resourceName = searchedMonsters[position].getMonsterDrawCode()
+        Log.e("main_icon",resourceName)
         val drawableId = "${ApiModule.BASE_IMAGE_URL}/$resourceName.png"
         Picasso.get()
             .load(drawableId)
