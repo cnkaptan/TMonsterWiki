@@ -146,6 +146,7 @@ class MonsterDetailActivity : BaseActivity() {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             setHasFixedSize(true)
             adapter = SkillsAdapter(context, skillList) {
+                Log.e(TAG,it.getDrawResName())
                 printSkillTree(it)
             }
         }
@@ -204,6 +205,7 @@ class MonsterDetailActivity : BaseActivity() {
     private fun initImage(monsterEntity: MonsterEntity) {
         tvMonsterName.text = monsterEntity.name
         val monsterDrawRes = monsterEntity.getMonsterDrawCode()
+        Log.e("main_icon",monsterDrawRes)
         val monsterImageUrl = "${ApiModule.BASE_IMAGE_URL}/$monsterDrawRes.png"
 
         Picasso.get().load(monsterImageUrl)
@@ -219,6 +221,7 @@ class MonsterDetailActivity : BaseActivity() {
         ivMonster.setBackgroundResource(frameColor)
 
         val monsterArtworkDrawRes = "artwork_$monsterDrawRes"
+        Log.e("artwork_icon",monsterArtworkDrawRes)
         val monsterArtImageURl = "${ApiModule.BASE_IMAGE_URL}/$monsterArtworkDrawRes.png"
 
         Picasso.get()
@@ -238,7 +241,7 @@ class MonsterDetailActivity : BaseActivity() {
     }
 
 
-    fun printSkillTree(skill: SkillEntity) {
+    private fun printSkillTree(skill: SkillEntity) {
         tvSkillName.text = skill.name
         tvSkillDesc.text = getFormattedDescription(skill)
         btnSkillDetailClose.setOnClickListener {

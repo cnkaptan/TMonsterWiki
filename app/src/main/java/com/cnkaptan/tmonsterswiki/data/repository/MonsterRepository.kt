@@ -1,5 +1,6 @@
 package com.cnkaptan.tmonsterswiki.data.repository
 
+import android.content.ContentValues
 import android.util.Log
 import com.cnkaptan.tmonsterswiki.data.local.db.dao.LevelsDao
 import com.cnkaptan.tmonsterswiki.data.local.db.dao.MonsterDao
@@ -71,7 +72,6 @@ class MonsterRepository @Inject constructor(
         return monsterDao.getAllMonsters()
             .map { it.reversed() }
             .flatMapPublisher { Flowable.fromIterable(it) }
-            .filter { it.id != 318 }
             .toList()
     }
 
