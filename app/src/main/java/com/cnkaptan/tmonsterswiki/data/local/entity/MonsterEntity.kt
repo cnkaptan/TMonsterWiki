@@ -7,13 +7,15 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.cnkaptan.tmonsterswiki.data.local.db.IdTypeConverter
 import com.cnkaptan.tmonsterswiki.data.local.db.LevelTypeConverter
+import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = BaseEntity.MONSTERS_TABLE)
 @TypeConverters(IdTypeConverter::class,LevelTypeConverter::class)
 data class MonsterEntity(
     @PrimaryKey
     @NonNull
-    var id: Int = 0,
+    @SerializedName("id")
+    var monsterId: Int = 0,
     @NonNull
     var name: String = "",
     @NonNull
@@ -23,7 +25,8 @@ data class MonsterEntity(
     @NonNull
     var damageType: Int = 1,
     @NonNull
-    var intro: String = "",
+    @SerializedName("intro")
+    var monsterIntro: String = "",
     @NonNull
     var resourceCode: String = "",
     @NonNull

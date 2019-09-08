@@ -17,7 +17,8 @@ data class MonsterLevelEntity(
     val magDef: Int,
     val speed: Int,
     val move: Int,
-    val initAp: Int,
+    @SerializedName("initAp")
+    val levelInitAp: Int,
     val critical: Int,
     val dodge: Int,
     val hit: Int,

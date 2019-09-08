@@ -9,12 +9,12 @@ import io.reactivex.Single
 
 @Dao
 interface SkillsDao: BaseDao<SkillEntity>{
-    @Query("SELECT * from ${BaseEntity.SKILLS_TABLE} ORDER BY id ASC")
+    @Query("SELECT * from ${BaseEntity.SKILLS_TABLE} ORDER BY skillId ASC")
     fun getAllSkills(): Single<List<SkillEntity>>
 
     @Query("DELETE FROM ${BaseEntity.SKILLS_TABLE}")
     fun nukeBomb()
 
-    @Query("SELECT * from ${BaseEntity.SKILLS_TABLE} WHERE id = :skillId")
+    @Query("SELECT * from ${BaseEntity.SKILLS_TABLE} WHERE skillId = :skillId")
     fun getSkillById(skillId: Int): Single<SkillEntity>
 }

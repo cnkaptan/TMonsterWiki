@@ -246,11 +246,11 @@ class MonsterDetailActivity : BaseActivity() {
         }
 
         disposibleContainer.add(
-            monsterDetailViewModel.getEvoluationSkillSet(skillId = skill.id)
+            monsterDetailViewModel.getEvoluationSkillSet(skillId = skill.skillId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ skillChangesList ->
                     val adapter = SkillEvoulationAdapter(skillChangesList){
-                        if (it.id == skill.id){
+                        if (it.skillId == skill.skillId){
                             tvSubSkillDesc.text = ""
                             tvSubSkillDesc.visibility = View.GONE
                         }else{

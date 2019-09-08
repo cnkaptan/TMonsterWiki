@@ -4,12 +4,14 @@ import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = BaseEntity.SKILLS_TABLE)
 data class SkillEntity(
     @PrimaryKey
     @NonNull
-    var id: Int = 0,
+    @SerializedName("id")
+    var skillId: Int = 0,
     @Nullable
     var name: String? = "",
     @Nullable

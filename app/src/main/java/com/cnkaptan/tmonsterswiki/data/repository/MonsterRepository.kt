@@ -71,7 +71,7 @@ class MonsterRepository @Inject constructor(
         return monsterDao.getAllMonsters()
             .map { it.reversed() }
             .flatMapPublisher { Flowable.fromIterable(it) }
-            .filter { it.id != 318 }
+            .filter { it.monsterId != 318 }
             .toList()
     }
 
