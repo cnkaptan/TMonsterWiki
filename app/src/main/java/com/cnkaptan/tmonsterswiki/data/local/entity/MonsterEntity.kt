@@ -1,5 +1,6 @@
 package com.cnkaptan.tmonsterswiki.data.local.entity
 
+import android.os.Parcelable
 import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.Ignore
@@ -8,9 +9,11 @@ import androidx.room.TypeConverters
 import com.cnkaptan.tmonsterswiki.data.local.db.IdTypeConverter
 import com.cnkaptan.tmonsterswiki.data.local.db.LevelTypeConverter
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 @Entity(tableName = BaseEntity.MONSTERS_TABLE)
-@TypeConverters(IdTypeConverter::class,LevelTypeConverter::class)
+@TypeConverters(IdTypeConverter::class, LevelTypeConverter::class)
+@Parcelize
 data class MonsterEntity(
     @PrimaryKey
     @NonNull
@@ -33,9 +36,9 @@ data class MonsterEntity(
     var tags: List<Int> = mutableListOf(),
     @NonNull
     var levels: List<MonsterLevelEntity> = mutableListOf()
-) : BaseEntity() {
+) : BaseEntity(), Parcelable {
     @Ignore
     fun getMonsterDrawCode(): String {
-        return resourceCode.toLowerCase().replace('ı','i')
+        return resourceCode.toLowerCase().replace('ı', 'i')
     }
 }

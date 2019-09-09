@@ -40,7 +40,7 @@ class SplashActivity : BaseActivity() {
                 .subscribe({
                     mProgressBar.setProgressInTime(0,50,500)
                     mProgressBar.setProgressInTime(50,100,500)
-                    startActivity(Intent(this, MonsterListActivity::class.java))
+                    startActivity(Intent(this, MonsterMatchActivity::class.java))
                     finish()
                 }, { error ->
                     Log.e(TAG, error.message, error)

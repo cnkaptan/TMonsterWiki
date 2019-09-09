@@ -1,13 +1,10 @@
 package com.cnkaptan.tmonsterswiki.di.component
 
 import android.app.Application
-import com.cnkaptan.tmonsterswiki.ui.MonsterListActivity
 import com.cnkaptan.tmonsterswiki.di.module.ApiModule
 import com.cnkaptan.tmonsterswiki.di.module.DbModule
 import com.cnkaptan.tmonsterswiki.di.module.ViewModelModule
-import com.cnkaptan.tmonsterswiki.ui.MonsterDetailActivity
-import com.cnkaptan.tmonsterswiki.ui.MonsterTDex
-import com.cnkaptan.tmonsterswiki.ui.SplashActivity
+import com.cnkaptan.tmonsterswiki.ui.*
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -36,4 +33,6 @@ interface AppComponent {
     fun inject(splashActivity: SplashActivity)
     fun inject(monsterDetailActivity: MonsterDetailActivity)
     fun inject(monsterTDex: MonsterTDex)
+    fun inject(monsterMatchActivity: MonsterMatchActivity)
+
 }

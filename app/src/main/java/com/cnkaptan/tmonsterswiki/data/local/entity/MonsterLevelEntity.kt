@@ -1,11 +1,14 @@
 package com.cnkaptan.tmonsterswiki.data.local.entity
 
+import android.os.Parcelable
 import androidx.room.*
 import com.cnkaptan.tmonsterswiki.data.local.db.IdTypeConverter
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 @Entity(tableName = BaseEntity.MONSTER_LEVELS_TABLE, primaryKeys = ["monsterId", "level"])
 @TypeConverters(IdTypeConverter::class)
+@Parcelize
 data class MonsterLevelEntity(
     @SerializedName("monster_id")
     val monsterId: Int,
@@ -23,4 +26,4 @@ data class MonsterLevelEntity(
     val dodge: Int,
     val hit: Int,
     val specialUpgrade: String
-):BaseEntity()
+):BaseEntity(),Parcelable
