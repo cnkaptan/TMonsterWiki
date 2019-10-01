@@ -62,7 +62,7 @@ class ChildMonsterAdapter(
             .into(holder.ivMonster)
 
         holder.itemView.setOnClickListener {
-            listener(childMonster.id,holder.itemView)
+            listener(childMonster.monsterId,holder.itemView)
         }
         //Dev Commit
     }

@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
 data class SkillEntity(
     @PrimaryKey
     @NonNull
-    var id: Int = 0,
+    var skillId: Int = 0,
     @Nullable
     var name: String? = "",
     @Nullable

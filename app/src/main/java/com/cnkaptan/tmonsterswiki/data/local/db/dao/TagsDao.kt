@@ -9,10 +9,10 @@ import io.reactivex.Single
 
 @Dao
 interface TagsDao: BaseDao<TagEntity>{
-    @Query("SELECT * from ${BaseEntity.TAGS_TABLE} ORDER BY id ASC")
+    @Query("SELECT * from ${BaseEntity.TAGS_TABLE} ORDER BY tagId ASC")
     fun getAllTags(): Single<List<TagEntity>>
 
-    @Query("SELECT * from ${BaseEntity.TAGS_TABLE} where id = :tagId")
+    @Query("SELECT * from ${BaseEntity.TAGS_TABLE} where tagId = :tagId")
     fun getTagById(tagId: Int): Single<TagEntity>
 
     @Query("DELETE FROM ${BaseEntity.TAGS_TABLE}")

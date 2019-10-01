@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 data class TagEntity(
     @PrimaryKey
     @NonNull
-    var id: Int = 0,
+    var tagId: Int = 0,
     @NonNull
     var name: String = "",
     @NonNull

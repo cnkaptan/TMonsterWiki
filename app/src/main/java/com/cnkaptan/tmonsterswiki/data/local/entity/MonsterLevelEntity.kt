@@ -17,7 +17,7 @@ data class MonsterLevelEntity(
     val magDef: Int,
     val speed: Int,
     val move: Int,
-    val initAp: Int,
+    val monsterLevelInitAp: Int,
     val critical: Int,
     val dodge: Int,
     val hit: Int,
