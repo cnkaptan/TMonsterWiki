@@ -7,6 +7,7 @@ import com.cnkaptan.tmonsterswiki.factory.ViewModelFactory
 import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterDetailViewModel
 import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterListViewModel
 import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterTDexViewModel
+import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterUpgradeViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -31,5 +32,10 @@ internal abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MonsterTDexViewModel::class)
     protected abstract fun movieTDexViewModel(movieTDexViewModel: MonsterTDexViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MonsterUpgradeViewModel::class)
+    protected abstract fun monsterUpgradeViewModel(monsterUpgradeViewModel: MonsterUpgradeViewModel): ViewModel
 
 }

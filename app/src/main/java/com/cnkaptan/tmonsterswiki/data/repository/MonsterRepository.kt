@@ -1,7 +1,8 @@
 package com.cnkaptan.tmonsterswiki.data.repository
 
-import android.content.ContentValues
 import android.util.Log
+import com.cnkaptan.tmonsterswiki.data.MonsterUpgrade
+import com.cnkaptan.tmonsterswiki.data.MonsterUpgradeModel
 import com.cnkaptan.tmonsterswiki.data.local.db.dao.LevelsDao
 import com.cnkaptan.tmonsterswiki.data.local.db.dao.MonsterDao
 import com.cnkaptan.tmonsterswiki.data.local.db.dao.SkillsDao
@@ -20,8 +21,11 @@ class MonsterRepository @Inject constructor(
     private val monsterDao: MonsterDao,
     private val levelsDao: LevelsDao,
     private val tagsDao: TagsDao,
-    private val skillsDao: SkillsDao
+    private val skillsDao: SkillsDao,
+    private val monsterUpgrade: MonsterUpgrade,
+    private val monsterUpgradeModel: MonsterUpgradeModel
 ) {
+
 
     fun insertMonsters(monsterList: List<MonsterEntity>): Single<List<MonsterEntity>> {
         return monsterDao.insertList(monsterList)
@@ -29,7 +33,7 @@ class MonsterRepository @Inject constructor(
             .andThen(monsterDao.getAllMonsters())
     }
 
-    fun insertSingleMonster(monster: MonsterEntity): Completable{
+    fun insertSingleMonster(monster: MonsterEntity): Completable {
         return monsterDao.insertOrUpdate(monster)
             .subscribeOn(Schedulers.io())
     }
@@ -40,6 +44,44 @@ class MonsterRepository @Inject constructor(
             .andThen(levelsDao.getLevels())
     }
 
+    fun getMonsterCommonUpgradeInfo(rarity: Int): Single<MonsterUpgradeModel> {
+
+        when (rarity) {
+            1 -> return Single.just(
+                monsterUpgradeModel.singleMonsterUpgrade(
+                    monsterUpgrade.commonCardlist, monsterUpgrade.commonGoldlist,
+                    monsterUpgrade.commonExplist, monsterUpgrade.commonCplist
+                )
+            )
+            2 -> return Single.just(
+                monsterUpgradeModel.singleMonsterUpgrade(
+                    monsterUpgrade.epicCardlist, monsterUpgrade.epicGoldlist,
+                    monsterUpgrade.epicExplist, monsterUpgrade.epicCplist
+                )
+            )
+            3 -> return Single.just(
+                monsterUpgradeModel.singleMonsterUpgrade(
+                    monsterUpgrade.monstrousCardlist, monsterUpgrade.monstrousGoldlist,
+                    monsterUpgrade.monstrousExplist, monsterUpgrade.monstrousCplist
+                )
+            )
+            4-> return Single.just(
+                monsterUpgradeModel.singleMonsterUpgrade(
+                    monsterUpgrade.legendaryCardlist, monsterUpgrade.legendaryGoldlist,
+                    monsterUpgrade.legendaryExplist, monsterUpgrade.legendaryCplist
+                )
+            )
+            else->
+                return Single.just(
+                monsterUpgradeModel.singleMonsterUpgrade(
+                    monsterUpgrade.commonCardlist, monsterUpgrade.commonGoldlist,
+                    monsterUpgrade.commonExplist, monsterUpgrade.commonCplist
+                ))
+        }
+
+
+    }
+
 
     fun getInitialAppData(): Completable {
         return getLocalMonsters()
@@ -48,7 +90,7 @@ class MonsterRepository @Inject constructor(
                 Log.e("MonsterRepository", it.toString())
                 (monstersApi.fetchFetchMainInfos()
                     .doOnSuccess { (Log.e("Monster Repository", "Check")) }
-                    .flatMapCompletable {response->
+                    .flatMapCompletable { response ->
                         insertMonstersFromResponse(response)
                             .andThen(tagsDao.insertList(response.tags))
                             .andThen(skillsDao.insertList(response.skills))

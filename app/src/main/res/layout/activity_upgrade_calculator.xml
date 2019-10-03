@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:background="@color/colorBlack"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:layout_weight=".4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <RelativeLayout
+                android:id="@+id/rvFirst"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rvThird"
+                android:layout_centerInParent="true"
+                android:visibility="invisible">
+            <TextView
+                    android:id="@+id/tvFromLevelText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="From Level"
+                    android:textSize="20sp"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/colorLegendaryFrame" />
+            <Spinner
+                    android:id="@+id/spnFromMonster"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:backgroundTint="@color/lightGrayTableItemBg"
+                    android:layout_toRightOf="@id/tvFromLevelText"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:id="@+id/rvSecond"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rvFirst"
+                android:layout_centerHorizontal="true"
+                android:visibility="invisible">
+            <TextView
+                    android:id="@+id/tvToLevelText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="To Level"
+                    android:textSize="20sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="25dp"
+                    android:textColor="@color/colorLegendaryFrame" />
+            <Spinner
+                    android:id="@+id/spnToMonster"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:backgroundTint="@color/lightGrayTableItemBg"
+                    android:layout_toRightOf="@id/tvToLevelText"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:id="@+id/rvThird"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true">
+            <TextView
+                    android:id="@+id/tvRarityText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rarity"
+                    android:textSize="20sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="48dp"
+                    android:textColor="@color/colorLegendaryFrame" />
+            <Spinner
+                    android:id="@+id/spnRarity"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:backgroundTint="@color/lightGrayTableItemBg"
+                    android:layout_toRightOf="@id/tvRarityText"/>
+
+        </RelativeLayout>
+
+        <Button
+                android:id="@+id/btnCalculate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Calculate"
+                android:layout_below="@id/rvSecond"
+                android:visibility="invisible"
+                android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+            android:layout_weight=".6"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <View
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@drawable/legendary_frame"/>
+
+        <RelativeLayout
+                android:id="@+id/rvInfoFirst"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="invisible">
+            <TextView
+                    android:id="@+id/txtUpgrade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Upgrade"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/colorLegendaryFrame" />
+            <TextView
+                    android:id="@+id/txtRarity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Legendary"
+                    android:layout_toRightOf="@id/txtUpgrade"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/colorLegendaryFrame" />
+            <TextView
+                    android:id="@+id/txtFrom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="From"
+                    android:layout_toRightOf="@id/txtRarity"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/colorLegendaryFrame" />
+            <TextView
+                    android:id="@+id/txtLevel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Level"
+                    android:layout_toRightOf="@id/txtFrom"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/colorLegendaryFrame" />
+            <TextView
+                    android:id="@+id/txtFromLevel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10"
+                    android:layout_toRightOf="@id/txtLevel"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/colorLegendaryFrame" />
+            <TextView
+                    android:id="@+id/txtTo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="to"
+                    android:layout_toRightOf="@id/txtFromLevel"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/colorLegendaryFrame" />
+            <TextView
+                    android:id="@+id/txtToLevel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="15"
+                    android:layout_toRightOf="@id/txtTo"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/colorLegendaryFrame" />
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:id="@+id/rvInfoSecond"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rvInfoFirst"
+                android:layout_centerInParent="true"
+                android:visibility="invisible">
+            <TextView
+                    android:id="@+id/txtRequirements"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Requirements"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/colorLegendaryFrame" />
+            <TextView
+                    android:id="@+id/txtCardNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="31"
+                    android:layout_toRightOf="@id/txtRequirements"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/colorLegendaryFrame" />
+            <TextView
+                    android:id="@+id/txtCardText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Card"
+                    android:layout_toRightOf="@id/txtCardNumber"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/colorLegendaryFrame" />
+            <TextView
+                    android:id="@+id/txtOr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="or"
+                    android:layout_toRightOf="@id/txtCardText"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/colorLegendaryFrame" />
+            <TextView
+                    android:id="@+id/txtExpNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10200"
+                    android:layout_toRightOf="@id/txtOr"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/colorLegendaryFrame" />
+            <TextView
+                    android:id="@+id/txtExpText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Exp"
+                    android:layout_toRightOf="@id/txtExpNumber"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/colorLegendaryFrame" />
+            <TextView
+                    android:id="@+id/txtAnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="and"
+                    android:layout_toRightOf="@id/txtExpText"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/colorLegendaryFrame" />
+            <TextView
+                    android:id="@+id/txtGoldNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="13800"
+                    android:layout_toRightOf="@id/txtAnd"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/colorLegendaryFrame" />
+            <TextView
+                    android:id="@+id/txtGoldText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gold"
+                    android:layout_toRightOf="@id/txtGoldNumber"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/colorLegendaryFrame" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

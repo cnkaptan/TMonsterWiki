@@ -26,11 +26,12 @@ class SplashActivity : BaseActivity() {
             monsterRepository.getInitialAppData()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    startActivity(Intent(this, MonsterTDex::class.java))
+                    startActivity(Intent(this, MonsterUpgradeCalculatorActivity::class.java))
                     finish()
                 }, { error ->
                     Log.e(TAG, error.message, error)
                 })
         )
+
     }
 }
