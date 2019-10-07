@@ -1,8 +1,6 @@
 package com.cnkaptan.tmonsterswiki.di.module
 
 import android.app.Application
-import com.cnkaptan.tmonsterswiki.data.MonsterUpgrade
-import com.cnkaptan.tmonsterswiki.data.MonsterUpgradeModel
 import com.cnkaptan.tmonsterswiki.data.local.db.MonsterRoomDb
 import dagger.Module
 import dagger.Provides
@@ -31,19 +29,5 @@ class DbModule{
     @Provides
     @Singleton
     fun provideTagsDao(monsterRoomDb: MonsterRoomDb) = monsterRoomDb.tagsDao()
-
-    @Provides
-    @Singleton
-    fun provideMonsterUpgradeInfo():MonsterUpgrade{
-        val monsterUpgrade=MonsterUpgrade()
-        return monsterUpgrade
-    }
-
-    @Provides
-    @Singleton
-    fun provideMonsterUpgradeModel():MonsterUpgradeModel{
-        val monsterUpgradeModel=MonsterUpgradeModel()
-        return monsterUpgradeModel
-    }
 
 }

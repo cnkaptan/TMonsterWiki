@@ -1,6 +1,5 @@
 package com.cnkaptan.tmonsterswiki.ui.viewmodel
 
-import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -25,6 +24,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 import kotlin.math.abs
 
+const val TAG = "MonsterDetailViewModel"
 class MonsterDetailViewModel @Inject constructor(private val monsterRepository: MonsterRepository) : BaseViewModel() {
 
     private var monster: MutableLiveData<MonsterEntity> = MutableLiveData()
@@ -39,7 +39,7 @@ class MonsterDetailViewModel @Inject constructor(private val monsterRepository: 
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ monsterLevelList.postValue(it.sortedByDescending { it.level }) }
-                    , { error -> Log.e("MonsterDetailViewModel", error.message, error) })
+                    , { error -> Log.e(TAG, error.message, error) })
         )
 
         disposibleContainer.add(
@@ -47,13 +47,14 @@ class MonsterDetailViewModel @Inject constructor(private val monsterRepository: 
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ monster.postValue(it) }
-                    , { error -> Log.e("MonsterDetailViewModel", error.message, error) })
+                    , { error -> Log.e(TAG, error.message, error) })
         )
 
 
         disposibleContainer.add(
             monsterRepository.getMonster(monsterID)
                 .subscribeOn(Schedulers.io())
+                .doOnSuccess { Log.e(TAG,it.toString()) }
                 .flattenAsFlowable { it.tags }
                 .flatMapSingle { monsterRepository.getTagById(it) }
                 .toList()
@@ -67,6 +68,7 @@ class MonsterDetailViewModel @Inject constructor(private val monsterRepository: 
             monsterRepository.getMonsterLevelsByMonsterIdId(monsterID)
                 .subscribeOn(Schedulers.io())
                 .flattenAsFlowable { it.last().skillIds }
+                .doOnNext { Log.e(TAG,it.toString()) }
                 .flatMapSingle { monsterRepository.getSkillById(it) }
                 .toList()
                 .observeOn(AndroidSchedulers.mainThread())

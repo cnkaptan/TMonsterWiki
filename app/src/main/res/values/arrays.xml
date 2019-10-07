@@ -25,82 +25,16 @@
         <item>22</item>
         <item>23</item>
     </string-array>
+
     <string-array name="rarity_numbers">
         <item>Select Rarity</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
+        <item>Common</item>
+        <item>Epic</item>
+        <item>Monstrous</item>
+        <item>Legendary</item>
     </string-array>
-    <string-array name="common_numbers">
-        <item>Select Level</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
-        <item>13</item>
-        <item>14</item>
-        <item>15</item>
-        <item>17</item>
-        <item>18</item>
-        <item>19</item>
-        <item>20</item>
-        <item>21</item>
-        <item>22</item>
-        <item>23</item>
-    </string-array>
-    <string-array name="epic_numbers">
-        <item>Select Level</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
-        <item>13</item>
-        <item>14</item>
-        <item>15</item>
-        <item>17</item>
-        <item>18</item>
-        <item>19</item>
-        <item>20</item>
-        <item>21</item>
-        <item>22</item>
-        <item>23</item>
-    </string-array>
-    <string-array name="monst_numbers">
-        <item>Select Level</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
-        <item>13</item>
-        <item>14</item>
-        <item>15</item>
-        <item>17</item>
-        <item>18</item>
-        <item>19</item>
-        <item>20</item>
-        <item>21</item>
-        <item>22</item>
-        <item>23</item>
-    </string-array>
-    <string-array name="legendary_numbers">
+
+    <string-array name="calculator_levels">
         <item>Select Level</item>
         <item>9</item>
         <item>10</item>
@@ -109,6 +43,7 @@
         <item>13</item>
         <item>14</item>
         <item>15</item>
+        <item>16</item>
         <item>17</item>
         <item>18</item>
         <item>19</item>

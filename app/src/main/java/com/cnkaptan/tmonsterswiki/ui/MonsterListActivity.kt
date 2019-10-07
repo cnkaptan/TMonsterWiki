@@ -24,6 +24,7 @@ import com.cnkaptan.tmonsterswiki.ui.adapter.SearchMonsterAdapter
 import com.cnkaptan.tmonsterswiki.ui.base.BaseActivity
 import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterListViewModel
 import com.cnkaptan.tmonsterswiki.utils.playAnimation
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -53,6 +54,9 @@ class MonsterListActivity : BaseActivity() {
 
     @BindView(R.id.ivSearchStatusIcon)
     lateinit var ivSearchStatusIcon: ImageView
+
+    @BindView(R.id.fabCalculateUpgrade)
+    lateinit var fabCalculateUpgrade: FloatingActionButton
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -130,6 +134,11 @@ class MonsterListActivity : BaseActivity() {
         ivSearchStatusIcon.setOnClickListener {
             etSearchMonsters.setText("")
             openCategorizedMenu()
+        }
+
+        fabCalculateUpgrade.setOnClickListener {
+            val intent = Intent(applicationContext, MonsterUpgradeCalculatorActivity::class.java)
+            startActivity(intent)
         }
     }
 

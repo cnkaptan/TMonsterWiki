@@ -4,206 +4,180 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
-import androidx.lifecycle.Observer
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
 import com.cnkaptan.tmonsterswiki.AppController
 import com.cnkaptan.tmonsterswiki.R
-import com.cnkaptan.tmonsterswiki.data.MonsterUpgradeModel
+import com.cnkaptan.tmonsterswiki.databinding.ActivityUpgradeCalculatorBinding
 import com.cnkaptan.tmonsterswiki.ui.base.BaseActivity
 import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterUpgradeViewModel
+import com.cnkaptan.tmonsterswiki.utils.ValidationUtils
+import com.jakewharton.rxbinding2.widget.RxAdapterView
+import com.jakewharton.rxbinding2.widget.RxRadioGroup
+import io.reactivex.Observable
+import io.reactivex.functions.BiFunction
 import javax.inject.Inject
 
 class MonsterUpgradeCalculatorActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
     override val TAG: String
         get() = MonsterUpgradeCalculatorActivity::class.java.simpleName
-    @BindView(R.id.spnFromMonster)
-    lateinit var spnFromMonster: Spinner
-
-    @BindView(R.id.spnToMonster)
-    lateinit var spnToMonster: Spinner
-
-    @BindView(R.id.spnRarity)
-    lateinit var spnRarity: Spinner
-
-    @BindView(R.id.btnCalculate)
-    lateinit var btnCalculate: Button
-
-    @BindView(R.id.rvFirst)
-    lateinit var rvFirst: RelativeLayout
-
-    @BindView(R.id.rvSecond)
-    lateinit var rvSecond: RelativeLayout
-
-    @BindView(R.id.rvInfoFirst)
-    lateinit var rvFirstInfo: RelativeLayout
-
-    @BindView(R.id.rvInfoSecond)
-    lateinit var rvSecondInfo: RelativeLayout
-
-    @BindView(R.id.txtRarity)
-    lateinit var tvRarity: TextView
-
-    @BindView(R.id.txtFromLevel)
-    lateinit var tvFromLevel: TextView
-
-    @BindView(R.id.txtToLevel)
-    lateinit var tvToLevel: TextView
-
-    @BindView(R.id.txtCardNumber)
-    lateinit var tvCardNumber: TextView
-
-    @BindView(R.id.txtExpNumber)
-    lateinit var tvExpNumber: TextView
-
-    @BindView(R.id.txtGoldNumber)
-    lateinit var tvGoldNumber: TextView
-
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var monsterUpgradeViewModel: MonsterUpgradeViewModel
-
-    lateinit var upgradeInfoLists: MonsterUpgradeModel
-    private var fromNumber: Int = 1
-    private var toNumber: Int = 1
-
-    private var totalCard: Int = 0
-    private var totalGold: Int = 0
-    private var totalExp: Int = 0
-    private var totalCp: Int = 0
-
+    private lateinit var binding: ActivityUpgradeCalculatorBinding
+    private var selectedCardType: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_upgrade_calculator)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_upgrade_calculator)
         (application as AppController).appComponent.inject(this)
-        ButterKnife.bind(this)
-        initViewModel(0)
-        initRaritySpinner()
-        spnRarity.setOnItemSelectedListener(this)
-        spnFromMonster.setOnItemSelectedListener(this)
-        spnToMonster.setOnItemSelectedListener(this)
+        initViewModel()
 
+
+        binding.spnFromMonster.onItemSelectedListener = this
+        binding.spnToMonster.onItemSelectedListener = this
+
+        binding.btnCalculate.setOnClickListener {
+            calculate()
+        }
+
+        disposableContainer.add(calculateButtonStatus().subscribe {
+            binding.btnCalculate.visibility = if (it) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
+
+            if (!it) {
+                binding.rlContainerCalculatorResult.visibility = View.INVISIBLE
+            }
+        })
+
+        initSpinners()
     }
 
-    @OnClick(R.id.btnCalculate)
     fun calculate() {
         calculateUpgradeCost()
-        rvFirstInfo.visibility=View.VISIBLE
-        rvSecondInfo.visibility=View.VISIBLE
     }
 
-    private fun initViewModel(rarity: Int) {
+    private fun initViewModel() {
         monsterUpgradeViewModel =
             ViewModelProviders.of(this, viewModelFactory).get(MonsterUpgradeViewModel::class.java)
     }
 
-    private fun initSpinners(rarity: Int) {
-
-        when (rarity) {
-            1 -> {
-                val numbers = resources.getStringArray(R.array.common_numbers)
-                val aa = ArrayAdapter(this, R.layout.item_spinner, numbers)
-                aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                spnFromMonster.adapter = aa
-                spnToMonster.adapter = aa
-                tvRarity.text="Common"
-            }
-            2 -> {
-                val numbers = resources.getStringArray(R.array.epic_numbers)
-                val aa = ArrayAdapter(this, R.layout.item_spinner, numbers)
-                aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                spnFromMonster.adapter = aa
-                spnToMonster.adapter = aa
-                tvRarity.text="Epic"
-            }
-            3 -> {
-                val numbers = resources.getStringArray(R.array.monst_numbers)
-                val aa = ArrayAdapter(this, R.layout.item_spinner, numbers)
-                aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                spnFromMonster.adapter = aa
-                spnToMonster.adapter = aa
-                tvRarity.text="Monstrous"
-            }
-            4 -> {
-                val numbers = resources.getStringArray(R.array.legendary_numbers)
-                val aa = ArrayAdapter(this, R.layout.item_spinner, numbers)
-                aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                spnFromMonster.adapter = aa
-                spnToMonster.adapter = aa
-                tvRarity.text="Legendary"
-            }
-        }
-
-    }
-
-    private fun initRaritySpinner() {
-        val numbers = resources.getStringArray(R.array.rarity_numbers)
+    private fun initSpinners() {
+        val numbers = resources.getStringArray(R.array.calculator_levels)
         val aa = ArrayAdapter(this, R.layout.item_spinner, numbers)
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spnRarity.adapter = aa
+        binding.spnFromMonster.adapter = aa
+        binding.spnToMonster.adapter = aa
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
 
-        when (parent!!.id) {
-
-            R.id.spnRarity -> {
-                if (p2 == 0) {
-                    Toast.makeText(applicationContext, "Please Select Rarity", Toast.LENGTH_LONG)
-                        .show()
-                    rvFirst.visibility = View.INVISIBLE
-
-                }
-                else {
-                    monsterUpgradeViewModel.loadMonster(p2)
-                    initSpinners(p2)
-                    monsterUpgradeViewModel.getUpgradeInfo().observe(this, Observer {
-                        Log.e(TAG, it.toString())
-                        upgradeInfoLists = it
-                        rvFirst.visibility = View.VISIBLE
-                    })
-                }
-            }
-            R.id.spnFromMonster -> {
-                fromNumber = p2 - 1
-                rvSecond.visibility=View.VISIBLE
-                Log.e("FIRST FROM NUMBER", fromNumber.toString())
-            }
-            R.id.spnToMonster -> {
-                toNumber = p2 - 1
-                btnCalculate.visibility=View.VISIBLE
-                Log.e("FIRST TO NUMBER", toNumber.toString())
-            }
-        }
     }
 
-    override fun onNothingSelected(p0: AdapterView<*>?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onNothingSelected(p0: AdapterView<*>?) {}
+
+    private fun calculateButtonStatus(): Observable<Boolean> {
+        val rarity = RxRadioGroup.checkedChanges(binding.rgCards)
+            .map { it > 0 }
+
+        val obsFromLevel = RxAdapterView.itemSelections(binding.spnFromMonster)
+        val obsToLevel = RxAdapterView.itemSelections(binding.spnToMonster)
+
+        val levelsObs = Observable.combineLatest(
+            obsToLevel,
+            obsFromLevel,
+            object : BiFunction<Int, Int, Boolean> {
+                override fun apply(t1: Int, t2: Int): Boolean {
+                    if (t1 > 0 && t2 > 0) {
+                        return t1 > t2
+                    }
+                    return false
+                }
+            })
+
+        return ValidationUtils.and(rarity, levelsObs)
     }
 
     private fun calculateUpgradeCost() {
-        totalCard = 0
-        totalGold = 0
-        totalExp = 0
-        totalCp = 0
-
-        for (i in fromNumber + 1 until toNumber + 1) {
-            totalCard = totalCard.plus(upgradeInfoLists.cardList!!?.get(i))
-            totalGold = totalGold.plus(upgradeInfoLists.goldList!!?.get(i))
-            totalExp = totalExp.plus(upgradeInfoLists.explist!!?.get(i))
-            totalCp = totalCp.plus(upgradeInfoLists.cpList!!?.get(i))
+        val rarity = when (binding.rgCards.checkedRadioButtonId) {
+            R.id.rbCommonCards -> 1
+            R.id.rbEpicCards -> 2
+            R.id.rbMonstrousCards -> 3
+            R.id.rbLegendaryCards -> 4
+            else -> -1
         }
 
-        tvFromLevel.text=fromNumber.plus(1).toString()
-        tvToLevel.text=toNumber.plus(1).toString()
-        tvCardNumber.text=totalCard.toString()
-        tvExpNumber.text=totalExp.toString()
-        tvGoldNumber.text=totalGold.toString()
+        val frLevelPosition = binding.spnFromMonster.selectedItemPosition
+        val toLevelPosition = binding.spnToMonster.selectedItemPosition
+        val monsterUpgradeDatas = monsterUpgradeViewModel.loadMonster(rarity)
+        val levelsArray = resources.getStringArray(R.array.calculator_levels)
+        val fromLevel = levelsArray[frLevelPosition].toInt()
+        val toLevel = levelsArray[toLevelPosition].toInt()
+        var totalCard = 0
+        var totalGold = 0
+        var totalExp = 0
+        var totalCp = 0
+
+        val fromArrayPosition = frLevelPosition-1
+        val toArrayPosition = toLevelPosition-1
+//        Log.e(TAG,"From Level = $fromLevel, To Level = $toLevel")
+//        Log.e(TAG,"From Level Array Position= $fromArrayPosition, To Level Position = $toArrayPosition")
+//        for (i in fromArrayPosition until toArrayPosition) {
+//            totalCard += monsterUpgradeDatas.cardList[i]
+//            totalGold += monsterUpgradeDatas.goldList[i]
+//            totalExp += monsterUpgradeDatas.expList[i]
+//            totalCp += monsterUpgradeDatas.cpList[i] * monsterUpgradeDatas.cardList[i]
+//        }
+
+        var numCardsHave = binding.etTotalCards.text.toString().toIntOrNull() ?: 0
+        var numCpHave = binding.etTotalCp.text.toString().toIntOrNull() ?: 0
+
+        Log.e(TAG,"From Array Position = ${fromArrayPosition}, toArrayPosition = ${toArrayPosition}")
+        for (i in fromArrayPosition until toArrayPosition) {
+
+            var levelCards = monsterUpgradeDatas.cardList[i]
+            val valueCpPerCard = monsterUpgradeDatas.cpList[i]
+            if (numCardsHave > levelCards) {
+                numCardsHave -= levelCards
+                continue
+            } else {
+                if (numCardsHave > 0) {
+                    levelCards -= numCardsHave
+                }
+            }
+
+            val necCptoNextLevel = levelCards * valueCpPerCard
+            if (numCpHave > necCptoNextLevel) {
+                numCpHave -= necCptoNextLevel
+                continue
+            } else {
+                if (numCpHave >= valueCpPerCard) {
+                    val value = numCpHave / valueCpPerCard
+                    levelCards -= value
+                }
+            }
+
+            totalCard += levelCards
+            totalCp += levelCards * valueCpPerCard
+        }
+
+        Log.e(TAG, "Total Nec Cards $totalCard")
+
+        for (i in fromArrayPosition until toArrayPosition) {
+            totalGold += monsterUpgradeDatas.goldList[i]
+            totalExp += monsterUpgradeDatas.expList[i]
+        }
+
+
+        binding.tvValueGold.text = totalGold.toString()
+        binding.tvValueCard.text = totalCard.toString()
+        binding.tvValueCP.text = totalCp.toString()
+        binding.rlContainerCalculatorResult.visibility = View.VISIBLE
     }
 }

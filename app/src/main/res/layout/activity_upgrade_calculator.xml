@@ -1,254 +1,408 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:background="@color/colorBlack"
-        android:layout_height="match_parent">
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
-            android:layout_weight=".4"
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimaryDark"
+            android:orientation="vertical">
 
         <RelativeLayout
-                android:id="@+id/rvFirst"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/rvThird"
-                android:layout_centerInParent="true"
-                android:visibility="invisible">
-            <TextView
-                    android:id="@+id/tvFromLevelText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="From Level"
-                    android:textSize="20sp"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/colorLegendaryFrame" />
-            <Spinner
-                    android:id="@+id/spnFromMonster"
-                    android:layout_width="100dp"
-                    android:layout_height="40dp"
-                    android:backgroundTint="@color/lightGrayTableItemBg"
-                    android:layout_toRightOf="@id/tvFromLevelText"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-                android:id="@+id/rvSecond"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/rvFirst"
-                android:layout_centerHorizontal="true"
-                android:visibility="invisible">
-            <TextView
-                    android:id="@+id/tvToLevelText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="To Level"
-                    android:textSize="20sp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="25dp"
-                    android:textColor="@color/colorLegendaryFrame" />
-            <Spinner
-                    android:id="@+id/spnToMonster"
-                    android:layout_width="100dp"
-                    android:layout_height="40dp"
-                    android:backgroundTint="@color/lightGrayTableItemBg"
-                    android:layout_toRightOf="@id/tvToLevelText"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-                android:id="@+id/rvThird"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_centerHorizontal="true">
-            <TextView
-                    android:id="@+id/tvRarityText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Rarity"
-                    android:textSize="20sp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="48dp"
-                    android:textColor="@color/colorLegendaryFrame" />
-            <Spinner
-                    android:id="@+id/spnRarity"
-                    android:layout_width="100dp"
-                    android:layout_height="40dp"
-                    android:backgroundTint="@color/lightGrayTableItemBg"
-                    android:layout_toRightOf="@id/tvRarityText"/>
-
-        </RelativeLayout>
-
-        <Button
-                android:id="@+id/btnCalculate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Calculate"
-                android:layout_below="@id/rvSecond"
-                android:visibility="invisible"
-                android:layout_centerHorizontal="true" />
-
-    </RelativeLayout>
-
-
-    <RelativeLayout
-            android:layout_weight=".6"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        <View
-                android:id="@+id/line1"
                 android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:background="@drawable/legendary_frame"/>
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_weight=".4">
 
-        <RelativeLayout
-                android:id="@+id/rvInfoFirst"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:visibility="invisible">
-            <TextView
-                    android:id="@+id/txtUpgrade"
+            <RelativeLayout
+                    android:id="@+id/rvFirst"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Upgrade"
-                    android:layout_marginRight="5dp"
-                    android:textColor="@color/colorLegendaryFrame" />
-            <TextView
-                    android:id="@+id/txtRarity"
-                    android:layout_width="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="@dimen/margin_8"
+                    android:visibility="visible">
+
+                <TextView
+                        android:id="@+id/tvFromLevelText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/from_level"
+                        android:textColor="@color/colorLegendaryFrame"
+                        android:layout_alignLeft="@+id/tvTitleCurrentTotalCards"
+                        android:layout_alignRight="@+id/tvTitleCurrentTotalCards"
+                        android:textSize="@dimen/text_size_20" />
+
+                <Spinner
+                        android:id="@+id/spnFromMonster"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="@dimen/margin_16"
+                        android:layout_toRightOf="@id/tvFromLevelText"
+                        android:backgroundTint="@color/lightGrayTableItemBg" />
+
+                <TextView
+                        android:id="@+id/tvToLevelText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tvFromLevelText"
+                        android:layout_alignLeft="@id/tvFromLevelText"
+                        android:layout_alignRight="@id/tvFromLevelText"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="@dimen/margin_16"
+                        android:text="@string/to_level"
+                        android:textColor="@color/colorLegendaryFrame"
+                        android:textSize="@dimen/text_size_20" />
+
+                <Spinner
+                        android:id="@+id/spnToMonster"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:layout_alignTop="@id/tvToLevelText"
+                        android:layout_marginLeft="@dimen/margin_16"
+                        android:layout_toRightOf="@id/tvToLevelText"
+                        android:backgroundTint="@color/lightGrayTableItemBg" />
+
+                <TextView
+                        android:id="@+id/tvTitleCurrentTotalCards"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tvToLevelText"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="@dimen/margin_16"
+                        android:textColor="@color/colorLegendaryFrame"
+                        android:textSize="@dimen/text_size_20"
+                        android:text="Current Card Number:"/>
+
+                <TextView
+                        android:id="@+id/tvTitleCurrentTotalCp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tvTitleCurrentTotalCards"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="@dimen/margin_16"
+                        android:textColor="@color/colorLegendaryFrame"
+                        android:textSize="@dimen/text_size_20"
+                        android:layout_alignLeft="@id/tvTitleCurrentTotalCards"
+                        android:layout_alignRight="@id/tvTitleCurrentTotalCards"
+                        android:text="Current CP:"/>
+
+                <EditText
+                        android:id="@+id/etTotalCards"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:hint="Cards you have"
+                        android:layout_alignTop="@id/tvTitleCurrentTotalCards"
+                        android:background="@drawable/background_edittext_bg"
+                        android:textColor="@android:color/white"
+                        android:textColorHint="@android:color/darker_gray"
+                        android:layout_toRightOf="@id/tvTitleCurrentTotalCards"
+                        android:layout_marginLeft="@dimen/margin_16"
+                        />
+
+                <EditText
+                        android:id="@+id/etTotalCp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:hint="CP you have"
+                        android:layout_alignTop="@id/tvTitleCurrentTotalCp"
+                        android:background="@drawable/background_edittext_bg"
+                        android:textColor="@android:color/white"
+                        android:textColorHint="@android:color/darker_gray"
+                        android:layout_toRightOf="@id/tvTitleCurrentTotalCp"
+                        android:layout_alignLeft="@id/etTotalCards"
+                        android:layout_alignRight="@id/etTotalCards"
+                        />
+
+                <Button
+                        android:id="@+id/btnCalculate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/etTotalCp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/margin_16"
+                        android:background="@color/colorPrimary"
+                        android:textColor="@android:color/white"
+                        android:paddingLeft="@dimen/margin_16"
+                        android:paddingRight="@dimen/margin_16"
+                        android:text="Calculate"
+                        />
+            </RelativeLayout>
+
+
+            <FrameLayout
+                    android:id="@+id/fl_container_cards"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Legendary"
-                    android:layout_toRightOf="@id/txtUpgrade"
-                    android:layout_marginRight="5dp"
-                    android:textColor="@color/colorLegendaryFrame" />
-            <TextView
-                    android:id="@+id/txtFrom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="From"
-                    android:layout_toRightOf="@id/txtRarity"
-                    android:layout_marginRight="5dp"
-                    android:textColor="@color/colorLegendaryFrame" />
-            <TextView
-                    android:id="@+id/txtLevel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Level"
-                    android:layout_toRightOf="@id/txtFrom"
-                    android:layout_marginRight="5dp"
-                    android:textColor="@color/colorLegendaryFrame" />
-            <TextView
-                    android:id="@+id/txtFromLevel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="10"
-                    android:layout_toRightOf="@id/txtLevel"
-                    android:layout_marginRight="5dp"
-                    android:textColor="@color/colorLegendaryFrame" />
-            <TextView
-                    android:id="@+id/txtTo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="to"
-                    android:layout_toRightOf="@id/txtFromLevel"
-                    android:layout_marginRight="5dp"
-                    android:textColor="@color/colorLegendaryFrame" />
-            <TextView
-                    android:id="@+id/txtToLevel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="15"
-                    android:layout_toRightOf="@id/txtTo"
-                    android:layout_marginRight="5dp"
-                    android:textColor="@color/colorLegendaryFrame" />
+                    android:layout_above="@+id/rvFirst">
+
+                <RadioGroup
+                        android:id="@+id/rgCards"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/rbCommonCards"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/colorCommonFrame"
+                            android:drawableTop="@drawable/icon_card_common" />
+
+                    <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/rbEpicCards"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/colorEpicFrame"
+                            android:drawableTop="@drawable/icon_card_epic" />
+
+                    <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/rbMonstrousCards"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/colorMonstrousFrame"
+                            android:drawableTop="@drawable/icon_card_monstrous"
+                            android:gravity="center" />
+
+                    <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/rbLegendaryCards"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/colorLegendaryFrame"
+                            android:drawableTop="@drawable/icon_card_diabolic"
+                            android:gravity="center" />
+                </RadioGroup>
+            </FrameLayout>
         </RelativeLayout>
 
-        <RelativeLayout
-                android:id="@+id/rvInfoSecond"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/rvInfoFirst"
-                android:layout_centerInParent="true"
-                android:visibility="invisible">
-            <TextView
-                    android:id="@+id/txtRequirements"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Requirements"
-                    android:layout_marginRight="5dp"
-                    android:textColor="@color/colorLegendaryFrame" />
-            <TextView
-                    android:id="@+id/txtCardNumber"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="31"
-                    android:layout_toRightOf="@id/txtRequirements"
-                    android:layout_marginRight="5dp"
-                    android:textColor="@color/colorLegendaryFrame" />
-            <TextView
-                    android:id="@+id/txtCardText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Card"
-                    android:layout_toRightOf="@id/txtCardNumber"
-                    android:layout_marginRight="5dp"
-                    android:textColor="@color/colorLegendaryFrame" />
-            <TextView
-                    android:id="@+id/txtOr"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="or"
-                    android:layout_toRightOf="@id/txtCardText"
-                    android:layout_marginRight="5dp"
-                    android:textColor="@color/colorLegendaryFrame" />
-            <TextView
-                    android:id="@+id/txtExpNumber"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="10200"
-                    android:layout_toRightOf="@id/txtOr"
-                    android:layout_marginRight="5dp"
-                    android:textColor="@color/colorLegendaryFrame" />
-            <TextView
-                    android:id="@+id/txtExpText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Exp"
-                    android:layout_toRightOf="@id/txtExpNumber"
-                    android:layout_marginRight="5dp"
-                    android:textColor="@color/colorLegendaryFrame" />
-            <TextView
-                    android:id="@+id/txtAnd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="and"
-                    android:layout_toRightOf="@id/txtExpText"
-                    android:layout_marginRight="5dp"
-                    android:textColor="@color/colorLegendaryFrame" />
-            <TextView
-                    android:id="@+id/txtGoldNumber"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="13800"
-                    android:layout_toRightOf="@id/txtAnd"
-                    android:layout_marginRight="5dp"
-                    android:textColor="@color/colorLegendaryFrame" />
-            <TextView
-                    android:id="@+id/txtGoldText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Gold"
-                    android:layout_toRightOf="@id/txtGoldNumber"
-                    android:layout_marginRight="5dp"
-                    android:textColor="@color/colorLegendaryFrame" />
-        </RelativeLayout>
 
-    </RelativeLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.6"
+                android:orientation="vertical">
+            <View
+                    android:id="@+id/line1"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="@drawable/legendary_frame"
+                    />
 
-</LinearLayout>
+            <RelativeLayout
+                    android:id="@+id/rlContainerCalculatorResult"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="invisible"
+                    tools:visibility="visible">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        tools:text="Cihan Kaptan"
+                        android:textColor="@color/colorLegendaryFrame"
+                        android:layout_marginTop="@dimen/margin_16"/>
+
+                <RelativeLayout
+                        android:id="@+id/rvContainerInfoText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerInParent="true"
+                        android:paddingLeft="@dimen/margin_8"
+                        android:paddingTop="@dimen/margin_32"
+                        android:paddingRight="@dimen/margin_8"
+                        android:paddingBottom="@dimen/margin_32"
+                        android:layout_below="@id/tvInfo"
+                        android:layout_marginTop="@dimen/margin_16">
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                        <TextView
+                                android:id="@+id/tvTitleRequirements"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginRight="5dp"
+                                android:gravity="center_horizontal"
+                                android:text="Requirements: "
+                                android:textColor="@color/colorAccent" />
+
+                        <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/margin_4">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/ivIconTotalCards"
+                                    android:layout_width="@dimen/margin_32"
+                                    android:layout_height="@dimen/margin_32"
+                                    android:layout_marginBottom="@dimen/margin_8"
+                                    android:src="@drawable/icon_card_total" />
+
+                            <TextView
+                                    android:id="@+id/tvTitleCard"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@id/ivIconTotalCards"
+                                    android:layout_alignBottom="@id/ivIconTotalCards"
+                                    android:layout_marginLeft="@dimen/margin_8"
+                                    android:layout_toRightOf="@id/ivIconTotalCards"
+                                    android:gravity="center"
+                                    android:text="Cards"
+                                    android:textColor="@color/colorAccent" />
+
+                            <View
+                                    android:id="@+id/viewDividerCard"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="1dp"
+                                    android:layout_below="@id/ivIconTotalCards"
+                                    android:layout_alignLeft="@id/ivIconTotalCards"
+                                    android:layout_alignRight="@id/tvTitleCard"
+                                    android:background="@color/colorLegendaryFrame" />
+
+                            <TextView
+                                    android:id="@+id/tvValueCard"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/viewDividerCard"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="@dimen/margin_8"
+                                    android:layout_marginRight="5dp"
+                                    android:gravity="center_horizontal"
+                                    android:textColor="@color/colorAccent"
+                                    tools:text="1200" />
+                        </RelativeLayout>
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="@dimen/margin_8"
+                                android:layout_marginRight="@dimen/margin_8"
+                                android:gravity="center_horizontal"
+                                android:text="OR"
+                                android:textColor="@color/colorAccent" />
+
+                        <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/margin_4">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/ivIconTotalCP"
+                                    android:layout_width="@dimen/margin_32"
+                                    android:layout_height="@dimen/margin_32"
+                                    android:layout_marginBottom="@dimen/margin_8"
+                                    android:src="@drawable/icon_clan_points" />
+
+                            <TextView
+                                    android:id="@+id/tvTitleCP"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@id/ivIconTotalCP"
+                                    android:layout_alignBottom="@id/ivIconTotalCP"
+                                    android:layout_marginLeft="@dimen/margin_8"
+                                    android:layout_toRightOf="@id/ivIconTotalCP"
+                                    android:gravity="center"
+                                    android:text="CP"
+                                    android:textColor="@color/colorAccent" />
+
+                            <View
+                                    android:id="@+id/viewDividerCP"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="1dp"
+                                    android:layout_below="@id/ivIconTotalCP"
+                                    android:layout_alignLeft="@id/ivIconTotalCP"
+                                    android:layout_alignRight="@id/tvTitleCP"
+                                    android:background="@color/colorLegendaryFrame" />
+
+                            <TextView
+                                    android:id="@+id/tvValueCP"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/viewDividerCP"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="@dimen/margin_8"
+                                    android:layout_marginRight="5dp"
+                                    android:gravity="center_horizontal"
+                                    android:textColor="@color/colorAccent"
+                                    tools:text="1200" />
+                        </RelativeLayout>
+
+                        <TextView
+                                android:id="@+id/tvTitleOr"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="@dimen/margin_8"
+                                android:layout_marginRight="@dimen/margin_8"
+                                android:gravity="center_horizontal"
+                                android:text="+"
+                                android:textColor="@color/colorAccent" />
+
+
+                        <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/margin_4">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/ivIconTotalGold"
+                                    android:layout_width="@dimen/margin_32"
+                                    android:layout_height="@dimen/margin_32"
+                                    android:layout_marginBottom="@dimen/margin_8"
+                                    android:src="@drawable/icon_currency_gold" />
+
+                            <TextView
+                                    android:id="@+id/tvTitleGold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@id/ivIconTotalGold"
+                                    android:layout_alignBottom="@id/ivIconTotalGold"
+                                    android:layout_marginLeft="@dimen/margin_8"
+                                    android:layout_toRightOf="@id/ivIconTotalGold"
+                                    android:gravity="center"
+                                    android:text="Gold"
+                                    android:textColor="@color/colorAccent" />
+
+                            <View
+                                    android:id="@+id/viewDividerGold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="1dp"
+                                    android:layout_below="@id/ivIconTotalGold"
+                                    android:layout_alignLeft="@id/ivIconTotalGold"
+                                    android:layout_alignRight="@id/tvTitleGold"
+                                    android:background="@color/colorLegendaryFrame" />
+
+                            <TextView
+                                    android:id="@+id/tvValueGold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/viewDividerGold"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="@dimen/margin_8"
+                                    android:layout_marginRight="5dp"
+                                    android:gravity="center_horizontal"
+                                    android:textColor="@color/colorAccent"
+                                    tools:text="1200" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</layout>
