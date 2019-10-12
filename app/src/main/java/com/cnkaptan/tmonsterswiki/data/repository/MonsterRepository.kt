@@ -48,10 +48,7 @@ class MonsterRepository @Inject constructor(
         return getLocalMonsters()
             .filter { t: List<MonsterEntity> -> t.isEmpty() }
             .flatMapCompletable {
-                Log.e(TAG, it.toString())
                 (monstersApi.fetchFetchMainInfos()
-                    .doOnSuccess { (Log.e(TAG, "Check")) }
-                    .doOnSuccess { Log.e(TAG,"Monsters = ${it.monsters.size}") }
                     .flatMapCompletable { response ->
                         insertMonstersFromResponse(response)
                             .andThen(tagsDao.insertList(response.tags))
@@ -76,7 +73,6 @@ class MonsterRepository @Inject constructor(
     fun getAllMonstersForVisiualize(): Single<List<MonsterEntity>> {
         return monsterDao.getAllMonsters()
             .map { it.reversed() }
-            .doOnSuccess { Log.e(TAG,"${it.size}") }
             .flatMapPublisher { Flowable.fromIterable(it) }
             .toList()
             .map { it.sortedWith(compareBy { it.levels.get(1).hp }) }
@@ -87,13 +83,11 @@ class MonsterRepository @Inject constructor(
     }
 
     fun getTagById(id: Int): Single<TagEntity> {
-        Log.e(TAG,id.toString())
         return tagsDao.getTagById(id)
     }
 
 
     fun getSkillById(skillId: Int): Single<SkillEntity> {
-        Log.e(TAG,skillId.toString())
         return skillsDao.getSkillById(skillId)
     }
 

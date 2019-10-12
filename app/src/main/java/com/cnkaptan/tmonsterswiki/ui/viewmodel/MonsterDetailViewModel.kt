@@ -54,7 +54,6 @@ class MonsterDetailViewModel @Inject constructor(private val monsterRepository: 
         disposibleContainer.add(
             monsterRepository.getMonster(monsterID)
                 .subscribeOn(Schedulers.io())
-                .doOnSuccess { Log.e(TAG,it.toString()) }
                 .flattenAsFlowable { it.tags }
                 .flatMapSingle { monsterRepository.getTagById(it) }
                 .toList()
@@ -68,7 +67,6 @@ class MonsterDetailViewModel @Inject constructor(private val monsterRepository: 
             monsterRepository.getMonsterLevelsByMonsterIdId(monsterID)
                 .subscribeOn(Schedulers.io())
                 .flattenAsFlowable { it.last().skillIds }
-                .doOnNext { Log.e(TAG,it.toString()) }
                 .flatMapSingle { monsterRepository.getSkillById(it) }
                 .toList()
                 .observeOn(AndroidSchedulers.mainThread())
