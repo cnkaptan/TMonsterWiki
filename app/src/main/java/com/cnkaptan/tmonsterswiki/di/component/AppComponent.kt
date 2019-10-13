@@ -33,5 +33,5 @@ interface AppComponent {
     fun inject(splashActivity: SplashActivity)
     fun inject(monsterDetailActivity: MonsterDetailActivity)
     fun inject(monsterTDex: MonsterTDex)
-    fun inject(monnsterUpgradeCalculatorActivity: MonsterUpgradeCalculatorActivity)
+    fun inject(monnsterUpgradeCalculatorActivity: CalculatorActivity)
 }

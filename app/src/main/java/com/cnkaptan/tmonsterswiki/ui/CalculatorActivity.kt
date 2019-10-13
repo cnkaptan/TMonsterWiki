@@ -19,9 +19,9 @@ import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 import javax.inject.Inject
 
-class MonsterUpgradeCalculatorActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
+class CalculatorActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
     override val TAG: String
-        get() = MonsterUpgradeCalculatorActivity::class.java.simpleName
+        get() = CalculatorActivity::class.java.simpleName
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory

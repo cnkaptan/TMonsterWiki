@@ -72,10 +72,11 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:src="@drawable/ic_calculator_64"
+            android:tint="@color/colorBlack"
             style="@style/Widget.MaterialComponents.FloatingActionButton"
             app:elevation="@dimen/margin_4"
             app:pressedTranslationZ="@dimen/margin_8"
             app:fabSize="auto"
-            app:backgroundTint="@color/colorPrimary"
+            app:backgroundTint="@color/colorLegendaryFrame"
             app:rippleColor="@color/colorPrimaryDark"/>
 </RelativeLayout>

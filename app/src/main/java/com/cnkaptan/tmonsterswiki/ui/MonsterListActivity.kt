@@ -2,10 +2,8 @@ package com.cnkaptan.tmonsterswiki.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -18,7 +16,6 @@ import butterknife.ButterKnife
 import com.cnkaptan.tmonsterswiki.AppController
 import com.cnkaptan.tmonsterswiki.R
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
-import com.cnkaptan.tmonsterswiki.ui.adapter.ChildMonsterAdapter
 import com.cnkaptan.tmonsterswiki.ui.adapter.MonsterAdapter
 import com.cnkaptan.tmonsterswiki.ui.adapter.SearchMonsterAdapter
 import com.cnkaptan.tmonsterswiki.ui.base.BaseActivity
@@ -29,9 +26,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.jakewharton.rxbinding2.widget.RxTextView
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import java.lang.IllegalStateException
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -137,7 +132,7 @@ class MonsterListActivity : BaseActivity() {
         }
 
         fabCalculateUpgrade.setOnClickListener {
-            val intent = Intent(applicationContext, MonsterUpgradeCalculatorActivity::class.java)
+            val intent = Intent(applicationContext, CalculatorActivity::class.java)
             startActivity(intent)
         }
     }

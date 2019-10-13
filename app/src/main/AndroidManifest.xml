@@ -38,7 +38,7 @@
                 android:name=".ui.MonsterTDex"
                 android:screenOrientation="portrait"/>
         <activity
-                android:name=".ui.MonsterUpgradeCalculatorActivity"
+                android:name=".ui.CalculatorActivity"
                 android:screenOrientation="portrait"/>
     </application>
 
