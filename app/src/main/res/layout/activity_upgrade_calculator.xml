@@ -28,18 +28,27 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/from_level"
-                        android:textColor="@color/colorLegendaryFrame"
+                        android:textColor="@color/lightGrayTableItemBg"
                         android:layout_alignLeft="@+id/tvTitleCurrentTotalCards"
                         android:layout_alignRight="@+id/tvTitleCurrentTotalCards"
                         android:textSize="@dimen/text_size_20" />
 
-                <Spinner
-                        android:id="@+id/spnFromMonster"
-                        android:layout_width="100dp"
-                        android:layout_height="40dp"
+                <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
                         android:layout_marginLeft="@dimen/margin_16"
                         android:layout_toRightOf="@id/tvFromLevelText"
-                        android:backgroundTint="@color/lightGrayTableItemBg" />
+                        android:background="@drawable/spinner_background">
+                    <Spinner
+                            android:id="@+id/spnFromMonster"
+                            android:layout_width="128dp"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="10dp"
+                            android:spinnerMode="dialog"
+                            android:backgroundTint="@color/lightGrayTableItemBg" />
+                </FrameLayout>
+
 
                 <TextView
                         android:id="@+id/tvToLevelText"
@@ -51,17 +60,25 @@
                         android:layout_centerVertical="true"
                         android:layout_marginTop="@dimen/margin_16"
                         android:text="@string/to_level"
-                        android:textColor="@color/colorLegendaryFrame"
+                        android:textColor="@color/lightGrayTableItemBg"
                         android:textSize="@dimen/text_size_20" />
 
-                <Spinner
-                        android:id="@+id/spnToMonster"
-                        android:layout_width="100dp"
-                        android:layout_height="40dp"
+                <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
                         android:layout_alignTop="@id/tvToLevelText"
                         android:layout_marginLeft="@dimen/margin_16"
                         android:layout_toRightOf="@id/tvToLevelText"
-                        android:backgroundTint="@color/lightGrayTableItemBg" />
+                        android:background="@drawable/spinner_background">
+                    <Spinner
+                            android:id="@+id/spnToMonster"
+                            android:layout_width="128dp"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="10dp"
+                            android:spinnerMode="dialog"
+                            android:backgroundTint="@color/lightGrayTableItemBg" />
+                </FrameLayout>
 
                 <TextView
                         android:id="@+id/tvTitleCurrentTotalCards"
@@ -70,7 +87,7 @@
                         android:layout_below="@id/tvToLevelText"
                         android:layout_centerVertical="true"
                         android:layout_marginTop="@dimen/margin_16"
-                        android:textColor="@color/colorLegendaryFrame"
+                        android:textColor="@color/lightGrayTableItemBg"
                         android:textSize="@dimen/text_size_20"
                         android:text="Current Card Number:"/>
 
@@ -81,7 +98,7 @@
                         android:layout_below="@id/tvTitleCurrentTotalCards"
                         android:layout_centerVertical="true"
                         android:layout_marginTop="@dimen/margin_16"
-                        android:textColor="@color/colorLegendaryFrame"
+                        android:textColor="@color/lightGrayTableItemBg"
                         android:textSize="@dimen/text_size_20"
                         android:layout_alignLeft="@id/tvTitleCurrentTotalCards"
                         android:layout_alignRight="@id/tvTitleCurrentTotalCards"
@@ -96,10 +113,10 @@
                         android:layout_alignTop="@id/tvTitleCurrentTotalCards"
                         android:background="@drawable/background_edittext_bg"
                         android:textColor="@android:color/white"
+                        android:textSize="17sp"
                         android:textColorHint="@android:color/darker_gray"
                         android:layout_toRightOf="@id/tvTitleCurrentTotalCards"
-                        android:layout_marginLeft="@dimen/margin_16"
-                        />
+                        android:layout_marginLeft="@dimen/margin_16" />
 
                 <EditText
                         android:id="@+id/etTotalCp"
@@ -110,6 +127,7 @@
                         android:layout_alignTop="@id/tvTitleCurrentTotalCp"
                         android:background="@drawable/background_edittext_bg"
                         android:textColor="@android:color/white"
+                        android:textSize="17sp"
                         android:textColorHint="@android:color/darker_gray"
                         android:layout_toRightOf="@id/tvTitleCurrentTotalCp"
                         android:layout_alignLeft="@id/etTotalCards"
@@ -269,7 +287,7 @@
                                     android:layout_below="@id/ivIconTotalCards"
                                     android:layout_alignLeft="@id/ivIconTotalCards"
                                     android:layout_alignRight="@id/tvTitleCard"
-                                    android:background="@color/colorLegendaryFrame" />
+                                    android:background="@color/lightGrayTableItemBg" />
 
                             <TextView
                                     android:id="@+id/tvValueCard"
@@ -325,7 +343,7 @@
                                     android:layout_below="@id/ivIconTotalCP"
                                     android:layout_alignLeft="@id/ivIconTotalCP"
                                     android:layout_alignRight="@id/tvTitleCP"
-                                    android:background="@color/colorLegendaryFrame" />
+                                    android:background="@color/lightGrayTableItemBg" />
 
                             <TextView
                                     android:id="@+id/tvValueCP"
@@ -383,7 +401,7 @@
                                     android:layout_below="@id/ivIconTotalGold"
                                     android:layout_alignLeft="@id/ivIconTotalGold"
                                     android:layout_alignRight="@id/tvTitleGold"
-                                    android:background="@color/colorLegendaryFrame" />
+                                    android:background="@color/lightGrayTableItemBg" />
 
                             <TextView
                                     android:id="@+id/tvValueGold"

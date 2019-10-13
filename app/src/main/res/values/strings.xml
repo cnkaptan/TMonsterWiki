@@ -14,8 +14,8 @@
     <string name="hint_monster_name">Monster Name</string>
     <string name="title_error">Error</string>
     <string name="btn_okey">Okey</string>
-    <string name="to_level">To Level</string>
-    <string name="from_level">From Level</string>
+    <string name="to_level">To Level:</string>
+    <string name="from_level">From Level:</string>
     <string name="text_result_info_calculator_card_needed">To Upgrade From %1$d. level to %2$d. level</string>
     <string name="text_result_info_calculator_cp_needed">To Upgrade From %1$d. level to %2$d. level\nYou dont have any cards but you can close the missing cards with %3$d CP </string>
     <string name="text_result_info_calculator_card_not_needed">To Upgrade From %1$d. level to %2$d. level\nYou dont need extra cards or cp</string>

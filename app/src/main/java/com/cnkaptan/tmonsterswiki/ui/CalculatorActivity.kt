@@ -1,5 +1,6 @@
 package com.cnkaptan.tmonsterswiki.ui
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,6 +13,7 @@ import com.cnkaptan.tmonsterswiki.R
 import com.cnkaptan.tmonsterswiki.databinding.ActivityUpgradeCalculatorBinding
 import com.cnkaptan.tmonsterswiki.ui.base.BaseActivity
 import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterUpgradeViewModel
+import com.cnkaptan.tmonsterswiki.utils.Constants
 import com.cnkaptan.tmonsterswiki.utils.ValidationUtils
 import com.jakewharton.rxbinding2.widget.RxAdapterView
 import com.jakewharton.rxbinding2.widget.RxRadioGroup
@@ -40,6 +42,7 @@ class CalculatorActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
         binding.spnFromMonster.onItemSelectedListener = this
         binding.spnToMonster.onItemSelectedListener = this
 
+
         binding.btnCalculate.setOnClickListener {
             calculate()
         }
@@ -55,7 +58,7 @@ class CalculatorActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
                 binding.rlContainerCalculatorResult.visibility = View.INVISIBLE
             }
         })
-
+        initTextFont()
         initSpinners()
     }
 
@@ -124,8 +127,8 @@ class CalculatorActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
         var totalExp = 0
         var totalCp = 0
 
-        val fromArrayPosition = frLevelPosition-1
-        val toArrayPosition = toLevelPosition-1
+        val fromArrayPosition = frLevelPosition - 1
+        val toArrayPosition = toLevelPosition - 1
 //        Log.e(TAG,"From Level = $fromLevel, To Level = $toLevel")
 //        Log.e(TAG,"From Level Array Position= $fromArrayPosition, To Level Position = $toArrayPosition")
 //        for (i in fromArrayPosition until toArrayPosition) {
@@ -138,7 +141,10 @@ class CalculatorActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
         var numCardsHave = binding.etTotalCards.text.toString().toIntOrNull() ?: 0
         var numCpHave = binding.etTotalCp.text.toString().toIntOrNull() ?: 0
 
-        Log.e(TAG,"From Array Position = ${fromArrayPosition}, toArrayPosition = ${toArrayPosition}")
+        Log.e(
+            TAG,
+            "From Array Position = ${fromArrayPosition}, toArrayPosition = ${toArrayPosition}"
+        )
         for (i in fromArrayPosition until toArrayPosition) {
 
             var levelCards = monsterUpgradeDatas.cardList[i]
@@ -179,5 +185,15 @@ class CalculatorActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
         binding.tvValueCard.text = totalCard.toString()
         binding.tvValueCP.text = totalCp.toString()
         binding.rlContainerCalculatorResult.visibility = View.VISIBLE
+    }
+
+    private fun initTextFont(){
+        val typeFace = Typeface.createFromAsset(assets, Constants.MONSTERNAMEFONT)
+
+        binding.tvFromLevelText.typeface=typeFace
+        binding.tvToLevelText.typeface=typeFace
+        binding.tvTitleCurrentTotalCards.typeface=typeFace
+        binding.tvTitleCurrentTotalCp.typeface=typeFace
+
     }
 }
