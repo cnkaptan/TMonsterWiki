@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:descendantFocusability="beforeDescendants"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:padding="8dp"
+            tools:context="com.tiper.materialspinner.sample.MainActivity">
+
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <Button
+                    android:id="@+id/b1_clear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:text="clear" />
+
+            <Button
+                    android:id="@+id/b1_error"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:text="error" />
+        </FrameLayout>
+
+        <com.tiper.MaterialSpinner
+                android:id="@+id/material_spinner_1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select level"
+                app:spinnerMode="bottomsheet" />
+
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp">
+
+            <Button
+                    android:id="@+id/b2_clear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:text="clear" />
+
+            <Button
+                    android:id="@+id/b2_error"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:text="error" />
+        </FrameLayout>
+
+        <com.tiper.MaterialSpinner
+                android:id="@+id/material_spinner_2"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:hint="Select level"
+                android:prompt="@string/app_name"
+                android:src="@drawable/ic_selector_drawable"
+                android:textColor="#0ff"
+                tools:text="lalala" />
+
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp">
+
+            <Button
+                    android:id="@+id/b3_clear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:text="clear" />
+
+            <Button
+                    android:id="@+id/b3_error"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:text="error" />
+        </FrameLayout>
+
+        <com.tiper.MaterialSpinner
+                android:id="@+id/material_spinner_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select level"
+                android:gravity="left"
+                android:prompt="@string/app_name"
+                app:spinnerMode="dialog"
+                app:srcCompat="@drawable/ic_selector_drawable" />
+
+        <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:prompt="@string/app_name"
+                android:spinnerMode="dialog" />
+
+        <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/appCompatSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:prompt="@string/app_name"
+                android:spinnerMode="dropdown"
+                app:spinnerMode="bottomsheet" />
+
+    </LinearLayout>
+</ScrollView>

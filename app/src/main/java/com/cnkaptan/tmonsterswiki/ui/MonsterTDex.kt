@@ -1,6 +1,8 @@
 package com.cnkaptan.tmonsterswiki.ui
 
+import android.graphics.Typeface
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.lifecycle.Observer
@@ -17,10 +19,13 @@ import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
 import com.cnkaptan.tmonsterswiki.ui.adapter.MonsterTDexAdapter
 import com.cnkaptan.tmonsterswiki.ui.base.BaseActivity
 import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterTDexViewModel
+import com.cnkaptan.tmonsterswiki.utils.Constants
+import com.tiper.MaterialSpinner
 import javax.inject.Inject
 
 
-class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener, SegmentedButtonGroup.OnPositionChangedListener {
+class MonsterTDex : BaseActivity(),
+    RadioGroup.OnCheckedChangeListener {
     override val TAG: String
         get() = MonsterTDex::class.java.simpleName
 
@@ -28,10 +33,14 @@ class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener, Segmente
     lateinit var rvMonsterDexList: RecyclerView
 
     @BindView(R.id.spn_monster_dex)
-    lateinit var spnLevels: Spinner
+    lateinit var spnLevels: MaterialSpinner
 
-    @BindView(R.id.segmentedButtonGroup)
-    lateinit var sbGroup: SegmentedButtonGroup
+    @BindView(R.id.radioButtonGroup)
+    lateinit var rbGroup: RadioGroup
+
+    @BindView(R.id.rbHealth)
+    lateinit var rbHealth: RadioButton
+
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -40,7 +49,7 @@ class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener, Segmente
     private lateinit var monsterTDexAdapter: MonsterTDexAdapter
 
     private var selectedLevel: Int = 0
-    private var selectedSegment: Int = 0
+    private var selectedRadio: Int = 0
     private var sortListByAsc: List<MonsterEntity> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,31 +57,41 @@ class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener, Segmente
         setContentView(R.layout.activity_monster_dex)
         (application as AppController).appComponent.inject(this)
         ButterKnife.bind(this)
+
         initViewModel()
 
-        sbGroup.setOnPositionChangedListener(this)
+        rbGroup.setOnCheckedChangeListener(this)
 
         initSpinner()
+
+
     }
 
     private fun initView(monsterEntity: List<MonsterEntity>) {
-        spnLevels.setOnItemSelectedListener(this)
+        spnLevels.onItemSelectedListener = listener
         monsterTDexAdapter = MonsterTDexAdapter(applicationContext)
-        sbGroup.setPosition(0, true)
+
         rvMonsterDexList.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             adapter = monsterTDexAdapter
             monsterTDexAdapter.updateMonster(monsterEntity)
         }
+
+        val typeFace = Typeface.createFromAsset(assets, Constants.MONSTERDEXNAMEFONT)
+        spnLevels.typeface=typeFace
+
+
     }
 
     private fun initViewModel() {
-        monsterTDexViewModel = ViewModelProviders.of(this, viewModelFactory).get(MonsterTDexViewModel::class.java)
+        monsterTDexViewModel =
+            ViewModelProviders.of(this, viewModelFactory).get(MonsterTDexViewModel::class.java)
         monsterTDexViewModel.loadMonstersWithLevels()
         monsterTDexViewModel.getMonsterWithLevels().observe(this, Observer {
             initView(it)
             sortListByAsc = it
+            rbHealth.isChecked=true
         })
     }
 
@@ -83,43 +102,18 @@ class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener, Segmente
         spnLevels.adapter = aa
     }
 
-    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-        if (p1!!.equals("Select Level")) {
-            monsterTDexAdapter.updateLevel(0)
-            selectedLevel = 0
-        } else {
-            monsterTDexAdapter.updateLevel(p2)
-
-            when (selectedSegment) {
-                0 -> {
-                    sortHealthList(p2)
-                }
-                1 -> {
-                    sortDamageList(p2)
-                }
-                2 -> {
-                    sortSpeedList(p2)
-                }
-            }
-            selectedLevel = p2
-        }
-    }
-
-    override fun onNothingSelected(p0: AdapterView<*>?) {
-    }
-
-    override fun onPositionChanged(checkedId: Int) {
-        when (checkedId) {
-            0 -> {
-                selectedSegment = 0
+    override fun onCheckedChanged(p0: RadioGroup?, id: Int) {
+        when (id) {
+            R.id.rbHealth -> {
+                selectedRadio = 0
                 sortHealthList(selectedLevel)
             }
-            1 -> {
-                selectedSegment = 1
+            R.id.rbDamage -> {
+                selectedRadio = 1
                 sortDamageList(selectedLevel)
             }
-            else -> {
-                selectedSegment = 2
+            R.id.rbSpeed ->{
+                selectedRadio = 2
                 sortSpeedList(selectedLevel)
             }
         }
@@ -141,5 +135,36 @@ class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener, Segmente
         val sortedListSpeed = sortListByAsc.sortedWith(compareBy { it.levels.get(level).speed })
             .reversed()
         monsterTDexAdapter.updateMonster(sortedListSpeed)
+    }
+
+    private val listener by lazy {
+        object : MaterialSpinner.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: MaterialSpinner,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                Log.e("MaterialSpinner", "onItemSelected parent=${parent.id}, position=$position")
+                monsterTDexAdapter.updateLevel(position)
+
+                when (selectedRadio) {
+                    0 -> {
+                        sortHealthList(position)
+                    }
+                    1 -> {
+                        sortDamageList(position)
+                    }
+                    2 -> {
+                        sortSpeedList(position)
+                    }
+                }
+                selectedLevel = position
+                parent.focusSearch(View.FOCUS_UP)?.requestFocus()
+            }
+
+            override fun onNothingSelected(parent: MaterialSpinner) {
+            }
+        }
     }
 }

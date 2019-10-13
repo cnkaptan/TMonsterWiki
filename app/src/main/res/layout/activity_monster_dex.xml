@@ -13,75 +13,52 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:paddingLeft="10dp"
             android:orientation="horizontal">
 
-        <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
-                android:id="@+id/segmentedButtonGroup"
+        <RadioGroup
+                android:id="@+id/radioButtonGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="1dp"
-                android:elevation="1dp"
-                app:borderColor="@color/lightGrayTableItemBg"
-                app:borderWidth="1dp"
-                android:background="@color/colorBlack"
-                app:divider="@color/lightGrayTableItemBg"
-                app:dividerPadding="1dp"
-                app:dividerRadius="1dp"
-                app:dividerWidth="2dp"
-                app:position="0"
-                app:radius="0dp"
-                app:rippleColor="@color/colorGrey"
-                app:selectedBackground="@color/colorGrey">
+                android:layout_marginRight="25dp"
+                android:layout_marginTop="3dp"
+                android:orientation="horizontal">
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <androidx.appcompat.widget.AppCompatRadioButton
                     android:id="@+id/rbHealth"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:padding="10dp"
-                    app:drawable="@drawable/icon_attr_hp"
-                    app:drawableGravity="top"/>
+                    android:layout_width="78dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/lightGrayTableItemBg"
+                    android:drawableStart="@drawable/icon_attr_hp" />
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <androidx.appcompat.widget.AppCompatRadioButton
                     android:id="@+id/rbDamage"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:padding="10dp"
-                    app:drawable="@drawable/icon_attr_dmg"
-                    app:drawableGravity="top"/>
+                    android:layout_width="78dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/lightGrayTableItemBg"
+                    android:drawableStart="@drawable/icon_attr_dmg" />
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <androidx.appcompat.widget.AppCompatRadioButton
                     android:id="@+id/rbSpeed"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:padding="10dp"
-                    app:drawable="@drawable/icon_attr_speed"
-                    app:drawableGravity="top"/>
-        </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
+                    android:layout_width="78dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/lightGrayTableItemBg"
+                    android:drawableStart="@drawable/icon_attr_speed"
+                    android:gravity="center" />
 
 
-        <FrameLayout
-                android:layout_width="wrap_content"
+        </RadioGroup>
+
+        <com.tiper.MaterialSpinner
+                android:id="@+id/spn_monster_dex"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="70dp"
-                android:background="@drawable/spinner_background">
+                android:src="@drawable/ic_selector_drawable"
+                android:textColorHint="@color/lightGrayTableItemBg"
+                android:textColor="@color/lightGrayTableItemBg"
+                app:spinnerMode="bottomsheet"
+                android:hint="Select Level" />
 
-            <Spinner
-                    android:id="@+id/spn_monster_dex"
-                    android:layout_width="100dp"
-                    android:layout_height="40dp"
-                    android:backgroundTint="@color/lightGrayTableItemBg"
-                    android:layout_marginLeft="10dp"
-                    android:gravity="right|center_vertical">
-
-            </Spinner>
-
-
-        </FrameLayout>
 
     </LinearLayout>
 
