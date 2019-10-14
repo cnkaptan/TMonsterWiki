@@ -3,4 +3,11 @@
     <dimen name="skill_tree_icon_size">64dp</dimen>
     <dimen name="monster_size">48dp</dimen>
     <dimen name="monster_size_detail">100dp</dimen>
+    <dimen name="radio_button_width_72">72dp</dimen>
+    <dimen name="radio_button_width_65">65dp</dimen>
+    <dimen name="radio_scaleX">0.70</dimen>
+    <dimen name="radio_scaleY">0.70</dimen>
+    <dimen name="spinner_dex_text_size">10sp</dimen>
+    <dimen name="spinner_dex_width_size">110dp</dimen>
+    <dimen name="radio_group_margin_right">0dp</dimen>
 </resources>

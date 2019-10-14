@@ -19,31 +19,37 @@
                 android:id="@+id/radioButtonGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="25dp"
                 android:layout_marginTop="3dp"
+                android:layout_marginRight="@dimen/radio_group_margin_right"
                 android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatRadioButton
                     android:id="@+id/rbHealth"
-                    android:layout_width="78dp"
+                    android:layout_width="@dimen/radio_button_width_72"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/lightGrayTableItemBg"
-                    android:drawableStart="@drawable/icon_attr_hp" />
+                    android:drawableEnd="@drawable/icon_attr_hp"
+                    android:scaleX="@dimen/radio_scaleX"
+                    android:scaleY="@dimen/radio_scaleY" />
 
             <androidx.appcompat.widget.AppCompatRadioButton
                     android:id="@+id/rbDamage"
-                    android:layout_width="78dp"
+                    android:layout_width="@dimen/radio_button_width_65"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/lightGrayTableItemBg"
-                    android:drawableStart="@drawable/icon_attr_dmg" />
+                    android:drawableEnd="@drawable/icon_attr_dmg"
+                    android:scaleX="@dimen/radio_scaleX"
+                    android:scaleY="@dimen/radio_scaleY" />
 
             <androidx.appcompat.widget.AppCompatRadioButton
                     android:id="@+id/rbSpeed"
-                    android:layout_width="78dp"
+                    android:layout_width="@dimen/radio_button_width_72"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/lightGrayTableItemBg"
-                    android:drawableStart="@drawable/icon_attr_speed"
-                    android:gravity="center" />
+                    android:drawableEnd="@drawable/icon_attr_speed"
+                    android:gravity="center"
+                    android:scaleX="@dimen/radio_scaleX"
+                    android:scaleY="@dimen/radio_scaleY" />
 
 
         </RadioGroup>
@@ -51,13 +57,14 @@
         <com.tiper.MaterialSpinner
                 android:id="@+id/spn_monster_dex"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="match_parent"
+                android:layout_width="@dimen/spinner_dex_width_size"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_selector_drawable"
                 android:textColorHint="@color/lightGrayTableItemBg"
                 android:textColor="@color/lightGrayTableItemBg"
+                android:textSize="@dimen/spinner_dex_text_size"
                 app:spinnerMode="bottomsheet"
-                android:hint="Select Level" />
+                android:hint="@string/select_level" />
 
 
     </LinearLayout>
