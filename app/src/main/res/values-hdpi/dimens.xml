@@ -3,4 +3,15 @@
     <dimen name="skill_tree_icon_size">64dp</dimen>
     <dimen name="monster_size">48dp</dimen>
     <dimen name="monster_size_detail">100dp</dimen>
+    <dimen name="text_size_20">15sp</dimen>
+    <dimen name="spinner_height">25dp</dimen>
+    <dimen name="spinner_width">130dp</dimen>
+    <dimen name="edit_text_size_17">14sp</dimen>
+    <dimen name="button_width">120dp</dimen>
+    <dimen name="button_height">37dp</dimen>
+    <dimen name="margin_8">0dp</dimen>
+    <dimen name="layout_weight">0.8</dimen>
+    <dimen name="edit_text_width">150dp</dimen>
+    <dimen name="text_view_margin_left">2dp</dimen>
+    <dimen name="margin_32">27dp</dimen>
 </resources>

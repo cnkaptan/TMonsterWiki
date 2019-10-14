@@ -13,4 +13,12 @@
     <dimen name="monster_size">80dp</dimen>
     <dimen name="monster_size_detail">120dp</dimen>
     <dimen name="text_size_20">20sp</dimen>
+    <dimen name="spinner_height">30dp</dimen>
+    <dimen name="spinner_width">128dp</dimen>
+    <dimen name="edit_text_size_17">17sp</dimen>
+    <dimen name="button_width">120dp</dimen>
+    <dimen name="button_height">47dp</dimen>
+    <dimen name="layout_weight">0.6</dimen>
+    <dimen name="edit_text_width">125dp</dimen>
+    <dimen name="text_view_margin_left">0dp</dimen>
 </resources>
