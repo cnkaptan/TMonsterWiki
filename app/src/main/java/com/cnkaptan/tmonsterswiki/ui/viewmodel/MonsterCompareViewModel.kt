@@ -10,7 +10,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class MonsterTDexViewModel @Inject constructor(private val monsterRepository: MonsterRepository) : BaseViewModel() {
+class MonsterCompareViewModel @Inject constructor(private val monsterRepository: MonsterRepository) : BaseViewModel() {
 
     private var monsterWtihLevels: MutableLiveData<List<MonsterEntity>> = MutableLiveData()
 

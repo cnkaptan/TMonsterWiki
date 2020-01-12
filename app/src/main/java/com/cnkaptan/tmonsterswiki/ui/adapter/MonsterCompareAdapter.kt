@@ -10,11 +10,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cnkaptan.tmonsterswiki.R
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
+import com.cnkaptan.tmonsterswiki.di.module.ApiModule
 import com.squareup.picasso.Picasso
 
-class MonsterTDexAdapter(
+class MonsterCompareAdapter(
     private val context: Context
-) : RecyclerView.Adapter<MonsterTDexAdapter.MonsterViewHolder>() {
+) : RecyclerView.Adapter<MonsterCompareAdapter.MonsterViewHolder>() {
 
     private var level: Int? = 0
     private var monsterWithLevels: MutableList<MonsterEntity> = mutableListOf()
@@ -44,17 +45,13 @@ class MonsterTDexAdapter(
 
         holder.ivMonster.setBackgroundResource(frameColor)
 
-        val resourceName = monsterEntity.resourceCode.toLowerCase()
-        val drawableId = context.resources.getIdentifier(resourceName, "drawable", context.packageName)
-        if (drawableId > 0) {
-            Picasso.get()
+        val resourceName = monsterEntity.getMonsterDrawCode()
+        val drawableId = "${ApiModule.BASE_IMAGE_URL}/$resourceName.png"
+
+        Picasso.get()
                 .load(drawableId)
                 .placeholder(R.drawable.splash_logo)
                 .into(holder.ivMonster)
-        } else {
-            holder.ivMonster.setImageResource(R.drawable.splash_logo)
-        }
-
     }
 
     fun updateLevel(getLevel: Int) {

@@ -16,8 +16,8 @@ import com.cnkaptan.tmonsterswiki.AppController
 import com.cnkaptan.tmonsterswiki.R
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
 import com.cnkaptan.tmonsterswiki.databinding.ActivityMonsterDexBinding
-import com.cnkaptan.tmonsterswiki.ui.adapter.MonsterTDexAdapter
-import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterTDexViewModel
+import com.cnkaptan.tmonsterswiki.ui.adapter.MonsterCompareAdapter
+import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterCompareViewModel
 import javax.inject.Inject
 
 
@@ -29,8 +29,8 @@ class MonsterCompareFragment : Fragment(), AdapterView.OnItemSelectedListener,Se
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var binding: ActivityMonsterDexBinding
-    private lateinit var monsterTDexViewModel: MonsterTDexViewModel
-    private lateinit var monsterTDexAdapter: MonsterTDexAdapter
+    private lateinit var monsterCompareViewModel: MonsterCompareViewModel
+    private lateinit var monsterCompareAdapter: MonsterCompareAdapter
 
     private var selectedLevel: Int = 0
     private var sortListByAsc: List<MonsterEntity> = mutableListOf()
@@ -59,19 +59,19 @@ class MonsterCompareFragment : Fragment(), AdapterView.OnItemSelectedListener,Se
 
     private fun initView(monsterEntity: List<MonsterEntity>) {
         binding.spnMonsterDex.onItemSelectedListener = this
-        monsterTDexAdapter = MonsterTDexAdapter(requireContext())
+        monsterCompareAdapter = MonsterCompareAdapter(requireContext())
         binding.rvMonsterDexList.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
-            adapter = monsterTDexAdapter
-            monsterTDexAdapter.updateMonster(monsterEntity)
+            adapter = monsterCompareAdapter
+            monsterCompareAdapter.updateMonster(monsterEntity)
         }
     }
 
     private fun initViewModel() {
-        monsterTDexViewModel = ViewModelProviders.of(this, viewModelFactory).get(MonsterTDexViewModel::class.java)
-        monsterTDexViewModel.loadMonstersWithLevels()
-        monsterTDexViewModel.getMonsterWithLevels().observe(this, Observer {
+        monsterCompareViewModel = ViewModelProviders.of(this, viewModelFactory).get(MonsterCompareViewModel::class.java)
+        monsterCompareViewModel.loadMonstersWithLevels()
+        monsterCompareViewModel.getMonsterWithLevels().observe(this, Observer {
             initView(it)
             sortListByAsc = it
         })
@@ -86,10 +86,10 @@ class MonsterCompareFragment : Fragment(), AdapterView.OnItemSelectedListener,Se
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
         if(p1!!.equals("Select Level")){
-            monsterTDexAdapter.updateLevel(0)
+            monsterCompareAdapter.updateLevel(0)
             selectedLevel=0
         }else{
-            monsterTDexAdapter.updateLevel(p2)
+            monsterCompareAdapter.updateLevel(p2)
             selectedLevel = p2
         }
     }
@@ -101,15 +101,15 @@ class MonsterCompareFragment : Fragment(), AdapterView.OnItemSelectedListener,Se
         when (checkedId) {
             0 -> {
                 val sortedListHp = sortListByAsc.sortedWith(compareBy { it.levels.get(selectedLevel).hp })
-                monsterTDexAdapter.updateMonster(sortedListHp)
+                monsterCompareAdapter.updateMonster(sortedListHp)
             }
             1 -> {
                 val sortedListDmg = sortListByAsc.sortedWith(compareBy { it.levels.get(selectedLevel).dmg })
-                monsterTDexAdapter.updateMonster(sortedListDmg)
+                monsterCompareAdapter.updateMonster(sortedListDmg)
             }
             else -> {
                 val sortedListMove = sortListByAsc.sortedWith(compareBy { it.levels.get(selectedLevel).speed })
-                monsterTDexAdapter.updateMonster(sortedListMove)
+                monsterCompareAdapter.updateMonster(sortedListMove)
             }
         }
     }
