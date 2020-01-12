@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/colorBlack"
+            tools:context=".ui.MonsterListFragment">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal">
+
+            <RadioGroup
+                    android:id="@+id/radioButtonGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginRight="@dimen/radio_group_margin_right"
+                    android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                        android:id="@+id/rbHealth"
+                        android:layout_width="@dimen/radio_button_width_72"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/lightGrayTableItemBg"
+                        android:drawableEnd="@drawable/icon_attr_hp"
+                        android:scaleX="@dimen/radio_scaleX"
+                        android:scaleY="@dimen/radio_scaleY" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                        android:id="@+id/rbDamage"
+                        android:layout_width="@dimen/radio_button_width_65"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/lightGrayTableItemBg"
+                        android:drawableEnd="@drawable/icon_attr_dmg"
+                        android:scaleX="@dimen/radio_scaleX"
+                        android:scaleY="@dimen/radio_scaleY" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                        android:id="@+id/rbSpeed"
+                        android:layout_width="@dimen/radio_button_width_72"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/lightGrayTableItemBg"
+                        android:drawableEnd="@drawable/icon_attr_speed"
+                        android:gravity="center"
+                        android:scaleX="@dimen/radio_scaleX"
+                        android:scaleY="@dimen/radio_scaleY" />
+
+
+            </RadioGroup>
+
+            <com.tiper.MaterialSpinner
+                    android:id="@+id/spn_monster_dex"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="@dimen/spinner_dex_width_size"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_selector_drawable"
+                    android:textColorHint="@color/lightGrayTableItemBg"
+                    android:textColor="@color/lightGrayTableItemBg"
+                    android:textSize="@dimen/spinner_dex_text_size"
+                    app:spinnerMode="bottomsheet"
+                    android:hint="@string/select_level" />
+
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvMonsterDexList"
+                android:padding="10dp"
+                android:background="@color/colorBlack"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
+</layout>
