@@ -17,6 +17,9 @@ class MonsterListViewModel @Inject constructor(private val monsterRepository: Mo
     private var monsterGroups: MutableLiveData<List<Map.Entry<Int, List<MonsterEntity>>>> = MutableLiveData()
     private var monsterList: MutableLiveData<List<MonsterEntity>?> = MutableLiveData()
 
+    init {
+        loadMonsters()
+    }
     fun loadMonsters() {
         disposibleContainer.add(
             monsterRepository.getAllMonstersForVisiualize()

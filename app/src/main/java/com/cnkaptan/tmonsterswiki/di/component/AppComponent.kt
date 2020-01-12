@@ -29,9 +29,9 @@ interface AppComponent {
         fun build(): AppComponent
     }
 
-    fun inject(monsterListActivity: MonsterListActivity)
+    fun inject(monsterListFragment: MonsterListFragment)
     fun inject(splashActivity: SplashActivity)
     fun inject(monsterDetailActivity: MonsterDetailActivity)
-    fun inject(monsterTDex: MonsterTDex)
-    fun inject(monnsterUpgradeCalculatorActivity: CalculatorActivity)
+    fun inject(monsterCompareFragment: MonsterCompareFragment)
+    fun inject(monnsterUpgradeCalculatorFragment: CalculatorFragment)
 }

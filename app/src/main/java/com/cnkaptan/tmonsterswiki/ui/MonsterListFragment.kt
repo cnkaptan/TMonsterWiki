@@ -2,56 +2,37 @@ package com.cnkaptan.tmonsterswiki.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.ImageView
+import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
-import butterknife.ButterKnife
 import com.cnkaptan.tmonsterswiki.AppController
 import com.cnkaptan.tmonsterswiki.R
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
+import com.cnkaptan.tmonsterswiki.databinding.ActivityMonsterListBinding
 import com.cnkaptan.tmonsterswiki.ui.adapter.MonsterAdapter
 import com.cnkaptan.tmonsterswiki.ui.adapter.SearchMonsterAdapter
-import com.cnkaptan.tmonsterswiki.ui.base.BaseActivity
+import com.cnkaptan.tmonsterswiki.ui.base.BaseFragment
 import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterListViewModel
 import com.cnkaptan.tmonsterswiki.utils.playAnimation
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class MonsterListActivity : BaseActivity() {
+class MonsterListFragment : BaseFragment() {
+    private lateinit var binding: ActivityMonsterListBinding
     private lateinit var mFirebaseAnalytics: FirebaseAnalytics
     override val TAG: String
-        get() = MonsterListActivity::class.java.simpleName
-
-    @BindView(R.id.rvMonsterList)
-    lateinit var rvMonsterList: RecyclerView
-
-    @BindView(R.id.rvSearchMonsterList)
-    lateinit var rvSearchMonsterList: RecyclerView
-
-    @BindView(R.id.tilSearchMonsters)
-    lateinit var tilSearchMonsters: TextInputLayout
-
-    @BindView(R.id.etSearchMonsters)
-    lateinit var etSearchMonsters: TextInputEditText
-
-    @BindView(R.id.ivSearchStatusIcon)
-    lateinit var ivSearchStatusIcon: ImageView
-
-    @BindView(R.id.fabCalculateUpgrade)
-    lateinit var fabCalculateUpgrade: FloatingActionButton
+        get() = MonsterListFragment::class.java.simpleName
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -64,50 +45,60 @@ class MonsterListActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_monster_list)
-        (application as AppController).appComponent.inject(this)
-        ButterKnife.bind(this)
+        ((activity!!.applicationContext) as AppController).appComponent.inject(this)
+        monsterListViewModel = ViewModelProviders.of(this, viewModelFactory).get(MonsterListViewModel::class.java)
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(requireContext())
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding  = DataBindingUtil.inflate(inflater, R.layout.activity_monster_list, container,false)
+        return binding.root
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initViewModel()
-
         initView()
-
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
     }
 
     private fun initView() {
-        monsterAdapter = MonsterAdapter(applicationContext) { id, imageView ->
+        monsterAdapter = MonsterAdapter(requireContext()) { id, imageView ->
             val activityOptionsCompat = ActivityOptionsCompat
-                .makeSceneTransitionAnimation(this, imageView, "imageMain")
+                .makeSceneTransitionAnimation(activity!!, imageView, "imageMain")
 
-            val detailIntent = MonsterDetailActivity.newIntent(this, id)
+            val detailIntent = MonsterDetailActivity.newIntent(requireContext(), id)
             detailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(detailIntent, activityOptionsCompat.toBundle())
         }
 
-        searchMonsterAdapter = SearchMonsterAdapter(applicationContext, mutableListOf()) { id, imageView ->
+        searchMonsterAdapter = SearchMonsterAdapter(requireContext(), mutableListOf()) { id, imageView ->
             val activityOptionsCompat = ActivityOptionsCompat
-                .makeSceneTransitionAnimation(this, imageView, "imageMain")
+                .makeSceneTransitionAnimation(activity!!, imageView, "imageMain")
 
-            val detailIntent = MonsterDetailActivity.newIntent(this, id)
+            val detailIntent = MonsterDetailActivity.newIntent(requireContext(), id)
             detailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(detailIntent, activityOptionsCompat.toBundle())
         }
 
-        rvMonsterList = findViewById(R.id.rvMonsterList)
-        rvMonsterList.apply {
+        binding.rvMonsterList.apply {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(applicationContext)
+            layoutManager = LinearLayoutManager(requireContext())
             adapter = monsterAdapter
         }
 
-        rvSearchMonsterList.apply {
+        binding.rvSearchMonsterList.apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(context, 4)
             adapter = searchMonsterAdapter
         }
 
         disposableContainer.add(
-            RxTextView.textChanges(etSearchMonsters)
+            RxTextView.textChanges(binding.etSearchMonsters)
                 .debounce(300, TimeUnit.MILLISECONDS)
                 .map { it.toString() }
                 .observeOn(AndroidSchedulers.mainThread())
@@ -126,26 +117,22 @@ class MonsterListActivity : BaseActivity() {
             this.monsterList = it
         })
 
-        ivSearchStatusIcon.setOnClickListener {
-            etSearchMonsters.setText("")
+        binding.ivSearchStatusIcon.setOnClickListener {
+            binding.etSearchMonsters.setText("")
             openCategorizedMenu()
         }
 
-        fabCalculateUpgrade.setOnClickListener {
-            val intent = Intent(applicationContext, CalculatorActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     private fun openCategorizedMenu() {
-        rvMonsterList.playAnimation(R.anim.fade_in,onAnimationEnd = {
-            rvMonsterList.visibility = View.VISIBLE
+        binding.rvMonsterList.playAnimation(R.anim.fade_in,onAnimationEnd = {
+            binding.rvMonsterList.visibility = View.VISIBLE
         })
-        rvSearchMonsterList.playAnimation(R.anim.fade_out,onAnimationEnd = {
-            rvSearchMonsterList.visibility = View.GONE
+        binding.rvSearchMonsterList.playAnimation(R.anim.fade_out,onAnimationEnd = {
+            binding.rvSearchMonsterList.visibility = View.GONE
         })
 
-        etSearchMonsters.clearFocus()
+        binding.etSearchMonsters.clearFocus()
     }
 
     private fun openSearchList(searchText: String) {
@@ -155,18 +142,16 @@ class MonsterListActivity : BaseActivity() {
             }.toList()
 
             searchMonsterAdapter.updateList(searchedList)
-            rvSearchMonsterList.playAnimation(R.anim.fade_in,onAnimationEnd = {
-                rvSearchMonsterList.visibility = View.VISIBLE
+            binding.rvSearchMonsterList.playAnimation(R.anim.fade_in,onAnimationEnd = {
+                binding.rvSearchMonsterList.visibility = View.VISIBLE
             })
-            rvMonsterList.playAnimation(R.anim.fade_out,onAnimationEnd = {
-                rvMonsterList.visibility = View.GONE
+            binding.rvMonsterList.playAnimation(R.anim.fade_out,onAnimationEnd = {
+                binding.rvMonsterList.visibility = View.GONE
             })
         }
     }
 
     private fun initViewModel() {
-        monsterListViewModel = ViewModelProviders.of(this, viewModelFactory).get(MonsterListViewModel::class.java)
-        monsterListViewModel.loadMonsters()
         monsterListViewModel.getMonsterGroups().observe(this, Observer {
             monsterAdapter.updateList(it)
         })

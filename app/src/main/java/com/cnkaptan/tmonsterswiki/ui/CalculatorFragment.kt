@@ -3,7 +3,9 @@ package com.cnkaptan.tmonsterswiki.ui
 import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -11,7 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.cnkaptan.tmonsterswiki.AppController
 import com.cnkaptan.tmonsterswiki.R
 import com.cnkaptan.tmonsterswiki.databinding.ActivityUpgradeCalculatorBinding
-import com.cnkaptan.tmonsterswiki.ui.base.BaseActivity
+import com.cnkaptan.tmonsterswiki.ui.base.BaseFragment
 import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterUpgradeViewModel
 import com.cnkaptan.tmonsterswiki.utils.Constants
 import com.cnkaptan.tmonsterswiki.utils.ValidationUtils
@@ -21,9 +23,9 @@ import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 import javax.inject.Inject
 
-class CalculatorActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
+class CalculatorFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
     override val TAG: String
-        get() = CalculatorActivity::class.java.simpleName
+        get() = CalculatorFragment::class.java.simpleName
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -34,8 +36,20 @@ class CalculatorActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_upgrade_calculator)
-        (application as AppController).appComponent.inject(this)
+        (activity!!.applicationContext as AppController).appComponent.inject(this)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.activity_upgrade_calculator,container,false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initViewModel()
 
 
@@ -73,7 +87,7 @@ class CalculatorActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
 
     private fun initSpinners() {
         val numbers = resources.getStringArray(R.array.calculator_levels)
-        val aa = ArrayAdapter(this, R.layout.item_spinner, numbers)
+        val aa = ArrayAdapter(requireContext(), R.layout.item_spinner, numbers)
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spnFromMonster.adapter = aa
         binding.spnToMonster.adapter = aa
@@ -188,7 +202,7 @@ class CalculatorActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
     }
 
     private fun initTextFont(){
-        val typeFace = Typeface.createFromAsset(assets, Constants.MONSTERNAMEFONT)
+        val typeFace = Typeface.createFromAsset(requireActivity().assets, Constants.MONSTERNAMEFONT)
 
         binding.tvFromLevelText.typeface=typeFace
         binding.tvToLevelText.typeface=typeFace

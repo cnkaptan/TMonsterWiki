@@ -1,42 +1,34 @@
 package com.cnkaptan.tmonsterswiki.ui
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
-import butterknife.ButterKnife
 import com.addisonelliott.segmentedbutton.SegmentedButtonGroup
 import com.cnkaptan.tmonsterswiki.AppController
 import com.cnkaptan.tmonsterswiki.R
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
+import com.cnkaptan.tmonsterswiki.databinding.ActivityMonsterDexBinding
 import com.cnkaptan.tmonsterswiki.ui.adapter.MonsterTDexAdapter
-import com.cnkaptan.tmonsterswiki.ui.base.BaseActivity
 import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterTDexViewModel
 import javax.inject.Inject
 
 
 
-class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener,SegmentedButtonGroup.OnPositionChangedListener {
-    override val TAG: String
-        get() = MonsterTDex::class.java.simpleName
+class MonsterCompareFragment : Fragment(), AdapterView.OnItemSelectedListener,SegmentedButtonGroup.OnPositionChangedListener {
 
-    @BindView(R.id.rvMonsterDexList)
-    lateinit var rvMonsterDexList: RecyclerView
-
-    @BindView(R.id.spn_monster_dex)
-    lateinit var spnLevels: Spinner
-
-    @BindView(R.id.segmentedButtonGroup)
-    lateinit var sbGroup: SegmentedButtonGroup
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
 
+    private lateinit var binding: ActivityMonsterDexBinding
     private lateinit var monsterTDexViewModel: MonsterTDexViewModel
     private lateinit var monsterTDexAdapter: MonsterTDexAdapter
 
@@ -45,20 +37,30 @@ class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener,Segmented
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_monster_dex)
-        (application as AppController).appComponent.inject(this)
-        ButterKnife.bind(this)
+        (activity?.applicationContext as AppController).appComponent.inject(this)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = DataBindingUtil.inflate(inflater,R.layout.activity_monster_dex,container,false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initViewModel()
-
-        sbGroup.setOnPositionChangedListener(this)
-
         initSpinner()
+
+        binding.segmentedButtonGroup.onPositionChangedListener = this
     }
 
     private fun initView(monsterEntity: List<MonsterEntity>) {
-        spnLevels.setOnItemSelectedListener(this)
-        monsterTDexAdapter = MonsterTDexAdapter(applicationContext)
-        rvMonsterDexList.apply {
+        binding.spnMonsterDex.onItemSelectedListener = this
+        monsterTDexAdapter = MonsterTDexAdapter(requireContext())
+        binding.rvMonsterDexList.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             adapter = monsterTDexAdapter
@@ -77,9 +79,9 @@ class MonsterTDex : BaseActivity(), AdapterView.OnItemSelectedListener,Segmented
 
     private fun initSpinner() {
         val numbers = resources.getStringArray(R.array.level_numbers)
-        val aa = ArrayAdapter(this, R.layout.item_spinner, numbers)
+        val aa = ArrayAdapter(requireContext(), R.layout.item_spinner, numbers)
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spnLevels.adapter = aa
+        binding.spnMonsterDex.adapter = aa
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {

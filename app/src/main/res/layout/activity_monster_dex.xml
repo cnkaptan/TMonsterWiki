@@ -1,99 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/colorBlack"
-        tools:context=".ui.MonsterListActivity">
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
 
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:paddingLeft="10dp"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/colorBlack"
+            tools:context=".ui.MonsterListFragment">
 
-        <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
-                android:id="@+id/segmentedButtonGroup"
-                android:layout_width="wrap_content"
+        <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="1dp"
-                android:elevation="1dp"
-                app:borderColor="@color/lightGrayTableItemBg"
-                app:borderWidth="1dp"
+                android:layout_marginTop="25dp"
+                android:paddingLeft="10dp"
+                android:orientation="horizontal">
+
+            <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+                    android:id="@+id/segmentedButtonGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="1dp"
+                    android:elevation="1dp"
+                    app:borderColor="@color/lightGrayTableItemBg"
+                    app:borderWidth="1dp"
+                    android:background="@color/colorBlack"
+                    app:divider="@color/lightGrayTableItemBg"
+                    app:dividerPadding="1dp"
+                    app:dividerRadius="1dp"
+                    app:dividerWidth="2dp"
+                    app:position="0"
+                    app:radius="30dp"
+                    app:rippleColor="@color/colorGrey"
+                    app:selectedBackground="@color/colorGrey">
+
+                <com.addisonelliott.segmentedbutton.SegmentedButton
+                        android:id="@+id/rbHealth"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:padding="10dp"
+                        app:drawable="@drawable/icon_attr_hp"
+                        app:drawableGravity="top" />
+
+                <com.addisonelliott.segmentedbutton.SegmentedButton
+                        android:id="@+id/rbDamage"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:padding="10dp"
+                        app:drawable="@drawable/icon_attr_dmg"
+                        app:drawableGravity="top" />
+
+                <com.addisonelliott.segmentedbutton.SegmentedButton
+                        android:id="@+id/rbSpeed"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:padding="10dp"
+                        app:drawable="@drawable/icon_attr_speed"
+                        app:drawableGravity="top" />
+            </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
+
+
+            <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="70dp"
+                    android:background="@drawable/spinner_background">
+
+                <Spinner
+                        android:id="@+id/spn_monster_dex"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:backgroundTint="@color/lightGrayTableItemBg"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="right|center_vertical">
+
+                </Spinner>
+
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvMonsterDexList"
+                android:padding="10dp"
                 android:background="@color/colorBlack"
-                app:divider="@color/lightGrayTableItemBg"
-                app:dividerPadding="1dp"
-                app:dividerRadius="1dp"
-                app:dividerWidth="2dp"
-                app:position="0"
-                app:radius="30dp"
-                app:rippleColor="@color/colorGrey"
-                app:selectedBackground="@color/colorGrey">
-
-            <com.addisonelliott.segmentedbutton.SegmentedButton
-                    android:id="@+id/rbHealth"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:padding="10dp"
-                    app:drawable="@drawable/icon_attr_hp"
-                    app:drawableGravity="top"/>
-
-            <com.addisonelliott.segmentedbutton.SegmentedButton
-                    android:id="@+id/rbDamage"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:padding="10dp"
-                    app:drawable="@drawable/icon_attr_dmg"
-                    app:drawableGravity="top"/>
-
-            <com.addisonelliott.segmentedbutton.SegmentedButton
-                    android:id="@+id/rbSpeed"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:padding="10dp"
-                    app:drawable="@drawable/icon_attr_speed"
-                    app:drawableGravity="top"/>
-        </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
-
-
-        <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="70dp"
-                android:background="@drawable/spinner_background">
-
-            <Spinner
-                    android:id="@+id/spn_monster_dex"
-                    android:layout_width="100dp"
-                    android:layout_height="40dp"
-                    android:backgroundTint="@color/lightGrayTableItemBg"
-                    android:layout_marginLeft="10dp"
-                    android:gravity="right|center_vertical">
-
-            </Spinner>
-
-
-        </FrameLayout>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
     </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvMonsterDexList"
-            android:padding="10dp"
-            android:background="@color/colorBlack"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-</LinearLayout>
+</layout>

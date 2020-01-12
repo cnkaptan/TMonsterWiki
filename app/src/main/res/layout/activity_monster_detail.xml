@@ -1,239 +1,243 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:background="@color/colorPrimaryDark"
->
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
+    <data>
+
+    </data>
+
+    <FrameLayout
             android:layout_height="match_parent"
-            tools:context=".ui.MonsterDetailActivity">
-        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:background="@color/colorPrimaryDark">
+
+        <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 tools:context=".ui.MonsterDetailActivity">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ivMonsterArtwork"
+            <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="220dp"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/detail_main_image"/>
-
-
-            <View android:id="@+id/view_tags_shadow"
-                  android:layout_width="match_parent"
-                  android:layout_height="60dp"
-                  app:layout_constraintBottom_toBottomOf="@id/ivMonsterArtwork"
-                  android:background="#8000"/>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvMonsterName"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="?colorAccent"
-                    android:layout_marginLeft="@dimen/margin_16"
-                    style="@style/TextAppearance.AppCompat.Headline"
-                    app:layout_constraintTop_toBottomOf="@id/view_tags_shadow"
-                    app:layout_constraintLeft_toRightOf="@id/ivMonster"
-                    app:layout_constraintBottom_toBottomOf="@id/ivMonster"/>
+                    tools:context=".ui.MonsterDetailActivity">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ivMonster"
-                    android:layout_width="@dimen/monster_size_detail"
-                    android:layout_height="@dimen/monster_size_detail"
-                    android:src="@drawable/wukong"
-                    android:padding="4dp"
-                    android:transitionName="imageMain"
-                    android:background="@drawable/legendary_frame"
-                    app:layout_constraintTop_toTopOf="@id/view_tags_shadow"
-                    android:layout_marginLeft="16dp"
-                    android:elevation="20dp"
-                    app:layout_constraintLeft_toLeftOf="parent"/>
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivMonsterArtwork"
+                        android:layout_width="match_parent"
+                        android:layout_height="220dp"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/detail_main_image" />
 
-            <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_8"
-                    android:layout_marginRight="@dimen/margin_8"
-                    app:layout_constraintTop_toTopOf="@id/view_tags_shadow"
-                    app:layout_constraintTop_toBottomOf="@id/view_tags_shadow"
-                    app:layout_constraintBottom_toBottomOf="@id/view_tags_shadow"
-                    app:layout_constraintLeft_toRightOf="@id/ivMonster"
-                    app:layout_constraintRight_toRightOf="parent">
 
-                <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvTags"
+                <View
+                        android:id="@+id/view_tags_shadow"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        app:layout_constraintBottom_toBottomOf="@id/ivMonsterArtwork"
+                        android:background="#8000" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvMonsterName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"/>
-            </FrameLayout>
+                        android:textColor="?colorAccent"
+                        android:layout_marginLeft="@dimen/margin_16"
+                        style="@style/TextAppearance.AppCompat.Headline"
+                        app:layout_constraintTop_toBottomOf="@id/view_tags_shadow"
+                        app:layout_constraintLeft_toRightOf="@id/ivMonster"
+                        app:layout_constraintBottom_toBottomOf="@id/ivMonster" />
 
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivMonster"
+                        android:layout_width="@dimen/monster_size_detail"
+                        android:layout_height="@dimen/monster_size_detail"
+                        android:src="@drawable/wukong"
+                        android:padding="4dp"
+                        android:transitionName="imageMain"
+                        android:background="@drawable/legendary_frame"
+                        app:layout_constraintTop_toTopOf="@id/view_tags_shadow"
+                        android:layout_marginLeft="16dp"
+                        android:elevation="20dp"
+                        app:layout_constraintLeft_toLeftOf="parent" />
 
-            <FrameLayout
-                    android:id="@+id/fl_container_skills"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/ivMonster"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    android:layout_margin="@dimen/margin_8">
-                <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvSkills"
+                <FrameLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"/>
+                        android:layout_marginLeft="@dimen/margin_8"
+                        android:layout_marginRight="@dimen/margin_8"
+                        app:layout_constraintTop_toTopOf="@id/view_tags_shadow"
+                        app:layout_constraintTop_toBottomOf="@id/view_tags_shadow"
+                        app:layout_constraintBottom_toBottomOf="@id/view_tags_shadow"
+                        app:layout_constraintLeft_toRightOf="@id/ivMonster"
+                        app:layout_constraintRight_toRightOf="parent">
 
-            </FrameLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvTags"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical" />
+                </FrameLayout>
 
-            <RelativeLayout
-                    android:id="@+id/cv_container_skill_tree"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/fl_container_skills"
-                    android:layout_margin="@dimen/margin_8"
-                    android:visibility="gone">
+
+                <FrameLayout
+                        android:id="@+id/fl_container_skills"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/ivMonster"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:layout_margin="@dimen/margin_8">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvSkills"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center" />
+
+                </FrameLayout>
+
+                <RelativeLayout
+                        android:id="@+id/cv_container_skill_tree"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/fl_container_skills"
+                        android:layout_margin="@dimen/margin_8"
+                        android:visibility="gone">
+
+
+                    <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_8"
+                            android:layout_gravity="center"
+                            app:cardBackgroundColor="@color/colorPrimary"
+                            app:cardCornerRadius="5dp"
+                            app:cardElevation="4dp"
+                            app:cardUseCompatPadding="true">
+
+                        <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/margin_8">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tvSkillName"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@android:color/white"
+                                    tools:text="Fire Blast"
+                                    android:textAppearance="@android:style/TextAppearance.Material.Title" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tvSkillDesc"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/tvSkillName"
+                                    tools:text="Fire Blast"
+                                    android:layout_marginTop="@dimen/margin_4"
+                                    android:textColor="@android:color/white"
+                                    android:textAppearance="@android:style/TextAppearance.Material.Caption" />
+
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/rvSkillChanges"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_below="@id/tvSkillDesc"
+                                    android:layout_marginBottom="@dimen/margin_4"
+                                    android:layout_marginTop="@dimen/margin_4" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tvSubSkillDesc"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/rvSkillChanges"
+                                    tools:text="Fire Blast"
+                                    android:layout_marginTop="@dimen/margin_8"
+                                    android:visibility="gone"
+                                    android:textColor="@android:color/white"
+                                    android:textAppearance="@android:style/TextAppearance.Material.Caption" />
+
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/btnSkillDetailClose"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/tvSubSkillDesc"
+                                    android:text="CLOSE"
+                                    android:layout_marginTop="@dimen/margin_8"
+                                    android:layout_alignParentRight="true"
+                                    android:textColor="@android:color/white"
+                                    style="@style/Widget.AppCompat.Button.Borderless" />
+
+                        </RelativeLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+                </RelativeLayout>
 
 
                 <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cv_container_levels"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/margin_8"
-                        android:layout_gravity="center"
-                        app:cardBackgroundColor="@color/colorPrimary"
-                        app:cardCornerRadius="5dp"
-                        app:cardElevation="4dp"
-                        app:cardUseCompatPadding="true"
-                        >
+                        app:layout_constraintTop_toBottomOf="@id/cv_container_skill_tree">
 
-                    <RelativeLayout android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:padding="@dimen/margin_8">
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/tvSkillName"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@android:color/white"
-                                tools:text="Fire Blast"
-                                android:textAppearance="@android:style/TextAppearance.Material.Title"/>
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/tvSkillDesc"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/tvSkillName"
-                                tools:text="Fire Blast"
-                                android:layout_marginTop="@dimen/margin_4"
-                                android:textColor="@android:color/white"
-                                android:textAppearance="@android:style/TextAppearance.Material.Caption"/>
-
-
-                        <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/rvSkillChanges"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerHorizontal="true"
-                                android:layout_below="@id/tvSkillDesc"
-                                android:layout_marginBottom="@dimen/margin_4"
-                                android:layout_marginTop="@dimen/margin_4"/>
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/tvSubSkillDesc"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/rvSkillChanges"
-                                tools:text="Fire Blast"
-                                android:layout_marginTop="@dimen/margin_8"
-                                android:visibility="gone"
-                                android:textColor="@android:color/white"
-                                android:textAppearance="@android:style/TextAppearance.Material.Caption"/>
-
-
-                        <androidx.appcompat.widget.AppCompatButton
-                                android:id="@+id/btnSkillDetailClose"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/tvSubSkillDesc"
-                                android:text="CLOSE"
-                                android:layout_marginTop="@dimen/margin_8"
-                                android:layout_alignParentRight="true"
-                                android:textColor="@android:color/white"
-                                style="@style/Widget.AppCompat.Button.Borderless"
-                                />
-
-                    </RelativeLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvLevels"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/table_background" />
 
                 </com.google.android.material.card.MaterialCardView>
-            </RelativeLayout>
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
 
-            <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cv_container_levels"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_8"
-                    app:layout_constraintTop_toBottomOf="@id/cv_container_skill_tree"
-                    >
+        <LinearLayout
+                android:id="@+id/ll_container_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:minHeight="60dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="#121212"
+                android:weightSum="4"
+                android:layout_gravity="bottom"
+                android:visibility="gone">
 
-                <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvLevels"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/table_background"
-                        />
-
-            </com.google.android.material.card.MaterialCardView>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
-
-    <LinearLayout
-            android:id="@+id/ll_container_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:minHeight="60dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:background="#121212"
-            android:weightSum="4"
-            android:layout_gravity="bottom"
-            android:visibility="gone">
-
-        <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvSkill"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:padding="8dp"
-                tools:text="@string/lorem_ipsum_long"
-                android:textSize="@dimen/text_size_12"
-                android:textColor="@android:color/white"
-                android:gravity="center_vertical"
-                android:layout_weight="3"/>
-
-        <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-            <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnClose"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="CLOSE"
-                    android:textSize="16sp"
-                    android:layout_gravity="center"
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvSkill"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:padding="8dp"
+                    tools:text="@string/lorem_ipsum_long"
+                    android:textSize="@dimen/text_size_12"
                     android:textColor="@android:color/white"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-            />
-        </FrameLayout>
-    </LinearLayout>
-</FrameLayout>
+                    android:gravity="center_vertical"
+                    android:layout_weight="3" />
+
+            <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnClose"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="CLOSE"
+                        android:textSize="16sp"
+                        android:layout_gravity="center"
+                        android:textColor="@android:color/white"
+                        style="@style/Widget.MaterialComponents.Button.TextButton" />
+            </FrameLayout>
+        </LinearLayout>
+    </FrameLayout>
+</layout>
