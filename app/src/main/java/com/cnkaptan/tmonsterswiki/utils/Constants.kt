@@ -1,5 +1,8 @@
 package com.cnkaptan.tmonsterswiki.utils
 
-object Constants{
-    const val MONSTERNAMEFONT = "fonts/oswald_bold.otf"
+class Constants{
+
+    companion object Constants{
+        const val MONSTER_NAME_FONT = "fonts/oswald_bold.otf"
+    }
 }

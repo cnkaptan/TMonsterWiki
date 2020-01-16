@@ -79,7 +79,7 @@ class MonsterDetailActivity : BaseActivity() {
             layoutManager = lm
             adapter = monsterLevelAdapter
         }
-        val typeFace = Typeface.createFromAsset(applicationContext.assets, Constants.MONSTERNAMEFONT)
+        val typeFace = Typeface.createFromAsset(applicationContext.assets, Constants.MONSTER_NAME_FONT)
         binding.tvMonsterName.typeface = typeFace
 
 

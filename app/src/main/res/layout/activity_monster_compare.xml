@@ -4,6 +4,9 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+                name="fragment"
+                type="com.cnkaptan.tmonsterswiki.ui.MonsterCompareFragment" />
 
     </data>
 
@@ -59,17 +62,27 @@
 
             </RadioGroup>
 
-            <com.tiper.MaterialSpinner
-                    android:id="@+id/spn_monster_dex"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="@dimen/spinner_dex_width_size"
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/selectLevelInput"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_selector_drawable"
-                    android:textColorHint="@color/lightGrayTableItemBg"
-                    android:textColor="@color/lightGrayTableItemBg"
-                    android:textSize="@dimen/spinner_dex_text_size"
-                    app:spinnerMode="bottomsheet"
-                    android:hint="@string/select_level" />
+                    app:errorEnabled="false"
+                    android:visibility="visible"
+                    app:boxBackgroundColor="@color/colorLegendaryFrame"
+                    app:boxStrokeColor="@color/colorAccent"
+                    android:textColorHint="@color/colorAccent"
+                    android:hint="@string/select_level">
+                <androidx.appcompat.widget.AppCompatEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:textColor="@color/colorAccent"
+                        android:focusableInTouchMode="false"
+                        android:editable="false"
+                        android:text="23"
+                        />
+            </com.google.android.material.textfield.TextInputLayout>
+
 
 
         </LinearLayout>

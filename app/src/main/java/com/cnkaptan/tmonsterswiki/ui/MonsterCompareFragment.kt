@@ -1,6 +1,5 @@
 package com.cnkaptan.tmonsterswiki.ui
 
-import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,25 +17,24 @@ import com.cnkaptan.tmonsterswiki.R
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
 import com.cnkaptan.tmonsterswiki.databinding.ActivityMonsterCompareBinding
 import com.cnkaptan.tmonsterswiki.ui.adapter.MonsterCompareAdapter
+import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterCompareRatio
 import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterCompareViewModel
-import com.cnkaptan.tmonsterswiki.utils.Constants
+import com.cnkaptan.tmonsterswiki.utils.NumberPicker
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.tiper.MaterialSpinner
 import kotlinx.android.synthetic.main.activity_monster_compare.*
 import javax.inject.Inject
 
-class MonsterCompareFragment : Fragment(),RadioGroup.OnCheckedChangeListener {
+class MonsterCompareFragment : Fragment(), RadioGroup.OnCheckedChangeListener {
 
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var binding: ActivityMonsterCompareBinding
-    private lateinit var monsterCompareViewModel: MonsterCompareViewModel
+    private lateinit var model: MonsterCompareViewModel
     private lateinit var monsterCompareAdapter: MonsterCompareAdapter
 
-    private var selectedLevel: Int = 0
-    private var selectedRadio: Int = 0
-    private var sortListByAsc: List<MonsterEntity> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +46,9 @@ class MonsterCompareFragment : Fragment(),RadioGroup.OnCheckedChangeListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater,R.layout.activity_monster_compare,container,false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.activity_monster_compare, container, false)
+        binding.setLifecycleOwner(this)
         return binding.root
     }
 
@@ -56,107 +56,70 @@ class MonsterCompareFragment : Fragment(),RadioGroup.OnCheckedChangeListener {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
         binding.radioButtonGroup.setOnCheckedChangeListener(this)
-        initSpinner()
-        initTextFont()
     }
 
     private fun initView(monsterEntity: List<MonsterEntity>) {
-        binding.spnMonsterDex.onItemSelectedListener = listener
-        monsterCompareAdapter = MonsterCompareAdapter(requireContext())
+        monsterCompareAdapter = MonsterCompareAdapter()
         binding.rvMonsterDexList.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             adapter = monsterCompareAdapter
-            monsterCompareAdapter.updateMonster(monsterEntity)
+            monsterCompareAdapter.submitList(monsterEntity)
+        }
+
+        binding.selectLevelInput.setOnClickListener {
+            pickMonsterLevel()
         }
     }
 
     private fun initViewModel() {
-        monsterCompareViewModel = ViewModelProviders.of(this, viewModelFactory).get(MonsterCompareViewModel::class.java)
-        monsterCompareViewModel.loadMonstersWithLevels()
-        monsterCompareViewModel.getMonsterWithLevels().observe(this, Observer {
+        model = ViewModelProviders.of(this, viewModelFactory).get(MonsterCompareViewModel::class.java)
+        model.loadMonstersWithLevels()
+        model.getMonsterWithLevels().observe(this, Observer {
             initView(it)
-            sortListByAsc = it
-            rbHealth.isChecked=true
         })
     }
 
-    private fun initSpinner() {
-        val numbers = resources.getStringArray(R.array.level_numbers)
-        val aa = ArrayAdapter(requireContext(), R.layout.item_spinner, numbers)
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.spnMonsterDex.adapter = aa
-    }
-
     override fun onCheckedChanged(p0: RadioGroup?, id: Int) {
-        when (id) {
+        val selectedRatio = when (id) {
             R.id.rbHealth -> {
-                selectedRadio = 0
-                sortHealthList(selectedLevel)
+                MonsterCompareRatio.HP
             }
             R.id.rbDamage -> {
-                selectedRadio = 1
-                sortDamageList(selectedLevel)
+                MonsterCompareRatio.DMG
             }
-            R.id.rbSpeed ->{
-                selectedRadio = 2
-                sortSpeedList(selectedLevel)
+            R.id.rbSpeed -> {
+                MonsterCompareRatio.SPEED
             }
-        }
-    }
-
-    private fun sortHealthList(level: Int) {
-        val sortedListHp = sortListByAsc.sortedWith(compareBy { it.levels.get(level).hp })
-            .reversed()
-        monsterCompareAdapter.updateMonster(sortedListHp)
-    }
-
-    private fun sortDamageList(level: Int) {
-        val sortedListDmg = sortListByAsc.sortedWith(compareBy { it.levels.get(level).dmg })
-            .reversed()
-        monsterCompareAdapter.updateMonster(sortedListDmg)
-    }
-
-    private fun sortSpeedList(level: Int) {
-        val sortedListSpeed = sortListByAsc.sortedWith(compareBy { it.levels.get(level).speed })
-            .reversed()
-        monsterCompareAdapter.updateMonster(sortedListSpeed)
-    }
-
-    private fun initTextFont(){
-        val typeFace = Typeface.createFromAsset(requireActivity().assets, Constants.MONSTERNAMEFONT)
-        binding.spnMonsterDex.typeface=typeFace
-    }
-
-    private val listener by lazy {
-        object : MaterialSpinner.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: MaterialSpinner,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                Log.e("MaterialSpinner", "onItemSelected parent=${parent.id}, position=$position")
-                monsterCompareAdapter.updateLevel(position)
-
-                when (selectedRadio) {
-                    0 -> {
-                        sortHealthList(position)
-                    }
-                    1 -> {
-                        sortDamageList(position)
-                    }
-                    2 -> {
-                        sortSpeedList(position)
-                    }
-                }
-                selectedLevel = position
-                parent.focusSearch(View.FOCUS_UP)?.requestFocus()
-            }
-
-            override fun onNothingSelected(parent: MaterialSpinner) {
+            else -> {
+                MonsterCompareRatio.HP
             }
         }
+        model.setSelectedSortingRatio(selectedRatio)
     }
 
+    private fun pickMonsterLevel() {
+        val mBottomSheetDialog =
+            BottomSheetDialog(requireContext(), R.style.AppTheme_BottomSheet_Dialog)
+
+        val numberPicker = NumberPicker(requireContext())
+        val data = (6..23).map { it.toString() }
+
+        numberPicker.setData(data)
+        numberPicker.setItemSelectedListener { position ->
+            val selectedLevel = data[position].toInt()
+            model.setSelectedLevel(selectedLevel)
+            monsterCompareAdapter.updateLevel(selectedLevel)
+            mBottomSheetDialog.dismiss()
+        }
+
+        val selectedItem = model.selectedLevel.value!!
+        selectedItem.let { si ->
+            val position = data.indexOf(si.toString())
+            numberPicker.setSelectedItemPosition(position)
+        }
+
+        mBottomSheetDialog.setContentView(numberPicker)
+        mBottomSheetDialog.show()
+    }
 }

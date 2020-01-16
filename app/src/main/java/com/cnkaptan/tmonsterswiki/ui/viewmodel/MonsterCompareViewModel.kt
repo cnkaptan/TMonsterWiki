@@ -2,6 +2,7 @@ package com.cnkaptan.tmonsterswiki.ui.viewmodel
 
 import android.content.ContentValues
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
 import com.cnkaptan.tmonsterswiki.data.repository.MonsterRepository
@@ -10,9 +11,20 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class MonsterCompareViewModel @Inject constructor(private val monsterRepository: MonsterRepository) : BaseViewModel() {
+class MonsterCompareViewModel @Inject constructor(private val monsterRepository: MonsterRepository) :
+    BaseViewModel() {
 
-    private var monsterWtihLevels: MutableLiveData<List<MonsterEntity>> = MutableLiveData()
+    private val _selectedLevel: MutableLiveData<Int> = MutableLiveData(23)
+    val selectedLevel: LiveData<Int> get() = _selectedLevel
+
+    private val _selectedRatio: MutableLiveData<MonsterCompareRatio> =
+        MutableLiveData(MonsterCompareRatio.HP)
+    val selectedRatio: LiveData<MonsterCompareRatio> get() = _selectedRatio
+    private var monsterWithLevels: MutableLiveData<List<MonsterEntity>> = MutableLiveData()
+
+    init {
+        loadMonstersWithLevels()
+    }
 
     fun loadMonstersWithLevels() {
         disposibleContainer.add(
@@ -20,15 +32,46 @@ class MonsterCompareViewModel @Inject constructor(private val monsterRepository:
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    Log.e("MONSTERLEVELWITH", it.get(0).levels.toString())
-                    monsterWtihLevels.postValue(it)
+                    monsterWithLevels.postValue(it)
                 }, { error -> Log.e(ContentValues.TAG, error.message, error) })
         )
 
     }
 
     fun getMonsterWithLevels(): MutableLiveData<List<MonsterEntity>> {
-        return monsterWtihLevels
+        return monsterWithLevels
     }
 
+    private fun updateMonsterCompareList() {
+        val monsterList = monsterWithLevels.value ?: return
+        val request = MonsterCompareRequest(_selectedRatio.value!!, _selectedLevel.value!!)
+
+        monsterWithLevels.value = monsterList
+            .sortedWith(getMonsterComparator(request))
+            .reversed()
+    }
+
+    fun setSelectedSortingRatio(monsterCompareRatio: MonsterCompareRatio) {
+        _selectedRatio.value = monsterCompareRatio
+        updateMonsterCompareList()
+    }
+
+    fun setSelectedLevel(selectedLevel: Int) {
+        _selectedLevel.value = selectedLevel
+        updateMonsterCompareList()
+    }
+
+    private fun getMonsterComparator(request: MonsterCompareRequest): Comparator<MonsterEntity> {
+        return when (request.monsterCompareRatio) {
+            MonsterCompareRatio.HP -> compareBy { it.levels[request.level - 1].hp }
+            MonsterCompareRatio.DMG -> compareBy { it.levels[request.level - 1].dmg }
+            MonsterCompareRatio.SPEED -> compareBy { it.levels[request.level - 1].speed }
+        }
+    }
+}
+
+data class MonsterCompareRequest(val monsterCompareRatio: MonsterCompareRatio, val level: Int)
+
+enum class MonsterCompareRatio {
+    HP, DMG, SPEED
 }

@@ -202,7 +202,7 @@ class CalculatorFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
     }
 
     private fun initTextFont(){
-        val typeFace = Typeface.createFromAsset(requireActivity().assets, Constants.MONSTERNAMEFONT)
+        val typeFace = Typeface.createFromAsset(requireActivity().assets, Constants.MONSTER_NAME_FONT)
 
         binding.tvFromLevelText.typeface=typeFace
         binding.tvToLevelText.typeface=typeFace

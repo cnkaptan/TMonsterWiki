@@ -20,7 +20,8 @@ class MonsterListViewModel @Inject constructor(private val monsterRepository: Mo
     init {
         loadMonsters()
     }
-    fun loadMonsters() {
+
+    private fun loadMonsters() {
         disposibleContainer.add(
             monsterRepository.getAllMonstersForVisiualize()
                 .subscribeOn(Schedulers.io())
@@ -43,5 +44,4 @@ class MonsterListViewModel @Inject constructor(private val monsterRepository: Mo
     fun getMonsterGroups(): MutableLiveData<List<Map.Entry<Int, List<MonsterEntity>>>> {
         return monsterGroups
     }
-
 }

@@ -128,5 +128,7 @@ dependencies {
     implementation 'com.github.tiper:MaterialSpinner:1.4.0'
     implementation 'com.android.support:design:28.0.0'
 
+    implementation project(path: ':WheelPicker')
+
     //debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 }
