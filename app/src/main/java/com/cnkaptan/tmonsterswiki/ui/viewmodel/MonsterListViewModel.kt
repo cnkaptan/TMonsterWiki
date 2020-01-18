@@ -22,7 +22,7 @@ class MonsterListViewModel @Inject constructor(private val monsterRepository: Mo
     }
 
     private fun loadMonsters() {
-        disposibleContainer.add(
+        disposables.add(
             monsterRepository.getAllMonstersForVisiualize()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

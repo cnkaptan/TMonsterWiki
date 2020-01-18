@@ -26,24 +26,24 @@ class MonsterCompareViewModel @Inject constructor(private val monsterRepository:
         loadMonstersWithLevels()
     }
 
-    fun loadMonstersWithLevels() {
-        disposibleContainer.add(
-            monsterRepository.getAllMonstersForVisiualize()
+    private fun loadMonstersWithLevels() {
+        this["init_data"] = monsterRepository.getAllMonstersForVisiualize()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    monsterWithLevels.postValue(it)
+                    _selectedLevel.value = 23
+                    _selectedRatio.value = MonsterCompareRatio.HP
+                    updateMonsterCompareList(it)
                 }, { error -> Log.e(ContentValues.TAG, error.message, error) })
-        )
 
     }
 
-    fun getMonsterWithLevels(): MutableLiveData<List<MonsterEntity>> {
+    fun getMonsterWithLevels(): LiveData<List<MonsterEntity>> {
         return monsterWithLevels
     }
 
-    private fun updateMonsterCompareList() {
-        val monsterList = monsterWithLevels.value ?: return
+    private fun updateMonsterCompareList(monsterEntityList: List<MonsterEntity>? = null) {
+        val monsterList = monsterEntityList?: monsterWithLevels.value ?: return
         val request = MonsterCompareRequest(_selectedRatio.value!!, _selectedLevel.value!!)
 
         monsterWithLevels.value = monsterList
@@ -70,7 +70,7 @@ class MonsterCompareViewModel @Inject constructor(private val monsterRepository:
     }
 }
 
-data class MonsterCompareRequest(val monsterCompareRatio: MonsterCompareRatio, val level: Int)
+data class MonsterCompareRequest(val monsterCompareRatio: MonsterCompareRatio = MonsterCompareRatio.HP, val level: Int = 23)
 
 enum class MonsterCompareRatio {
     HP, DMG, SPEED

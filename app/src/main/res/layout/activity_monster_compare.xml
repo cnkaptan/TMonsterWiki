@@ -17,75 +17,81 @@
             android:background="@color/colorBlack"
             tools:context=".ui.MonsterListFragment">
 
-        <LinearLayout
+        <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="16dp"
                 android:orientation="horizontal">
 
             <RadioGroup
                     android:id="@+id/radioButtonGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginRight="@dimen/radio_group_margin_right"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginStart="18dp"
+                    android:background="@drawable/bg_with_white_stroke"
+                    android:checkedButton="@id/rbHealth">
 
-                <androidx.appcompat.widget.AppCompatRadioButton
+                <com.cnkaptan.tmonsterswiki.utils.ImageRadioButton
                         android:id="@+id/rbHealth"
-                        android:layout_width="@dimen/radio_button_width_72"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/lightGrayTableItemBg"
-                        android:drawableEnd="@drawable/icon_attr_hp"
-                        android:scaleX="@dimen/radio_scaleX"
-                        android:scaleY="@dimen/radio_scaleY" />
+                        android:layout_width="@dimen/radio_item_size"
+                        android:layout_height="@dimen/radio_item_size"
+                        app:iconWidth="@dimen/radio_icon_size"
+                        app:iconHeight="@dimen/radio_icon_size"
+                        app:iconSource="@drawable/icon_attr_hp"
+                        app:selectableBackground="@drawable/bg_radiobutton_selector"/>
 
-                <androidx.appcompat.widget.AppCompatRadioButton
+                <com.cnkaptan.tmonsterswiki.utils.ImageRadioButton
                         android:id="@+id/rbDamage"
-                        android:layout_width="@dimen/radio_button_width_65"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/lightGrayTableItemBg"
-                        android:drawableEnd="@drawable/icon_attr_dmg"
-                        android:scaleX="@dimen/radio_scaleX"
-                        android:scaleY="@dimen/radio_scaleY" />
+                        android:layout_width="@dimen/radio_item_size"
+                        android:layout_height="@dimen/radio_item_size"
+                        app:iconWidth="@dimen/radio_icon_size"
+                        app:iconHeight="@dimen/radio_icon_size"
+                        app:iconSource="@drawable/icon_attr_dmg"
+                        app:selectableBackground="@drawable/bg_radiobutton_selector"
+                        />
 
-                <androidx.appcompat.widget.AppCompatRadioButton
+                <com.cnkaptan.tmonsterswiki.utils.ImageRadioButton
                         android:id="@+id/rbSpeed"
-                        android:layout_width="@dimen/radio_button_width_72"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/lightGrayTableItemBg"
-                        android:drawableEnd="@drawable/icon_attr_speed"
-                        android:gravity="center"
-                        android:scaleX="@dimen/radio_scaleX"
-                        android:scaleY="@dimen/radio_scaleY" />
+                        android:layout_width="@dimen/radio_item_size"
+                        android:layout_height="@dimen/radio_item_size"
+                        app:iconWidth="@dimen/radio_icon_size"
+                        app:iconHeight="@dimen/radio_icon_size"
+                        app:iconSource="@drawable/icon_attr_speed"
+                        app:selectableBackground="@drawable/bg_radiobutton_selector"
+                        />
 
 
             </RadioGroup>
 
             <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/selectLevelInput"
-                    android:layout_width="match_parent"
+                    android:id="@+id/tilSelectLevelInput"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     app:errorEnabled="false"
                     android:visibility="visible"
                     app:boxBackgroundColor="@color/colorLegendaryFrame"
                     app:boxStrokeColor="@color/colorAccent"
                     android:textColorHint="@color/colorAccent"
-                    android:hint="@string/select_level">
+                    android:hint="@string/select_level"
+                    android:layout_alignParentEnd="true">
                 <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/etSelectLevelInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="none"
                         android:textColor="@color/colorAccent"
-                        android:focusableInTouchMode="false"
                         android:editable="false"
                         android:text="23"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:backgroundTint="@android:color/white"
                         />
             </com.google.android.material.textfield.TextInputLayout>
 
 
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvMonsterDexList"

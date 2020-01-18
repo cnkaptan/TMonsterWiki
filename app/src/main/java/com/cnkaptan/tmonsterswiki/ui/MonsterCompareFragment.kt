@@ -1,7 +1,6 @@
 package com.cnkaptan.tmonsterswiki.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,15 +13,12 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cnkaptan.tmonsterswiki.AppController
 import com.cnkaptan.tmonsterswiki.R
-import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
 import com.cnkaptan.tmonsterswiki.databinding.ActivityMonsterCompareBinding
 import com.cnkaptan.tmonsterswiki.ui.adapter.MonsterCompareAdapter
 import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterCompareRatio
 import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterCompareViewModel
 import com.cnkaptan.tmonsterswiki.utils.NumberPicker
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.tiper.MaterialSpinner
-import kotlinx.android.synthetic.main.activity_monster_compare.*
 import javax.inject.Inject
 
 class MonsterCompareFragment : Fragment(), RadioGroup.OnCheckedChangeListener {
@@ -54,30 +50,34 @@ class MonsterCompareFragment : Fragment(), RadioGroup.OnCheckedChangeListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViewModel()
+        init()
         binding.radioButtonGroup.setOnCheckedChangeListener(this)
     }
 
-    private fun initView(monsterEntity: List<MonsterEntity>) {
+
+    private fun init() {
         monsterCompareAdapter = MonsterCompareAdapter()
         binding.rvMonsterDexList.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             adapter = monsterCompareAdapter
-            monsterCompareAdapter.submitList(monsterEntity)
         }
 
-        binding.selectLevelInput.setOnClickListener {
+
+        model = ViewModelProviders.of(this, viewModelFactory).get(MonsterCompareViewModel::class.java)
+        model.getMonsterWithLevels().observe(this, Observer {
+            monsterCompareAdapter.submitList(it)
+            binding.rvMonsterDexList.post { binding.rvMonsterDexList.scrollToPosition(0) }
+        })
+
+        binding.tilSelectLevelInput.setOnClickListener {
             pickMonsterLevel()
         }
-    }
 
-    private fun initViewModel() {
-        model = ViewModelProviders.of(this, viewModelFactory).get(MonsterCompareViewModel::class.java)
-        model.loadMonstersWithLevels()
-        model.getMonsterWithLevels().observe(this, Observer {
-            initView(it)
-        })
+        binding.etSelectLevelInput.setOnClickListener {
+            pickMonsterLevel()
+        }
+
     }
 
     override fun onCheckedChanged(p0: RadioGroup?, id: Int) {

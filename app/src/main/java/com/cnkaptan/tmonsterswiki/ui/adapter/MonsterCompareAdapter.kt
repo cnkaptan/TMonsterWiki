@@ -45,6 +45,7 @@ class MonsterCompareAdapter : ListAdapter<MonsterEntity,MonsterCompareAdapter.Mo
         level = getLevel
         notifyDataSetChanged()
     }
+
 }
 
 class MonsterDiff: DiffUtil.ItemCallback<MonsterEntity>(){

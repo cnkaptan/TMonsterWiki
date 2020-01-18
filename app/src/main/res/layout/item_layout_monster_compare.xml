@@ -4,211 +4,275 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.cnkaptan.tmonsterswiki.utils.Constants"/>
+
+        <import type="com.cnkaptan.tmonsterswiki.utils.Constants" />
+
         <variable
                 name="item"
                 type="com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity" />
     </data>
 
     <LinearLayout
-            android:orientation="vertical"
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="@color/colorBlack"
-            android:layout_height="wrap_content">
+            android:orientation="vertical">
 
         <com.google.android.material.card.MaterialCardView
-                android:background="@color/colorBlack"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/colorBlack">
 
             <RelativeLayout
+                    android:id="@+id/rvSmallFrame"
                     android:layout_width="match_parent"
-                    android:layout_height="110dp"
-                    android:background="@color/colorBlack">
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorBlack"
+                    android:padding="@dimen/margin_10">
 
-                <RelativeLayout
-                        android:id="@+id/rvBigFrame"
-                        android:layout_width="match_parent"
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivMonster"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_marginEnd="@dimen/margin_16"
+                        android:layout_centerVertical="true"
+                        android:padding="@dimen/margin_4"
+                        android:src="@drawable/wukong"
+                        app:monsterFrame="@{item.rarity}"
+                        app:resourceName="@{item.monsterDrawCode}" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvMonsterName"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="10dp">
+                        android:layout_alignParentTop="true"
+                        android:layout_toEndOf="@+id/ivMonster"
+                        android:text="@{item.name}"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/item_title_text_size"
+                        app:textFont="@{Constants.MONSTER_NAME_FONT}"
+                        tools:text="Thumper" />
 
-                    <RelativeLayout
-                            android:id="@+id/rvSmallFrame"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@id/tvMonsterName"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignBottom="@id/ivMonster"
+                        android:layout_marginStart="@dimen/margin_20"
+                        android:layout_marginBottom="2dp"
+                        android:layout_toEndOf="@id/tvMonsterName"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical|end">
+
+                    <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
 
                         <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/ivMonster"
-                                android:layout_width="90dp"
-                                android:layout_height="90dp"
-                                android:padding="4dp"
-                                android:layout_marginEnd="16dp"
-                                android:src="@drawable/wukong"
-                                app:monsterFrame="@{item.rarity}"
-                                app:resourceName="@{item.monsterDrawCode}"/>
+                                android:id="@+id/ivMonsterHealth"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/icon_attr_hp" />
 
                         <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/tvMonsterName"
+                                android:id="@+id/tvMonsterHealth"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@{item.name}"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="@dimen/margin_8"
+                                android:layout_toEndOf="@+id/ivMonsterHealth"
+                                android:textColor="@android:color/white"
+                                android:textSize="@dimen/text_size_20"
                                 app:textFont="@{Constants.MONSTER_NAME_FONT}"
-                                android:textSize="@dimen/item_title_text_size"
-                                android:layout_toEndOf="@+id/ivMonster"
-                                android:textColor="@color/cardview_light_background"
-                                android:layout_alignParentTop="true"
-                                tools:text="Thumper"/>
+                                tools:text="406" />
+                    </LinearLayout>
 
-                        <RelativeLayout
-                                android:id="@+id/rLStatus"
+                    <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivMonsterDamage"
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:src="@drawable/icon_attr_dmg"
+                                android:layout_gravity="center_vertical"/>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvMonsterDamage"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/tvMonsterName"
-                                android:layout_marginTop="1dp"
-                                android:layout_toEndOf="@id/ivMonster">
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                    android:id="@+id/ivMonsterHealth"
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/icon_attr_hp"
-                                    android:textColor="@color/colorPrimaryDark" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                    android:id="@+id/tvMonsterHealth"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    app:textFont="@{Constants.MONSTER_NAME_FONT}"
-                                    android:layout_toEndOf="@+id/ivMonsterHealth"
-                                    android:textColor="@color/cardview_light_background" />
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                    android:id="@+id/ivMonsterDamage"
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/icon_attr_dmg"
-                                    android:layout_toEndOf="@+id/tvMonsterHealth" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                    android:id="@+id/tvMonsterDamage"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    app:textFont="@{Constants.MONSTER_NAME_FONT}"
-                                    android:layout_toEndOf="@+id/ivMonsterDamage"
-                                    android:textColor="@color/cardview_light_background" />
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                    android:id="@+id/ivMonsterSpeed"
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/icon_attr_speed"
-                                    android:layout_toEndOf="@+id/tvMonsterDamage" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                    android:id="@+id/tvMonsterSpeed"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    app:textFont="@{Constants.MONSTER_NAME_FONT}"
-                                    android:layout_toEndOf="@+id/ivMonsterSpeed"
-                                    android:textColor="@color/cardview_light_background" />
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                    android:id="@+id/ivMonsterPhyDef"
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/icon_attr_def_phy"
-                                    android:layout_toRightOf="@+id/tvMonsterSpeed"
-                                    android:textColor="@color/colorPrimaryDark" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                    android:id="@+id/tvMonsterPhyDef"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    app:textFont="@{Constants.MONSTER_NAME_FONT}"
-                                    android:layout_toEndOf="@+id/ivMonsterPhyDef"
-                                    android:textColor="@color/cardview_light_background" />
+                                android:layout_marginStart="@dimen/margin_4"
+                                android:textColor="@android:color/white"
+                                android:textSize="@dimen/text_size_18"
+                                app:textFont="@{Constants.MONSTER_NAME_FONT}"
+                                tools:text="200" />
+                    </LinearLayout>
 
 
-                        </RelativeLayout>
+                    <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
 
-                        <RelativeLayout
+                        <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivMonsterSpeed"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_gravity="bottom"
+                                android:layout_marginStart="@dimen/margin_4"
+                                android:src="@drawable/icon_attr_speed"
+                                />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvMonsterSpeed"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/rLStatus"
-                                android:layout_toEndOf="@id/ivMonster">
+                                android:layout_marginStart="@dimen/margin_4"
+                                android:textColor="@android:color/white"
+                                android:textSize="@dimen/text_size_16"
+                                android:gravity="top"
+                                app:textFont="@{Constants.MONSTER_NAME_FONT}"
+                                tools:text="20" />
+                    </LinearLayout>
 
-                            <androidx.appcompat.widget.AppCompatImageView
-                                    android:id="@+id/ivMonsterMagDef"
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/icon_attr_def_mag"
-                                    android:textColor="@color/colorPrimaryDark" />
+                </LinearLayout>
 
-                            <androidx.appcompat.widget.AppCompatTextView
-                                    android:id="@+id/tvMonsterMagDef"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_toEndOf="@+id/ivMonsterMagDef"
-                                    app:textFont="@{Constants.MONSTER_NAME_FONT}"
-                                    android:textColor="@color/cardview_light_background" />
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                    android:id="@+id/ivMonsterMove"
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/icon_attr_move"
-                                    android:layout_toEndOf="@+id/tvMonsterMagDef"
-                                    android:textColor="@color/colorPrimaryDark" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                    android:id="@+id/tvMonsterMove"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    app:textFont="@{Constants.MONSTER_NAME_FONT}"
-                                    android:layout_toEndOf="@+id/ivMonsterMove"
-                                    android:textColor="@color/cardview_light_background" />
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                    android:id="@+id/ivMonsterHit"
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/icon_attr_hit"
-                                    android:layout_toEndOf="@+id/tvMonsterMove"
-                                    android:textColor="@color/colorPrimaryDark" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                    android:id="@+id/tvMonsterHit"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    app:textFont="@{Constants.MONSTER_NAME_FONT}"
-                                    android:layout_toEndOf="@+id/ivMonsterHit"
-                                    android:textColor="@color/cardview_light_background" />
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                    android:id="@+id/ivMonsterCrit"
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/icon_attr_crit"
-                                    android:layout_toEndOf="@+id/tvMonsterHit"
-                                    android:textColor="@color/colorPrimaryDark" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                    android:id="@+id/tvMonsterCrit"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    app:textFont="@{Constants.MONSTER_NAME_FONT}"
-                                    android:layout_toEndOf="@+id/ivMonsterCrit"
-                                    android:textColor="@color/cardview_light_background" />
-
-                        </RelativeLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/rLStatus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvMonsterName"
+                        android:layout_marginTop="1dp"
+                        android:layout_toEndOf="@id/ivMonster">
 
 
-                    </RelativeLayout>
+                    <LinearLayout
+                            android:id="@+id/llTop"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="bottom"
+                            android:orientation="horizontal"
+                            android:weightSum="12"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
 
-                </RelativeLayout>
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivMonsterPhyDef"
+                                android:layout_width="0dp"
+                                android:layout_height="25dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/icon_attr_def_phy"
+                                android:textColor="@color/colorPrimaryDark"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvMonsterPhyDef"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/margin_2"
+                                android:layout_weight="1"
+                                android:textColor="@android:color/white"
+                                app:textFont="@{Constants.MONSTER_NAME_FONT}" />
+
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivMonsterMagDef"
+                                android:layout_width="0dp"
+                                android:layout_height="25dp"
+                                android:layout_marginStart="@dimen/margin_4"
+                                android:layout_weight="1"
+                                android:src="@drawable/icon_attr_def_mag"
+                                android:textColor="@color/colorPrimaryDark" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvMonsterMagDef"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/margin_2"
+                                android:layout_weight="1"
+                                android:textColor="@android:color/white"
+                                app:textFont="@{Constants.MONSTER_NAME_FONT}" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="bottom"
+                            android:orientation="horizontal"
+                            android:weightSum="12"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/llTop">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivMonsterMove"
+                                android:layout_width="0dp"
+                                android:layout_height="25dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/icon_attr_move"
+                                android:textColor="@color/colorPrimaryDark" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvMonsterMove"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/margin_2"
+                                android:layout_weight="1"
+                                android:textColor="@android:color/white"
+                                app:textFont="@{Constants.MONSTER_NAME_FONT}" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivMonsterHit"
+                                android:layout_width="0dp"
+                                android:layout_height="25dp"
+                                android:layout_marginStart="@dimen/margin_4"
+                                android:layout_weight="1"
+                                android:src="@drawable/icon_attr_hit"
+                                android:textColor="@color/colorPrimaryDark" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvMonsterHit"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/margin_2"
+                                android:layout_weight="1"
+                                android:textColor="@android:color/white"
+                                app:textFont="@{Constants.MONSTER_NAME_FONT}" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivMonsterCrit"
+                                android:layout_width="0dp"
+                                android:layout_height="25dp"
+                                android:layout_marginStart="@dimen/margin_4"
+                                android:layout_weight="1"
+                                android:src="@drawable/icon_attr_crit"
+                                android:textColor="@color/colorPrimaryDark" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvMonsterCrit"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/margin_2"
+                                android:layout_weight="1"
+                                android:textColor="@android:color/white"
+                                app:textFont="@{Constants.MONSTER_NAME_FONT}" />
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             </RelativeLayout>
+
 
         </com.google.android.material.card.MaterialCardView>
 

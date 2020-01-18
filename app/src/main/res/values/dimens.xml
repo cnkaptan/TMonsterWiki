@@ -25,4 +25,9 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="item_title_text_size">24sp</dimen>
+    <dimen name="radio_item_size">48dp</dimen>
+    <dimen name="radio_icon_size">40dp</dimen>
+    <dimen name="margin_20">20dp</dimen>
+    <dimen name="margin_10">10dp</dimen>
+    <dimen name="margin_2">2dp</dimen>
 </resources>
