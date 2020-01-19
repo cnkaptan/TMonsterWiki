@@ -3,56 +3,28 @@ package com.cnkaptan.tmonsterswiki.ui
 import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.*
-import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import com.cnkaptan.tmonsterswiki.AppController
 import com.cnkaptan.tmonsterswiki.R
-import com.cnkaptan.tmonsterswiki.databinding.ActivityUpgradeCalculatorBinding
-import com.cnkaptan.tmonsterswiki.ui.base.BaseFragment
+import com.cnkaptan.tmonsterswiki.databinding.FragmentUpgradeCalculatorBinding
 import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterUpgradeViewModel
 import com.cnkaptan.tmonsterswiki.utils.Constants
+import com.cnkaptan.tmonsterswiki.utils.DataBindingFragment
 import com.cnkaptan.tmonsterswiki.utils.ValidationUtils
+import com.cnkaptan.tmonsterswiki.utils.viewModel
 import com.jakewharton.rxbinding2.widget.RxAdapterView
 import com.jakewharton.rxbinding2.widget.RxRadioGroup
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
-import javax.inject.Inject
 
-class CalculatorFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
+class CalculatorFragment : DataBindingFragment<FragmentUpgradeCalculatorBinding>(R.layout.fragment_upgrade_calculator), AdapterView.OnItemSelectedListener {
     override val TAG: String
         get() = CalculatorFragment::class.java.simpleName
 
-    @Inject
-    internal lateinit var viewModelFactory: ViewModelProvider.Factory
+    private val monsterUpgradeViewModel by viewModel<MonsterUpgradeViewModel>(true)
 
-    private lateinit var monsterUpgradeViewModel: MonsterUpgradeViewModel
-    private lateinit var binding: ActivityUpgradeCalculatorBinding
-    private var selectedCardType: Int = -1
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        (activity!!.applicationContext as AppController).appComponent.inject(this)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.activity_upgrade_calculator,container,false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initViewModel()
-
-
+    override fun onBindingCreated(binding: FragmentUpgradeCalculatorBinding, savedInstanceState: Bundle?) {
+        super.onBindingCreated(binding, savedInstanceState)
         binding.spnFromMonster.onItemSelectedListener = this
         binding.spnToMonster.onItemSelectedListener = this
 
@@ -76,13 +48,8 @@ class CalculatorFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
         initSpinners()
     }
 
-    fun calculate() {
+    private fun calculate() {
         calculateUpgradeCost()
-    }
-
-    private fun initViewModel() {
-        monsterUpgradeViewModel =
-            ViewModelProviders.of(this, viewModelFactory).get(MonsterUpgradeViewModel::class.java)
     }
 
     private fun initSpinners() {

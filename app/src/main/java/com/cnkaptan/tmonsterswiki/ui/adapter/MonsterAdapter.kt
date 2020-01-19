@@ -14,7 +14,7 @@ import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
 class MonsterAdapter(
     private val context: Context,
     private val listener: (Int, View) -> Unit
-) : RecyclerView.Adapter<MonsterAdapter.MonsterViewHolder>() {
+) : RecyclerView.Adapter<MonsterAdapter.MonsterViewHolder>(), BindableAdapter<List<Map.Entry<Int, List<MonsterEntity>>>> {
     private var monstersGroups: List<Map.Entry<Int, List<MonsterEntity>>> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MonsterViewHolder {
@@ -45,7 +45,7 @@ class MonsterAdapter(
 
     }
 
-    fun updateList(newList: List<Map.Entry<Int, List<MonsterEntity>>>) {
+    private fun updateList(newList: List<Map.Entry<Int, List<MonsterEntity>>>) {
         monstersGroups = newList
         notifyDataSetChanged()
     }
@@ -53,5 +53,10 @@ class MonsterAdapter(
     class MonsterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
         val rvChild: RecyclerView = itemView.findViewById(R.id.rvChild)
+    }
+
+    override fun setData(data: List<Map.Entry<Int, List<MonsterEntity>>>) {
+        updateList(data)
+        notifyDataSetChanged()
     }
 }

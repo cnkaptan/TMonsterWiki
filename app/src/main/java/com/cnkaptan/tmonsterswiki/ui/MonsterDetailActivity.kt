@@ -28,6 +28,7 @@ import com.cnkaptan.tmonsterswiki.ui.adapter.TagsAdapter
 import com.cnkaptan.tmonsterswiki.ui.base.BaseActivity
 import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterDetailViewModel
 import com.cnkaptan.tmonsterswiki.utils.Constants
+import com.cnkaptan.tmonsterswiki.utils.viewModel
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -39,13 +40,9 @@ class MonsterDetailActivity : BaseActivity() {
     override val TAG: String
         get() = MonsterDetailActivity::class.java.simpleName
 
-    @Inject
-    internal lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    @Inject
-    internal lateinit var monsterRepository: MonsterRepository
     private lateinit var binding: ActivityMonsterDetailBinding
-    private lateinit var monsterDetailViewModel: MonsterDetailViewModel
+
+    private val monsterDetailViewModel by viewModel<MonsterDetailViewModel>()
     private lateinit var monsterLevelAdapter: MonsterLevelAdapter
 
 
@@ -54,8 +51,6 @@ class MonsterDetailActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_monster_detail)
-        (applicationContext as AppController).appComponent.inject(this)
-
         monsterID = intent.getIntExtra(ARG_MONSTER_ID, 0)
 
         initView()
@@ -128,7 +123,6 @@ class MonsterDetailActivity : BaseActivity() {
     }
 
     private fun initViewModel(monsterID: Int) {
-        monsterDetailViewModel = ViewModelProviders.of(this, viewModelFactory).get(MonsterDetailViewModel::class.java)
         monsterDetailViewModel.loadMonsterLevel(monsterID)
         monsterDetailViewModel.getMonsterLevelListLD().observe(this, Observer {
             monsterLevelAdapter.updateLevels(it)

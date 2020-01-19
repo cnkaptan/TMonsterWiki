@@ -1,5 +1,6 @@
 package com.cnkaptan.tmonsterswiki.ui.viewmodel
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -25,7 +26,7 @@ import javax.inject.Inject
 import kotlin.math.abs
 
 const val TAG = "MonsterDetailViewModel"
-class MonsterDetailViewModel @Inject constructor(private val monsterRepository: MonsterRepository) : BaseViewModel() {
+class MonsterDetailViewModel @Inject constructor(app: Application) : BaseViewModel(app) {
 
     private var monster: MutableLiveData<MonsterEntity> = MutableLiveData()
     private var monsterLevelList: MutableLiveData<List<MonsterLevelEntity>> = MutableLiveData()

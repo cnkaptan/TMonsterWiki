@@ -1,13 +1,19 @@
 package com.cnkaptan.tmonsterswiki.ui.base
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import android.content.Context
+import androidx.lifecycle.AndroidViewModel
+import com.cnkaptan.tmonsterswiki.AppController
+import com.cnkaptan.tmonsterswiki.di.component.AppComponent
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.disposables.Disposables
 
-open class BaseViewModel: ViewModel() {
+open class BaseViewModel(app: Application): AndroidViewModel(app), AppComponent by (app as AppController).appComponent {
     val disposables = CompositeDisposable()
     private val disposableMap = hashMapOf<Any, Disposable>()
+
+    val context: Context get() = getApplication<Application>().applicationContext
 
     override fun onCleared() {
         super.onCleared()

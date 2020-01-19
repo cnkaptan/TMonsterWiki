@@ -1,19 +1,19 @@
 package com.cnkaptan.tmonsterswiki.ui.viewmodel
 
+import android.app.Application
 import android.content.ContentValues
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
-import com.cnkaptan.tmonsterswiki.data.repository.MonsterRepository
 import com.cnkaptan.tmonsterswiki.ui.base.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class MonsterCompareViewModel @Inject constructor(private val monsterRepository: MonsterRepository) :
-    BaseViewModel() {
+class MonsterCompareViewModel @Inject constructor( val app: Application) :
+    BaseViewModel(app) {
 
     private val _selectedLevel: MutableLiveData<Int> = MutableLiveData(23)
 

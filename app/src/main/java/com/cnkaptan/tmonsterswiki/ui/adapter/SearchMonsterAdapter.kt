@@ -17,7 +17,7 @@ class SearchMonsterAdapter(
     private val context: Context,
     private val searchedMonsters: MutableList<MonsterEntity> = mutableListOf(),
     private val listener: (Int, View) -> Unit
-) : RecyclerView.Adapter<SearchMonsterAdapter.SearchMonsterViewHolder>() {
+) : RecyclerView.Adapter<SearchMonsterAdapter.SearchMonsterViewHolder>(), BindableAdapter<List<MonsterEntity>> {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchMonsterViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_layout_monster, parent, false)
         return SearchMonsterViewHolder(itemView)
@@ -63,14 +63,14 @@ class SearchMonsterAdapter(
 
     }
 
-    fun updateList(newFilteredList: List<MonsterEntity>){
-        searchedMonsters.clear()
-        searchedMonsters.addAll(newFilteredList)
-        notifyDataSetChanged()
-    }
-
     class SearchMonsterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvMonsterName: TextView = itemView.findViewById(R.id.tvMonsterName)
         val ivMonster: ImageView = itemView.findViewById(R.id.ivMonster)
+    }
+
+    override fun setData(data: List<MonsterEntity>) {
+        searchedMonsters.clear()
+        searchedMonsters.addAll(data)
+        notifyDataSetChanged()
     }
 }

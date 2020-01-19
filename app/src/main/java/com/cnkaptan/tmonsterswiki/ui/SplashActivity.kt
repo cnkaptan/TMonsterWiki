@@ -20,7 +20,7 @@ class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        (application as AppController).appComponent.inject(this)
+        val monsterRepository = (application as AppController).appComponent.monsterRepository
 
         disposableContainer.add(
             monsterRepository.getInitialAppData()

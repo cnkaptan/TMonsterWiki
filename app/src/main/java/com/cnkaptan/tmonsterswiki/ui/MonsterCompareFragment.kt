@@ -1,62 +1,31 @@
 package com.cnkaptan.tmonsterswiki.ui
 
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.*
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.cnkaptan.tmonsterswiki.AppController
 import com.cnkaptan.tmonsterswiki.R
-import com.cnkaptan.tmonsterswiki.databinding.ActivityMonsterCompareBinding
+import com.cnkaptan.tmonsterswiki.databinding.FragmentMonsterCompareBinding
 import com.cnkaptan.tmonsterswiki.ui.adapter.MonsterCompareAdapter
 import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterCompareRatio
 import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterCompareViewModel
+import com.cnkaptan.tmonsterswiki.utils.DataBindingFragment
 import com.cnkaptan.tmonsterswiki.utils.NumberPicker
+import com.cnkaptan.tmonsterswiki.utils.viewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import javax.inject.Inject
 
-class MonsterCompareFragment : Fragment(), RadioGroup.OnCheckedChangeListener {
+class MonsterCompareFragment : DataBindingFragment<FragmentMonsterCompareBinding>(R.layout.fragment_monster_compare), RadioGroup.OnCheckedChangeListener {
+    private val model by viewModel<MonsterCompareViewModel>(true)
 
-
-    @Inject
-    internal lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private lateinit var binding: ActivityMonsterCompareBinding
-    private lateinit var model: MonsterCompareViewModel
     private lateinit var monsterCompareAdapter: MonsterCompareAdapter
 
+    override val TAG: String
+        get() = "MonsterCompareFragment"
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        (activity?.applicationContext as AppController).appComponent.inject(this)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding =
-            DataBindingUtil.inflate(inflater, R.layout.activity_monster_compare, container, false)
-        binding.setLifecycleOwner(this)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        init()
+    override fun onBindingCreated(binding: FragmentMonsterCompareBinding, savedInstanceState: Bundle?) {
+        super.onBindingCreated(binding, savedInstanceState)
         binding.radioButtonGroup.setOnCheckedChangeListener(this)
-    }
 
-
-    private fun init() {
         monsterCompareAdapter = MonsterCompareAdapter {
             startActivity(MonsterDetailActivity.newIntent(requireContext(), it.monsterId))
         }
@@ -67,8 +36,6 @@ class MonsterCompareFragment : Fragment(), RadioGroup.OnCheckedChangeListener {
             adapter = monsterCompareAdapter
         }
 
-        model =
-            ViewModelProviders.of(this, viewModelFactory).get(MonsterCompareViewModel::class.java)
         model.getMonsterWithLevels().observe(this, Observer {
             monsterCompareAdapter.submitList(it)
             binding.rvMonsterDexList.post { binding.rvMonsterDexList.scrollToPosition(0) }
@@ -83,7 +50,6 @@ class MonsterCompareFragment : Fragment(), RadioGroup.OnCheckedChangeListener {
         binding.etSelectLevelInput.setOnClickListener {
             pickMonsterLevel()
         }
-
     }
 
     override fun onCheckedChanged(p0: RadioGroup?, id: Int) {
@@ -128,4 +94,5 @@ class MonsterCompareFragment : Fragment(), RadioGroup.OnCheckedChangeListener {
         mBottomSheetDialog.setContentView(numberPicker)
         mBottomSheetDialog.show()
     }
+
 }

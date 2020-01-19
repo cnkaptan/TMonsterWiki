@@ -4,12 +4,14 @@ import android.graphics.Typeface
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.cnkaptan.tmonsterswiki.R
 import com.cnkaptan.tmonsterswiki.di.module.ApiModule
+import com.cnkaptan.tmonsterswiki.ui.adapter.BindableAdapter
 import com.squareup.picasso.Picasso
 
 @BindingAdapter("resourceName")
-fun ImageView.createImageUrlandShow(resourceName: String){
+fun ImageView.createImageUrlandShow(resourceName: String) {
     val fullUrl = "${ApiModule.BASE_IMAGE_URL}/$resourceName.png"
 
     Picasso.get()
@@ -19,7 +21,7 @@ fun ImageView.createImageUrlandShow(resourceName: String){
 }
 
 @BindingAdapter("monsterFrame")
-fun ImageView.putMonsterFrame(rarity: Int){
+fun ImageView.putMonsterFrame(rarity: Int) {
     val frameColor = when (rarity) {
         1 -> R.drawable.common_frame
         2 -> R.drawable.epic_frame
@@ -31,7 +33,15 @@ fun ImageView.putMonsterFrame(rarity: Int){
 }
 
 @BindingAdapter("textFont")
-fun TextView.setFont(font: String){
+fun TextView.setFont(font: String) {
     val typeFace = Typeface.createFromAsset(context.assets, font)
     typeface = typeFace
+}
+
+@BindingAdapter("data")
+fun <T> RecyclerView.setRecyclerProperties(data: T?) {
+    if (data != null){
+        (adapter as? BindableAdapter<T>)?.setData(data)
+    }
+
 }

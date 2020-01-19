@@ -43,15 +43,12 @@ class ImageRadioButton(context: Context, attrs: AttributeSet) :
 
         icWidth = icWidth - paddingLeft - paddingRight
         icHeight = icHeight - paddingTop - paddingBottom
-        Log.e("ImageRadio","SizeChanged $w, $h")
     }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         val itemWidth = measuredWidth
         val itemHeight = measuredWidth
-        Log.e("ImageRadio","Canvas $itemWidth, $itemHeight")
-        Log.e("ImageRadio","Icon $icWidth, $icHeight")
         if (icWidth > 0 && icHeight > 0) {
             val left = if (itemWidth > icWidth){
                 paddingLeft + (itemWidth - icWidth.toInt())/2

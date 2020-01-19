@@ -5,13 +5,15 @@
 
     <data>
 
+        <variable
+                name="viewModel"
+                type="com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterListViewModel" />
     </data>
 
     <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorPrimaryDark"
-            android:orientation="vertical"
             android:theme="@style/AppTheme"
             tools:context=".ui.MonsterListFragment">
 
@@ -61,12 +63,16 @@
                 android:id="@+id/rvMonsterList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                data="@{viewModel.monsterGroups}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:layout_below="@+id/rlContainerSearch" />
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvSearchMonsterList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                data="@{viewModel.searchUpdates}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:layout_below="@+id/rlContainerSearch"
                 android:visibility="gone" />
 

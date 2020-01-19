@@ -1,18 +1,13 @@
 package com.cnkaptan.tmonsterswiki.ui.viewmodel
 
-import android.content.ContentValues.TAG
-import android.util.Log
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.cnkaptan.tmonsterswiki.data.MonsterUpgrade
-import com.cnkaptan.tmonsterswiki.data.repository.MonsterRepository
 import com.cnkaptan.tmonsterswiki.ui.base.BaseViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class MonsterUpgradeViewModel @Inject constructor(private val monsterRepository: MonsterRepository) :
-    BaseViewModel() {
+class MonsterUpgradeViewModel @Inject constructor(app: Application) : BaseViewModel(app) {
 
     private var monsterUpgradeInfo: MutableLiveData<MonsterUpgrade.CalculationDataGroup> = MutableLiveData()
 
