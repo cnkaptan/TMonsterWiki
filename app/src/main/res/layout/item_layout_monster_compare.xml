@@ -6,10 +6,15 @@
     <data>
 
         <import type="com.cnkaptan.tmonsterswiki.utils.Constants" />
+        <import type="com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity" />
 
         <variable
                 name="item"
                 type="com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity" />
+
+        <variable
+                name="clickListener"
+                type="com.cnkaptan.tmonsterswiki.ui.events.OnItemClickListener&lt;MonsterEntity&gt;" />
     </data>
 
     <LinearLayout
@@ -22,7 +27,8 @@
         <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorBlack">
+                android:background="@color/colorBlack"
+                android:onClick="@{()-> clickListener.onItemClick(item)}">
 
             <RelativeLayout
                     android:id="@+id/rvSmallFrame"

@@ -1,6 +1,7 @@
 package com.cnkaptan.tmonsterswiki.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,19 +57,24 @@ class MonsterCompareFragment : Fragment(), RadioGroup.OnCheckedChangeListener {
 
 
     private fun init() {
-        monsterCompareAdapter = MonsterCompareAdapter()
+        monsterCompareAdapter = MonsterCompareAdapter {
+            startActivity(MonsterDetailActivity.newIntent(requireContext(), it.monsterId))
+        }
+
         binding.rvMonsterDexList.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             adapter = monsterCompareAdapter
         }
 
-
-        model = ViewModelProviders.of(this, viewModelFactory).get(MonsterCompareViewModel::class.java)
+        model =
+            ViewModelProviders.of(this, viewModelFactory).get(MonsterCompareViewModel::class.java)
         model.getMonsterWithLevels().observe(this, Observer {
             monsterCompareAdapter.submitList(it)
             binding.rvMonsterDexList.post { binding.rvMonsterDexList.scrollToPosition(0) }
         })
+
+        binding.viewModel = model
 
         binding.tilSelectLevelInput.setOnClickListener {
             pickMonsterLevel()

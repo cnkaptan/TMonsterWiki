@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
 import com.cnkaptan.tmonsterswiki.data.repository.MonsterRepository
 import com.cnkaptan.tmonsterswiki.ui.base.BaseViewModel
@@ -15,7 +16,10 @@ class MonsterCompareViewModel @Inject constructor(private val monsterRepository:
     BaseViewModel() {
 
     private val _selectedLevel: MutableLiveData<Int> = MutableLiveData(23)
-    val selectedLevel: LiveData<Int> get() = _selectedLevel
+
+    val selectedLevel: LiveData<String> = Transformations.map(_selectedLevel){
+        it.toString()
+    }
 
     private val _selectedRatio: MutableLiveData<MonsterCompareRatio> =
         MutableLiveData(MonsterCompareRatio.HP)

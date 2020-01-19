@@ -7,7 +7,9 @@
         <variable
                 name="fragment"
                 type="com.cnkaptan.tmonsterswiki.ui.MonsterCompareFragment" />
-
+        <variable
+                name="viewModel"
+                type="com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterCompareViewModel" />
     </data>
 
     <LinearLayout
@@ -82,7 +84,7 @@
                         android:inputType="none"
                         android:textColor="@color/colorAccent"
                         android:editable="false"
-                        android:text="23"
+                        android:text="@{viewModel.selectedLevel}"
                         android:clickable="true"
                         android:focusable="false"
                         android:backgroundTint="@android:color/white"

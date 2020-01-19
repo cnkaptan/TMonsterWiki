@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
 import com.cnkaptan.tmonsterswiki.databinding.ItemLayoutMonsterCompareBinding
+import com.cnkaptan.tmonsterswiki.ui.events.OnItemClickListener
 
-class MonsterCompareAdapter : ListAdapter<MonsterEntity,MonsterCompareAdapter.MonsterViewHolder>(MonsterDiff()) {
+class MonsterCompareAdapter(val listener: (MonsterEntity) -> Unit) : ListAdapter<MonsterEntity,MonsterCompareAdapter.MonsterViewHolder>(MonsterDiff()) {
 
     var level: Int = 23
 
@@ -18,14 +19,16 @@ class MonsterCompareAdapter : ListAdapter<MonsterEntity,MonsterCompareAdapter.Mo
     }
 
     override fun onBindViewHolder(holder: MonsterViewHolder, position: Int) {
-        holder.bindData(getItem(position))
+        holder.bindData(listener,getItem(position))
     }
 
 
-    inner class MonsterViewHolder(private val binding: ItemLayoutMonsterCompareBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class MonsterViewHolder(private val binding: ItemLayoutMonsterCompareBinding)
+        : RecyclerView.ViewHolder(binding.root) {
 
-        fun bindData(monsterEntity: MonsterEntity){
+        fun bindData(monsterClickListener: (MonsterEntity)-> Unit,monsterEntity: MonsterEntity){
             binding.item = monsterEntity
+            binding.clickListener = OnItemClickListener.create(monsterClickListener)
 
             val monsterLevelEntity = monsterEntity.levels[level-1]
 
@@ -37,7 +40,6 @@ class MonsterCompareAdapter : ListAdapter<MonsterEntity,MonsterCompareAdapter.Mo
             binding.tvMonsterPhyDef.text = monsterLevelEntity.phyDef.toString()
             binding.tvMonsterMove.text = monsterLevelEntity.move.toString()
             binding.tvMonsterSpeed.text = monsterLevelEntity.speed.toString()
-
         }
     }
 
