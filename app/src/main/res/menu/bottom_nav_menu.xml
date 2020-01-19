@@ -6,18 +6,21 @@
             android:id="@+id/navigation_compare"
             android:icon="@drawable/ic_compare_arrows_black_24dp"
             android:title="@string/title_home"
+            android:orderInCategory="1"
             app:showAsAction="always"/>
 
     <item
             android:id="@+id/navigation_list"
             android:icon="@drawable/ic_home_black_24dp"
             android:title="@string/title_dashboard"
+            android:orderInCategory="2"
             app:showAsAction="always"/>
 
     <item
             android:id="@+id/navigation_calculator"
             android:icon="@drawable/ic_calculator_64"
             android:title="@string/title_notifications"
+            android:orderInCategory="3"
             app:showAsAction="always"/>
 
 </menu>

@@ -9,7 +9,8 @@ import com.cnkaptan.tmonsterswiki.data.local.entity.MonsterEntity
 import com.cnkaptan.tmonsterswiki.databinding.ItemLayoutMonsterCompareBinding
 import com.cnkaptan.tmonsterswiki.ui.events.OnItemClickListener
 
-class MonsterCompareAdapter(val listener: (MonsterEntity) -> Unit) : ListAdapter<MonsterEntity,MonsterCompareAdapter.MonsterViewHolder>(MonsterDiff()) {
+class MonsterCompareAdapter(val listener: (MonsterEntity) -> Unit) :
+    ListAdapter<MonsterEntity, MonsterCompareAdapter.MonsterViewHolder>(MonsterDiff()) {
 
     var level: Int = 23
 
@@ -19,18 +20,18 @@ class MonsterCompareAdapter(val listener: (MonsterEntity) -> Unit) : ListAdapter
     }
 
     override fun onBindViewHolder(holder: MonsterViewHolder, position: Int) {
-        holder.bindData(listener,getItem(position))
+        holder.bindData(listener, getItem(position))
     }
 
 
-    inner class MonsterViewHolder(private val binding: ItemLayoutMonsterCompareBinding)
-        : RecyclerView.ViewHolder(binding.root) {
+    inner class MonsterViewHolder(private val binding: ItemLayoutMonsterCompareBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bindData(monsterClickListener: (MonsterEntity)-> Unit,monsterEntity: MonsterEntity){
+        fun bindData(monsterClickListener: (MonsterEntity) -> Unit, monsterEntity: MonsterEntity) {
             binding.item = monsterEntity
             binding.clickListener = OnItemClickListener.create(monsterClickListener)
 
-            val monsterLevelEntity = monsterEntity.levels[level-1]
+            val monsterLevelEntity = monsterEntity.levels[level - 1]
 
             binding.tvMonsterHealth.text = monsterLevelEntity.hp.toString()
             binding.tvMonsterDamage.text = monsterLevelEntity.dmg.toString()
@@ -50,7 +51,7 @@ class MonsterCompareAdapter(val listener: (MonsterEntity) -> Unit) : ListAdapter
 
 }
 
-class MonsterDiff: DiffUtil.ItemCallback<MonsterEntity>(){
+class MonsterDiff : DiffUtil.ItemCallback<MonsterEntity>() {
     override fun areItemsTheSame(oldItem: MonsterEntity, newItem: MonsterEntity): Boolean {
         return oldItem.monsterId == newItem.monsterId
     }

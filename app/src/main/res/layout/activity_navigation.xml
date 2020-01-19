@@ -19,7 +19,7 @@
             app:labelVisibilityMode="unlabeled"
             android:backgroundTint="@color/colorPrimaryDark"
             app:itemBackground="@color/colorPrimaryDark"
-            app:itemIconTint="@color/colorAccent"
+            app:itemIconTint="@drawable/bottom_navigation_view_item_tint"
             />
 
     <fragment
