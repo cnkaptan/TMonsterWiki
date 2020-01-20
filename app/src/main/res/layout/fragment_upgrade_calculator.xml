@@ -36,19 +36,28 @@
                         android:textSize="@dimen/text_size_20" />
 
                 <FrameLayout
+                        android:id="@+id/flSelectFromLevelInput"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
                         android:layout_marginLeft="@dimen/margin_16"
                         android:layout_toRightOf="@id/tvFromLevelText"
                         android:background="@drawable/spinner_background">
-                    <Spinner
-                            android:id="@+id/spnFromMonster"
+                    <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/etSelectFromLevelInput"
                             android:layout_width="@dimen/spinner_width"
                             android:layout_height="@dimen/spinner_height"
-                            android:layout_marginLeft="10dp"
-                            android:spinnerMode="dialog"
-                            android:backgroundTint="@color/lightGrayTableItemBg" />
+                            android:inputType="none"
+                            android:textColor="@color/colorAccent"
+                            android:editable="false"
+                            android:text="Selected Level"
+                            android:textSize="17sp"
+                            android:paddingLeft="9sp"
+                            android:clickable="true"
+                            android:focusable="false"
+                            android:hint="Select Level"
+                            android:background="@android:color/transparent"
+                            android:backgroundTint="@android:color/white" />
                 </FrameLayout>
 
 
@@ -67,20 +76,30 @@
                         android:textSize="@dimen/text_size_20" />
 
                 <FrameLayout
+                        android:id="@+id/flSelectToLevelInput"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
-                        android:layout_alignTop="@id/tvToLevelText"
                         android:layout_marginLeft="@dimen/margin_16"
                         android:layout_toRightOf="@id/tvToLevelText"
+                        android:layout_marginTop="10dp"
+                        android:layout_below="@id/flSelectFromLevelInput"
                         android:background="@drawable/spinner_background">
-                    <Spinner
-                            android:id="@+id/spnToMonster"
+                    <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/etSelectToLevelInput"
                             android:layout_width="@dimen/spinner_width"
                             android:layout_height="@dimen/spinner_height"
-                            android:layout_marginLeft="10dp"
-                            android:spinnerMode="dialog"
-                            android:backgroundTint="@color/lightGrayTableItemBg" />
+                            android:inputType="none"
+                            android:textColor="@color/colorAccent"
+                            android:editable="false"
+                            android:text="Selected Level"
+                            android:textSize="17sp"
+                            android:paddingLeft="9sp"
+                            android:clickable="true"
+                            android:focusable="false"
+                            android:hint="Select Level"
+                            android:background="@android:color/transparent"
+                            android:backgroundTint="@android:color/white" />
                 </FrameLayout>
 
                 <TextView
@@ -141,15 +160,13 @@
                         android:id="@+id/btnCalculate"
                         android:layout_width="@dimen/button_width"
                         android:layout_height="@dimen/button_height"
+                        android:text="Calculate"
+                        android:textColor="@color/colorBlack"
                         android:layout_below="@+id/etTotalCp"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="@dimen/margin_16"
-                        android:background="@color/colorPrimary"
-                        android:textColor="@android:color/white"
-                        android:paddingLeft="@dimen/margin_16"
-                        android:paddingRight="@dimen/margin_16"
-                        android:text="Calculate"
-                        />
+                        android:visibility="invisible"
+                        android:layout_marginTop="@dimen/margin_16"/>
+
             </RelativeLayout>
 
 

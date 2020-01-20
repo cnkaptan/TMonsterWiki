@@ -4,33 +4,56 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.*
 import com.cnkaptan.tmonsterswiki.R
 import com.cnkaptan.tmonsterswiki.databinding.FragmentUpgradeCalculatorBinding
 import com.cnkaptan.tmonsterswiki.ui.viewmodel.MonsterUpgradeViewModel
 import com.cnkaptan.tmonsterswiki.utils.Constants
 import com.cnkaptan.tmonsterswiki.utils.DataBindingFragment
+import com.cnkaptan.tmonsterswiki.utils.NumberPicker
 import com.cnkaptan.tmonsterswiki.utils.ValidationUtils
 import com.cnkaptan.tmonsterswiki.utils.viewModel
-import com.jakewharton.rxbinding2.widget.RxAdapterView
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.jakewharton.rxbinding2.widget.RxRadioGroup
+import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 
-class CalculatorFragment : DataBindingFragment<FragmentUpgradeCalculatorBinding>(R.layout.fragment_upgrade_calculator), AdapterView.OnItemSelectedListener {
+class CalculatorFragment :
+    DataBindingFragment<FragmentUpgradeCalculatorBinding>(R.layout.fragment_upgrade_calculator) {
     override val TAG: String
         get() = CalculatorFragment::class.java.simpleName
 
     private val monsterUpgradeViewModel by viewModel<MonsterUpgradeViewModel>(true)
 
-    override fun onBindingCreated(binding: FragmentUpgradeCalculatorBinding, savedInstanceState: Bundle?) {
-        super.onBindingCreated(binding, savedInstanceState)
-        binding.spnFromMonster.onItemSelectedListener = this
-        binding.spnToMonster.onItemSelectedListener = this
 
+    private var selectedFromLevel: Int = 1
+
+    private var selectedToLevel: Int = 0
+
+    override fun onBindingCreated(
+        binding: FragmentUpgradeCalculatorBinding,
+        savedInstanceState: Bundle?
+    ) {
+        super.onBindingCreated(binding, savedInstanceState)
 
         binding.btnCalculate.setOnClickListener {
             calculate()
+        }
+
+        binding.etSelectFromLevelInput.setOnClickListener {
+            pickMonsterFromLevel()
+        }
+
+        binding.flSelectFromLevelInput.setOnClickListener {
+            pickMonsterFromLevel()
+        }
+
+        binding.etSelectToLevelInput.setOnClickListener {
+            pickMonsterToLevel()
+        }
+
+        binding.flSelectToLevelInput.setOnClickListener {
+            pickMonsterToLevel()
         }
 
         disposableContainer.add(calculateButtonStatus().subscribe {
@@ -44,34 +67,29 @@ class CalculatorFragment : DataBindingFragment<FragmentUpgradeCalculatorBinding>
                 binding.rlContainerCalculatorResult.visibility = View.INVISIBLE
             }
         })
+
         initTextFont()
-        initSpinners()
     }
 
     private fun calculate() {
         calculateUpgradeCost()
     }
 
-    private fun initSpinners() {
-        val numbers = resources.getStringArray(R.array.calculator_levels)
-        val aa = ArrayAdapter(requireContext(), R.layout.item_spinner, numbers)
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.spnFromMonster.adapter = aa
-        binding.spnToMonster.adapter = aa
-    }
-
-    override fun onItemSelected(parent: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-
-    }
-
-    override fun onNothingSelected(p0: AdapterView<*>?) {}
-
     private fun calculateButtonStatus(): Observable<Boolean> {
+
         val rarity = RxRadioGroup.checkedChanges(binding.rgCards)
             .map { it > 0 }
 
-        val obsFromLevel = RxAdapterView.itemSelections(binding.spnFromMonster)
-        val obsToLevel = RxAdapterView.itemSelections(binding.spnToMonster)
+
+        val obsFromLevel = RxTextView.textChanges(binding.etSelectFromLevelInput)
+            .skipInitialValue()
+            .map { it.toString().toInt() }
+            .doOnNext { Log.e("ObsFromLevel", it.toString()) }
+
+        val obsToLevel = RxTextView.textChanges(binding.etSelectToLevelInput)
+            .skipInitialValue()
+            .map { it.toString().toInt() }
+            .doOnNext { Log.e("ObsFromLevel", it.toString()) }
 
         val levelsObs = Observable.combineLatest(
             obsToLevel,
@@ -97,12 +115,12 @@ class CalculatorFragment : DataBindingFragment<FragmentUpgradeCalculatorBinding>
             else -> -1
         }
 
-        val frLevelPosition = binding.spnFromMonster.selectedItemPosition
-        val toLevelPosition = binding.spnToMonster.selectedItemPosition
+
+        val frLevelPosition = selectedFromLevel
+        val toLevelPosition = selectedToLevel
         val monsterUpgradeDatas = monsterUpgradeViewModel.loadMonster(rarity)
-        val levelsArray = resources.getStringArray(R.array.calculator_levels)
-        val fromLevel = levelsArray[frLevelPosition].toInt()
-        val toLevel = levelsArray[toLevelPosition].toInt()
+
+
         var totalCard = 0
         var totalGold = 0
         var totalExp = 0
@@ -110,14 +128,7 @@ class CalculatorFragment : DataBindingFragment<FragmentUpgradeCalculatorBinding>
 
         val fromArrayPosition = frLevelPosition - 1
         val toArrayPosition = toLevelPosition - 1
-//        Log.e(TAG,"From Level = $fromLevel, To Level = $toLevel")
-//        Log.e(TAG,"From Level Array Position= $fromArrayPosition, To Level Position = $toArrayPosition")
-//        for (i in fromArrayPosition until toArrayPosition) {
-//            totalCard += monsterUpgradeDatas.cardList[i]
-//            totalGold += monsterUpgradeDatas.goldList[i]
-//            totalExp += monsterUpgradeDatas.expList[i]
-//            totalCp += monsterUpgradeDatas.cpList[i] * monsterUpgradeDatas.cardList[i]
-//        }
+
 
         var numCardsHave = binding.etTotalCards.text.toString().toIntOrNull() ?: 0
         var numCpHave = binding.etTotalCp.text.toString().toIntOrNull() ?: 0
@@ -168,13 +179,56 @@ class CalculatorFragment : DataBindingFragment<FragmentUpgradeCalculatorBinding>
         binding.rlContainerCalculatorResult.visibility = View.VISIBLE
     }
 
-    private fun initTextFont(){
-        val typeFace = Typeface.createFromAsset(requireActivity().assets, Constants.MONSTER_NAME_FONT)
+    private fun pickMonsterFromLevel() {
+        val mBottomSheetDialog =
+            BottomSheetDialog(requireContext(), R.style.AppTheme_BottomSheet_Dialog)
 
-        binding.tvFromLevelText.typeface=typeFace
-        binding.tvToLevelText.typeface=typeFace
-        binding.tvTitleCurrentTotalCards.typeface=typeFace
-        binding.tvTitleCurrentTotalCp.typeface=typeFace
+        val numberPicker = NumberPicker(requireContext())
+        val data = (9..23).map { it.toString() }
+
+        numberPicker.setData(data)
+        numberPicker.setItemSelectedListener { position ->
+            val selectedPosition = position
+            val selectedLevel = data[position].toInt()
+            selectedFromLevel = selectedPosition + 1
+            binding.etSelectFromLevelInput.setText(selectedLevel.toString())
+            Log.e("From Selected Level", selectedPosition.toString())
+            mBottomSheetDialog.dismiss()
+        }
+
+        mBottomSheetDialog.setContentView(numberPicker)
+        mBottomSheetDialog.show()
+    }
+
+    private fun pickMonsterToLevel() {
+        val mBottomSheetDialog =
+            BottomSheetDialog(requireContext(), R.style.AppTheme_BottomSheet_Dialog)
+
+        val numberPicker = NumberPicker(requireContext())
+        val data = (9..23).map { it.toString() }
+
+        numberPicker.setData(data)
+        numberPicker.setItemSelectedListener { position ->
+            val selectedPosition = position
+            val selectedLevel = data[position].toInt()
+            selectedToLevel = selectedPosition + 1
+            binding.etSelectToLevelInput.setText(selectedLevel.toString())
+            Log.e("To Selected Level", selectedPosition.toString())
+            mBottomSheetDialog.dismiss()
+        }
+
+        mBottomSheetDialog.setContentView(numberPicker)
+        mBottomSheetDialog.show()
+    }
+
+    private fun initTextFont() {
+        val typeFace =
+            Typeface.createFromAsset(requireActivity().assets, Constants.MONSTER_NAME_FONT)
+
+        binding.tvFromLevelText.typeface = typeFace
+        binding.tvToLevelText.typeface = typeFace
+        binding.tvTitleCurrentTotalCards.typeface = typeFace
+        binding.tvTitleCurrentTotalCp.typeface = typeFace
 
     }
 }

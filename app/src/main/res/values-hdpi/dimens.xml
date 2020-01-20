@@ -5,7 +5,7 @@
     <dimen name="monster_size_detail">100dp</dimen>
     <dimen name="text_size_20">15sp</dimen>
     <dimen name="spinner_height">25dp</dimen>
-    <dimen name="spinner_width">130dp</dimen>
+    <dimen name="spinner_width">142dp</dimen>
     <dimen name="edit_text_size_17">14sp</dimen>
     <dimen name="button_width">120dp</dimen>
     <dimen name="button_height">37dp</dimen>
