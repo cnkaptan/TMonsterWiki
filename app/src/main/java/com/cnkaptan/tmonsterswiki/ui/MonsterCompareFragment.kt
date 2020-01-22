@@ -37,7 +37,7 @@ class MonsterCompareFragment : DataBindingFragment<FragmentMonsterCompareBinding
         }
 
         model.getMonsterWithLevels().observe(this, Observer {
-            monsterCompareAdapter.submitList(it)
+            monsterCompareAdapter.updateList(it)
             binding.rvMonsterDexList.post { binding.rvMonsterDexList.scrollToPosition(0) }
         })
 

@@ -10,9 +10,11 @@ import com.cnkaptan.tmonsterswiki.databinding.ItemLayoutMonsterCompareBinding
 import com.cnkaptan.tmonsterswiki.ui.events.OnItemClickListener
 
 class MonsterCompareAdapter(val listener: (MonsterEntity) -> Unit) :
-    ListAdapter<MonsterEntity, MonsterCompareAdapter.MonsterViewHolder>(MonsterDiff()) {
+    RecyclerView.Adapter<MonsterCompareAdapter.MonsterViewHolder>() {
 
     var level: Int = 23
+
+    var mMonsterList : List<MonsterEntity> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MonsterViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -20,9 +22,13 @@ class MonsterCompareAdapter(val listener: (MonsterEntity) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: MonsterViewHolder, position: Int) {
-        holder.bindData(listener, getItem(position))
+        val monsterEntity = mMonsterList[position]
+        holder.bindData(listener, monsterEntity)
     }
 
+    override fun getItemCount(): Int {
+       return mMonsterList.size
+    }
 
     inner class MonsterViewHolder(private val binding: ItemLayoutMonsterCompareBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -49,14 +55,9 @@ class MonsterCompareAdapter(val listener: (MonsterEntity) -> Unit) :
         notifyDataSetChanged()
     }
 
-}
-
-class MonsterDiff : DiffUtil.ItemCallback<MonsterEntity>() {
-    override fun areItemsTheSame(oldItem: MonsterEntity, newItem: MonsterEntity): Boolean {
-        return oldItem.monsterId == newItem.monsterId
+    fun updateList(monsterList: List<MonsterEntity>){
+        mMonsterList=monsterList
+        notifyDataSetChanged()
     }
 
-    override fun areContentsTheSame(oldItem: MonsterEntity, newItem: MonsterEntity): Boolean {
-        return oldItem == newItem
-    }
 }
